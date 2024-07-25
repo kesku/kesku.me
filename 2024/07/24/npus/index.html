@@ -19,14 +19,14 @@
 <meta property="og:image" content="https://learn.microsoft.com/en-us/windows/ai/images/windows-studio-effects-open.gif">
 <meta property="og:image" content="http://kesku.me/images/device-manager-before.png">
 <meta property="og:image" content="http://kesku.me/images/device-manager-after.png">
-<meta property="og:image" content="http://kesku.me/sadtwt.png">
-<meta property="og:image" content="http://kesku.me/llama-running-npu.png">
-<meta property="og:image" content="http://kesku.me/lmstudio-settings.png">
-<meta property="og:image" content="http://kesku.me/code-llm-config.png">
-<meta property="og:image" content="http://kesku.me/npu-cat-prompt.png">
-<meta property="og:image" content="http://kesku.me/4070-cat-prompt.png">
+<meta property="og:image" content="http://kesku.me/images/sadtwt.png">
+<meta property="og:image" content="http://kesku.me/images/llama-running-npu.png">
+<meta property="og:image" content="http://kesku.me/images/lmstudio-settings.png">
+<meta property="og:image" content="http://kesku.me/images/code-llm-config.png">
+<meta property="og:image" content="http://kesku.me/images/npu-cat-prompt.png">
+<meta property="og:image" content="http://kesku.me/images/4070-cat-prompt.png">
 <meta property="article:published_time" content="2024-07-23T23:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-25T17:09:19.237Z">
+<meta property="article:modified_time" content="2024-07-25T17:12:12.036Z">
 <meta property="article:author" content="Kesku">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="Hardware">
@@ -212,23 +212,23 @@
 <p>So, from this point on, I’ll be using gochi’s quantized model to test the RyzenAI NPU. Read his blog post for more details on how he did it, it’s a good read.</p>
 <h3 id="Running-Llama-3-8B-Instruct-on-a-RyzenAI-NPU"><a href="#Running-Llama-3-8B-Instruct-on-a-RyzenAI-NPU" class="headerlink" title="Running Llama-3-8B-Instruct on a RyzenAI NPU"></a>Running Llama-3-8B-Instruct on a RyzenAI NPU</h3><p>Now for the fun part - running a model on the NPU!</p>
 <p>This took me a while since along with the development driver, I need the RyzenAI package, and for some reason both the driver and the package could only be installed via command prompt - not powershell, not Anaconda Prompt, just command prompt. Also, the package <strong>specifically</strong> needed VS 2019 with build tools, and 2022 wouldn’t work. I had to install 2019 just for this package..</p>
-<p><img src="/sadtwt.png" alt="a sad tweet"></p>
+<p><img src="/images/sadtwt.png" alt="a sad tweet"></p>
 <p>What’s worse is that the development driver gets replaced with the normal driver every time I restart my laptop, so I have to reinstall the development driver every time I want to use the NPU - kind of led to an endless cycle of me reinstalling the driver, running a model, then restarting my laptop and reinstalling the driver again.</p>
 <p>The solution? <em>Buy a cheap NPU laptop and <a target="_blank" rel="noopener" href="https://x.com/yoimnotkesku/status/1809629801445023811">get flamed on twitter for it</a>!</em><br>I’m kidding (mostly), the solution was to just not restart my laptop for the duration of my tests.</p>
 <p>Past that all I had to do was run the .py file gochi provided in his blog post, and it worked! His code loaded the weights and then ran a few predefined prompts to llama with the system prompt <code>You are a pirate chatbot who always responds in pirate speak!</code></p>
 <p>It did run nicely, but I modified the code to let me append my own inputted prompts to llama with the system prompt <code>You are a helpful assistant</code> - I wanted to see how fast it could be while actually being useful. Modified it in a lot of other ways too, but that’s the main change I made.</p>
-<p><img src="/llama-running-npu.png" alt="Llama 3 8B running on just the NPU, no GPU/CPU compute used on this"></p>
+<p><img src="/images/llama-running-npu.png" alt="Llama 3 8B running on just the NPU, no GPU/CPU compute used on this"></p>
 <p>As you can see the CPU is at 0%, GPU is at 0%, and the NPU is.. well we can’t see it in Task Manager anymore, but it’s running the model :D<br>It’s not the fastest thing in the world, but it’s cool to see it running on just the NPU!</p>
 <p>In case you want to know how fast it is, I get around 1.8-2.2 tokens per second on the NPU, which is very slow compared to the 4070 in this laptop, but it’s still cool to see it running on just the NPU.</p>
 <p>For fun I ran this prompt on the NPU via this code, and on <a target="_blank" rel="noopener" href="https://huggingface.co/janhq/llama3">janhq&#x2F;llama3</a> (a GGUF version of meta-llama&#x2F;Meta-Llama-3-8B-Instruct) on my 4070 using the <a target="_blank" rel="noopener" href="https://lmstudio.ai/">LM Studio</a> app.</p>
 <p>Same temperature, same max tokens, same everything else - just different hardware. Tried to make things as fair as possible without going too deep into the settings.</p>
-<p><img src="/lmstudio-settings.png" alt="LM Studio Settings"></p>
-<p><img src="/code-llm-config.png" alt="NPU Code Settings"></p>
+<p><img src="/images/lmstudio-settings.png" alt="LM Studio Settings"></p>
+<p><img src="/images/code-llm-config.png" alt="NPU Code Settings"></p>
 <p><sup>I am a bit of an idiot and this is absolutely a high level and uneducated way to go about things, DM me on twitter if you want to know more info, or if you feel like lecturing me</sup></p>
 <p>The NPU llama is slow, but it’s still cool to see it running on just the NPU! It took 12 seconds for this little prompt:</p>
-<p><img src="/npu-cat-prompt.png" alt="cat prompt on NPU"></p>
+<p><img src="/images/npu-cat-prompt.png" alt="cat prompt on NPU"></p>
 <p>And 0.8 seconds for the same prompt on the 4070:</p>
-<p><img src="/4070-cat-prompt.png" alt="cat prompt on 4070"></p>
+<p><img src="/images/4070-cat-prompt.png" alt="cat prompt on 4070"></p>
 <p>HUGE difference, but the GPU pulls 90W while the NPU pulls 15W to 54W (depending on what the CPU is doing) - so it’s not a fair comparison at all.</p>
 <h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>You should give me more money so I can buy more tech to test, and I should probably write more blog posts.</p>
 <p>Also NPUs are probably going to be important in the future, so keep an eye on them and if you have one start developing w them! Just imaging a SLM running on it while you game giving you tips based on your gameplay, or a chatbot that can run on your phone without draining your battery - it’s cool stuff!</p>
