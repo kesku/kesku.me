@@ -1,0 +1,27 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+	:root,
+	:root[data-theme="light"] {
+		color-scheme: light;
+		/* https://tailwindcss.com/docs/customizing-colors#using-css-variables */
+		--theme-bg: 0 0% 90%;
+		--theme-link: 208 100% 42%;
+		--theme-text: 210 15% 20%;
+		--theme-accent: 184 90% 35%;
+		--theme-accent-2: 0 0% 40%;
+		--theme-quote: 50 100% 80%;
+	}
+
+	:root[data-theme="dark"] {
+		color-scheme: dark;
+		--theme-bg: 180 20% 3%;
+		--theme-link: 182.93 100% 16.08%;
+		--theme-text: 220 2.86% 79.41%;
+		--theme-accent: 184.07 83.51% 38.04%;
+		--theme-accent-2: 184.07 83.51% 38.04%;
+		--theme-quote: 101.92 100% 85.69%;
+	}
+}

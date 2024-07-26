@@ -1,0 +1,70 @@
+---
+import aboutImg from "@/assets/about-kesku.png";
+import PageLayout from "@/layouts/Base.astro";
+import { Image } from "astro:assets";
+
+const meta = {
+	description: "I'm Kesku, a tech enthusiast and student. Learn more about me and my interests.",
+	title: "About Me, Kesku",
+};
+---
+
+<PageLayout meta={meta}>
+	<div class="space-y-6">
+		<h1 class="title">About me, Kesku</h1>
+		<div class="flex justify-left">
+			<Image
+				alt="twitter profile picture of Kesku, art is of Usada Pekora from Hololive by @isukash"
+				fetchpriority="high"
+				loading="eager"
+				src={aboutImg}
+				style={{ width: '200px', height: 'auto' }}
+			/>
+		</div>
+		<sub class="text-center">Art by <a href="https://twitter.com/isukash" target="_blank" rel="noopener noreferrer">@isukash</a></sub>
+		<p>
+			I'm UK-based, balancing my studies with my hobbies and life in general. I'm a huge fan of most things AI/ML, 
+			and I'm always looking for new ways to learn and grow in the field. I'm also a huge fan of video games - 
+			been playing <a href="https://minecraft.net" target="_blank" rel="noopener noreferrer" style="color: #10a7b2; text-decoration: underline;">Minecraft</a> 
+			since 2011, and I've been hooked on it ever since. I also play a good amount of 
+			<a href="https://yakuza.sega.com" target="_blank" rel="noopener noreferrer" style="color: #10a7b2; text-decoration: underline;">Yakuza</a>, 
+			<a href="https://forza.net/horizon" target="_blank" rel="noopener noreferrer" style="color: #10a7b2; text-decoration: underline;">Forza Horizon</a>, 
+			<a href="https://www.cyberpunk.net" target="_blank" rel="noopener noreferrer" style="color: #10a7b2; text-decoration: underline;">Cyberpunk 2077</a>, 
+			and <a href="https://hsr.hoyoverse.com/en-us/" target="_blank" rel="noopener noreferrer" style="color: #10a7b2; text-decoration: underline;">Honkai Star Rail</a> 
+			in my free time.
+		</p>
+
+		<h2 class="subtitle">"Kesku" is a nickname I've had since I was 15, and it's stuck with me since then.</h2>
+		<p>
+			It's actually an acronym:
+		</p>
+		<ul class="list-inside list-disc">
+			<li><strong>K</strong>eep</li>
+			<li><strong>E</strong>verything</li>
+			<li><strong>S</strong>imple</li>
+			<li><strong>K</strong>eep</li>
+			<li><strong>U</strong>nderstanding</li>
+		</ul>
+		<p>
+			When I say "Keep Understanding", I mean to keep things simple for others to understand. I believe that the best 
+			way to learn is to teach, so that's kind of what I'm doing here. Hopefully, I'm doing this in a way that's 
+			easy to understand - but.. probably not. I'm still learning, after all.
+		</p>
+		<p>
+			You can find me on <a href="https://twitter.com/yoimnotkesku" target="_blank" rel="noopener noreferrer">Twitter</a>, 
+			<a href="https://github.com/kesku" target="_blank" rel="noopener noreferrer">GitHub</a>, and Discord 
+			(<code>kesku</code>). You can also reach out to me via email at <a href="mailto:admin@kesku.me">admin@kesku.me</a>.
+		</p>
+
+		<h2 class="subtitle">What's this blog about?</h2>
+		<p>
+			Nothing really. Actually, <strong>why are you even here?</strong> I'm just a student who likes to write about random stuff. 
+			I’m not claiming to be a polished writer—far from it. I’m just here to share my experiences learning, my thoughts 
+			on the tech industry, and maybe some tutorials here and there. Going over some arxiv papers sounds fun too. 
+			I'm not sure yet, but I'm sure I'll figure it out as I go along. I hope you enjoy your stay here, and if you have 
+			any feedback, feel free to reach out to me. I'm always looking to improve.
+		</p>
+
+		<p>kes out</p>
+	</div>
+</PageLayout>
