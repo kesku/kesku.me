@@ -1,7 +1,7 @@
 {
-	"name": "Astro Theme Cactus Demo",
-	"short_name": "Astro_Cactus",
-	"description": "Starter blog site for Astro",
+	"name": "Home • Call me Kes!",
+	"short_name": "Call me Kes!",
+	"description": "Kesku's personal blog for random stuff",
 	"icons": [
 		{
 			"src": "/192x192.png",
@@ -15,7 +15,7 @@
 		}
 	],
 	"start_url": "/",
-	"background_color": "#1d1f21",
-	"theme_color": "#2bbc8a",
+	"background_color": "#060909",
+	"theme_color": "#10a7b2",
 	"display": "standalone"
 }
