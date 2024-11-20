@@ -48,5 +48,6 @@ I'm still on Twitter, and I'm still active. I'm not as active as I used to be, m
 
 I'm still tweeting, and I'm still interacting with people. Actually, I made a BUNCH of new friends recently, like [melano (@melqtx)](https://melqtx.github.io/) who has a blog that is way better than mine, [gion (@gi0nyx)](https://x.com/gi0nyx) who's been doing cool webdev and AI stuff, and [Lelouch (@lelouchdaily)](https://x.com/lelouchdaily) who's been documenting their journey into AI/ML every day!
 
-If this blog post was helpful to you, then visit a nearby hospital.
+If this blog post was helpful to you, **PLEASE** visit a nearby hospital.
+
 kes out

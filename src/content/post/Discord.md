@@ -44,4 +44,5 @@ Here's one of them, it's called Verbi and it's a bot I made for me & my friends.
 None of the above is impressive, but it's fun to have around. I'm thinking of adding more to it but I'm more focused on my _actual_ projects right now, blog posts on those soon (maybe).
 
 That's all for now, I guess?
+
 kes out
