@@ -2,6 +2,7 @@
 title: X, the everything app! I still call it Twitter though
 description: "I think Twitter is.. interesting. I've been using it for a while now, and I've got some thoughts on it."
 publishDate: "May 08, 2024"
+updatedDate: "Nov 20, 2024"
 tags: [twitter, social-media]
 ---
 
