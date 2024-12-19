@@ -10,15 +10,32 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS);
 ---
 
 <PageLayout meta={{ title: "Home" }}>
-    <section>
-        <h1 class="title mb-6">Hiya! I’m Kesku, but you can call me Kes.</h1>
-        <p class="mb-4">
-        I’m a tech enthusiast and undergraduate student pursuing a Bachelor’s in Data Science & Machine Learning. I’m a self-taught programmer, and I’ve been (badly) coding since I was 9. On the side I moderate <a href="https://discord.gg/openai" target="_blank" rel="noopener noreferrer" style="color: #10a7b2; text-decoration: underline;">OpenAI’s Discord Community</a>, make fun (and mostly private) repos on <a href="https://github.com/kesku" target="_blank" rel="noopener noreferrer" style="color: #10a7b2; text-decoration: underline;">GitHub</a>, and yap all day on <a href="https://x.com/yoimnotkesku" target="_blank" rel="noopener noreferrer" style="color: #10a7b2; text-decoration: underline;">Twitter</a>.
-        </p>
-    </section>
-    <section aria-label="Blog post list" class="mt-16">
-        <h2 class="title mb-4 text-xl">Posts</h2>
-        <ul class="space-y-4">
+	<section>
+		<h1 class="title mb-6">Hiya! I’m Kesku, but you can call me Kes.</h1>
+		<p class="mb-4">
+			I’m a tech enthusiast and undergraduate student pursuing a Bachelor’s in Data Science &
+			Machine Learning. I’m a self-taught programmer, and I’ve been (badly) coding since I was 9. On
+			the side I moderate <a
+				href="https://discord.gg/openai"
+				target="_blank"
+				rel="noopener noreferrer"
+				style="color: #10a7b2; text-decoration: underline;">OpenAI’s Discord Community</a
+			>, make fun (and mostly private) repos on <a
+				href="https://github.com/kesku"
+				target="_blank"
+				rel="noopener noreferrer"
+				style="color: #10a7b2; text-decoration: underline;">GitHub</a
+			>, and yap all day on <a
+				href="https://x.com/yoimnotkesku"
+				target="_blank"
+				rel="noopener noreferrer"
+				style="color: #10a7b2; text-decoration: underline;">Twitter</a
+			>.
+		</p>
+	</section>
+	<section aria-label="Blog post list" class="mt-16">
+		<h2 class="title mb-4 text-xl">Posts</h2>
+		<ul class="space-y-4">
 			{
 				allPostsByDate.map((p) => (
 					<li class="grid gap-2 sm:grid-cols-[auto_1fr] sm:[&_q]:col-start-2">

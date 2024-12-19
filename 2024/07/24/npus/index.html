@@ -1,376 +1,974 @@
-<!DOCTYPE html>
-<html lang=en>
-<head>
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="Hey, it’s Kes! I DEFINITELY didn’t forget to write a blog post for 2 months shut up  This post is specific to my experiences with AMD RyzenAI NPUs, I still need to mess with the Neural Engine more, an">
-<meta property="og:type" content="article">
-<meta property="og:title" content="NPUs, the future of AI hardware? Idk but they&#39;re cool">
-<meta property="og:url" content="http://kesku.me/2024/07/24/npus/index.html">
-<meta property="og:site_name" content="Call me Kes!">
-<meta property="og:description" content="Hey, it’s Kes! I DEFINITELY didn’t forget to write a blog post for 2 months shut up  This post is specific to my experiences with AMD RyzenAI NPUs, I still need to mess with the Neural Engine more, an">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://kesku.me/images/kana-anger.png">
-<meta property="og:image" content="http://kesku.me/images/ios18req.png">
-<meta property="og:image" content="http://kesku.me/images/g14tskmgr.png">
-<meta property="og:image" content="https://learn.microsoft.com/en-us/windows/ai/images/windows-studio-effects-open.gif">
-<meta property="og:image" content="http://kesku.me/images/device-manager-before.png">
-<meta property="og:image" content="http://kesku.me/images/device-manager-after.png">
-<meta property="og:image" content="http://kesku.me/images/sadtwt.png">
-<meta property="og:image" content="http://kesku.me/images/llama-running-npu.png">
-<meta property="og:image" content="http://kesku.me/images/lmstudio-settings.png">
-<meta property="og:image" content="http://kesku.me/images/code-llm-config.png">
-<meta property="og:image" content="http://kesku.me/images/npu-cat-prompt.png">
-<meta property="og:image" content="http://kesku.me/images/4070-cat-prompt.png">
-<meta property="article:published_time" content="2024-07-23T23:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-25T17:12:12.036Z">
-<meta property="article:author" content="Kesku">
-<meta property="article:tag" content="AI">
-<meta property="article:tag" content="Hardware">
-<meta property="article:tag" content="NPU">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://kesku.me/images/kana-anger.png">
-    
-    
-      
-        
-          <link rel="shortcut icon" href="/images/favicon.ico">
-        
-      
-      
-        
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-        
-      
-      
-        
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-        
-      
-    
-    <!-- title -->
-    <title>NPUs, the future of AI hardware? Idk but they&#39;re cool</title>
-    <!-- async scripts -->
-    <!-- Google Analytics -->
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- so meta -->
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+		<meta
+			name="description"
+			content="Hey, it’s Kes! I DEFINITELY didn’t forget to write a blog post for 2 months shut up  This post is specific to my experiences with AMD RyzenAI NPUs, I still need to mess with the Neural Engine more, an"
+		/>
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content="NPUs, the future of AI hardware? Idk but they&#39;re cool" />
+		<meta property="og:url" content="http://kesku.me/2024/07/24/npus/index.html" />
+		<meta property="og:site_name" content="Call me Kes!" />
+		<meta
+			property="og:description"
+			content="Hey, it’s Kes! I DEFINITELY didn’t forget to write a blog post for 2 months shut up  This post is specific to my experiences with AMD RyzenAI NPUs, I still need to mess with the Neural Engine more, an"
+		/>
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:image" content="http://kesku.me/images/kana-anger.png" />
+		<meta property="og:image" content="http://kesku.me/images/ios18req.png" />
+		<meta property="og:image" content="http://kesku.me/images/g14tskmgr.png" />
+		<meta
+			property="og:image"
+			content="https://learn.microsoft.com/en-us/windows/ai/images/windows-studio-effects-open.gif"
+		/>
+		<meta property="og:image" content="http://kesku.me/images/device-manager-before.png" />
+		<meta property="og:image" content="http://kesku.me/images/device-manager-after.png" />
+		<meta property="og:image" content="http://kesku.me/images/sadtwt.png" />
+		<meta property="og:image" content="http://kesku.me/images/llama-running-npu.png" />
+		<meta property="og:image" content="http://kesku.me/images/lmstudio-settings.png" />
+		<meta property="og:image" content="http://kesku.me/images/code-llm-config.png" />
+		<meta property="og:image" content="http://kesku.me/images/npu-cat-prompt.png" />
+		<meta property="og:image" content="http://kesku.me/images/4070-cat-prompt.png" />
+		<meta property="article:published_time" content="2024-07-23T23:00:00.000Z" />
+		<meta property="article:modified_time" content="2024-07-25T17:12:12.036Z" />
+		<meta property="article:author" content="Kesku" />
+		<meta property="article:tag" content="AI" />
+		<meta property="article:tag" content="Hardware" />
+		<meta property="article:tag" content="NPU" />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:image" content="http://kesku.me/images/kana-anger.png" />
 
+		<link rel="shortcut icon" href="/images/favicon.ico" />
 
-    <!-- Umami Analytics -->
+		<link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192" />
 
+		<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
 
-    <!-- styles -->
-    
-<link rel="stylesheet" href="/css/style.css">
+		<!-- title -->
+		<title>NPUs, the future of AI hardware? Idk but they&#39;re cool</title>
+		<!-- async scripts -->
+		<!-- Google Analytics -->
 
-    <!-- persian styles -->
-    
-    <!-- rss -->
-    
-    
-	<!-- mathjax -->
-	
-<meta name="generator" content="Hexo 7.1.1"></head>
+		<!-- Umami Analytics -->
 
-<body class="max-width mx-auto px3 ltr">
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
+		<!-- styles -->
+
+		<link rel="stylesheet" href="/css/style.css" />
+
+		<!-- persian styles -->
+
+		<!-- rss -->
+
+		<!-- mathjax -->
+
+		<meta name="generator" content="Hexo 7.1.1" />
+	</head>
+
+	<body class="max-width px3 ltr mx-auto">
+		<div id="header-post">
+			<a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+			<a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+			<a
+				id="top-icon-tablet"
+				href="#"
+				aria-label="Top"
+				onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"
+				style="display: none"
+				><i class="fa-solid fa-chevron-up fa-lg"></i
+			></a>
+			<span id="menu">
+				<span id="nav">
+					<ul>
+						<!--
+       -->
+						<li><a href="/">Home</a></li>
+						<!--
      --><!--
-       --><li><a href="/about/">About</a></li><!--
+       -->
+						<li><a href="/about/">About</a></li>
+						<!--
      --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
+       -->
+						<li><a href="/archives/">Writing</a></li>
+						<!--
      --><!--
-       --><li><a target="_blank" rel="noopener" href="http://github.com/kesku">Projects</a></li><!--
+       -->
+						<li><a target="_blank" rel="noopener" href="http://github.com/kesku">Projects</a></li>
+						<!--
      -->
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        
-        <li><a class="icon" aria-label="Next post" href="/2024/05/08/twitter/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://kesku.me/2024/07/24/npus/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://kesku.me/2024/07/24/npus/&text=NPUs, the future of AI hardware? Idk but they&#39;re cool"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://kesku.me/2024/07/24/npus/&is_video=false&description=NPUs, the future of AI hardware? Idk but they&#39;re cool"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=NPUs, the future of AI hardware? Idk but they&#39;re cool&body=Check out this article: http://kesku.me/2024/07/24/npus/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://kesku.me/2024/07/24/npus/&name=NPUs, the future of AI hardware? Idk but they&#39;re cool&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://kesku.me/2024/07/24/npus/&t=NPUs, the future of AI hardware? Idk but they&#39;re cool"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
-</ul>
+					</ul>
+				</span>
+				<br />
+				<span id="actions">
+					<ul>
+						<li>
+							<a class="icon" aria-label="Next post" href="/2024/05/08/twitter/"
+								><i
+									class="fa-solid fa-chevron-right"
+									aria-hidden="true"
+									onmouseover="$('#i-next').toggle();"
+									onmouseout="$('#i-next').toggle();"
+								></i
+							></a>
+						</li>
 
-    </div>
-    
-    
-      <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Neural-Processing-Units-NPUs-huh"><span class="toc-number">1.</span> <span class="toc-text">Neural Processing Units (NPUs) huh?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#So-time-to-get-some-NPUs"><span class="toc-number">2.</span> <span class="toc-text">So, time to get some NPUs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%80%9CBut-Kes-you-have-a-4070-in-there-why-not-use-that-for-AI-stuff-%E2%80%9D"><span class="toc-number">2.1.</span> <span class="toc-text">“But Kes, you have a 4070 in there, why not use that for AI stuff?”</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What-can-you-do-with-a-RyzenAI-NPU"><span class="toc-number">3.</span> <span class="toc-text">What can you do with a RyzenAI NPU?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What-can-you-do-with-a-RyzenAI-NPU-now"><span class="toc-number">4.</span> <span class="toc-text">What can you do with a RyzenAI NPU now?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Running-Llama-3-8B-Instruct-on-a-RyzenAI-NPU"><span class="toc-number">5.</span> <span class="toc-text">Running Llama-3-8B-Instruct on a RyzenAI NPU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conclusion"><span class="toc-number">6.</span> <span class="toc-text">Conclusion</span></a></li></ol>
-      </div>
-    
-  </span>
-</div>
+						<li>
+							<a
+								class="icon"
+								aria-label="Back to top"
+								href="#"
+								onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"
+								><i
+									class="fa-solid fa-chevron-up"
+									aria-hidden="true"
+									onmouseover="$('#i-top').toggle();"
+									onmouseout="$('#i-top').toggle();"
+								></i
+							></a>
+						</li>
+						<li>
+							<a class="icon" aria-label="Share post" href="#"
+								><i
+									class="fa-solid fa-share-alt"
+									aria-hidden="true"
+									onmouseover="$('#i-share').toggle();"
+									onmouseout="$('#i-share').toggle();"
+									onclick="$('#share').toggle();return false;"
+								></i
+							></a>
+						</li>
+					</ul>
+					<span id="i-prev" class="info" style="display: none">Previous post</span>
+					<span id="i-next" class="info" style="display: none">Next post</span>
+					<span id="i-top" class="info" style="display: none">Back to top</span>
+					<span id="i-share" class="info" style="display: none">Share post</span>
+				</span>
+				<br />
+				<div id="share" style="display: none">
+					<ul>
+						<li>
+							<a
+								class="icon"
+								target="_blank"
+								rel="noopener"
+								href="http://www.facebook.com/sharer.php?u=http://kesku.me/2024/07/24/npus/"
+								><i class="fab fa-facebook" aria-hidden="true"></i
+							></a>
+						</li>
+						<li>
+							<a
+								class="icon"
+								target="_blank"
+								rel="noopener"
+								href="https://twitter.com/share?url=http://kesku.me/2024/07/24/npus/&text=NPUs, the future of AI hardware? Idk but they&#39;re cool"
+								><i class="fab fa-twitter" aria-hidden="true"></i
+							></a>
+						</li>
+						<li>
+							<a
+								class="icon"
+								target="_blank"
+								rel="noopener"
+								href="http://www.linkedin.com/shareArticle?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"
+								><i class="fab fa-linkedin" aria-hidden="true"></i
+							></a>
+						</li>
+						<li>
+							<a
+								class="icon"
+								target="_blank"
+								rel="noopener"
+								href="https://pinterest.com/pin/create/bookmarklet/?url=http://kesku.me/2024/07/24/npus/&is_video=false&description=NPUs, the future of AI hardware? Idk but they&#39;re cool"
+								><i class="fab fa-pinterest" aria-hidden="true"></i
+							></a>
+						</li>
+						<li>
+							<a
+								class="icon"
+								href="mailto:?subject=NPUs, the future of AI hardware? Idk but they&#39;re cool&body=Check out this article: http://kesku.me/2024/07/24/npus/"
+								><i class="fa-solid fa-envelope" aria-hidden="true"></i
+							></a>
+						</li>
+						<li>
+							<a
+								class="icon"
+								target="_blank"
+								rel="noopener"
+								href="https://getpocket.com/save?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"
+								><i class="fab fa-get-pocket" aria-hidden="true"></i
+							></a>
+						</li>
+						<li>
+							<a
+								class="icon"
+								target="_blank"
+								rel="noopener"
+								href="http://reddit.com/submit?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"
+								><i class="fab fa-reddit" aria-hidden="true"></i
+							></a>
+						</li>
+						<li>
+							<a
+								class="icon"
+								target="_blank"
+								rel="noopener"
+								href="http://www.stumbleupon.com/submit?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"
+								><i class="fab fa-stumbleupon" aria-hidden="true"></i
+							></a>
+						</li>
+						<li>
+							<a
+								class="icon"
+								target="_blank"
+								rel="noopener"
+								href="http://digg.com/submit?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"
+								><i class="fab fa-digg" aria-hidden="true"></i
+							></a>
+						</li>
+						<li>
+							<a
+								class="icon"
+								target="_blank"
+								rel="noopener"
+								href="http://www.tumblr.com/share/link?url=http://kesku.me/2024/07/24/npus/&name=NPUs, the future of AI hardware? Idk but they&#39;re cool&description="
+								><i class="fab fa-tumblr" aria-hidden="true"></i
+							></a>
+						</li>
+						<li>
+							<a
+								class="icon"
+								target="_blank"
+								rel="noopener"
+								href="https://news.ycombinator.com/submitlink?u=http://kesku.me/2024/07/24/npus/&t=NPUs, the future of AI hardware? Idk but they&#39;re cool"
+								><i class="fab fa-hacker-news" aria-hidden="true"></i
+							></a>
+						</li>
+					</ul>
+				</div>
 
-    
-    <div class="content index py4 ">
-        
-        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle p-name" itemprop="name headline">
-        NPUs, the future of AI hardware? Idk but they&#39;re cool
-    </h1>
+				<div id="toc">
+					<ol class="toc">
+						<li class="toc-item toc-level-3">
+							<a class="toc-link" href="#Neural-Processing-Units-NPUs-huh"
+								><span class="toc-number">1.</span>
+								<span class="toc-text">Neural Processing Units (NPUs) huh?</span></a
+							>
+						</li>
+						<li class="toc-item toc-level-3">
+							<a class="toc-link" href="#So-time-to-get-some-NPUs"
+								><span class="toc-number">2.</span>
+								<span class="toc-text">So, time to get some NPUs</span></a
+							>
+							<ol class="toc-child">
+								<li class="toc-item toc-level-4">
+									<a
+										class="toc-link"
+										href="#%E2%80%9CBut-Kes-you-have-a-4070-in-there-why-not-use-that-for-AI-stuff-%E2%80%9D"
+										><span class="toc-number">2.1.</span>
+										<span class="toc-text"
+											>“But Kes, you have a 4070 in there, why not use that for AI stuff?”</span
+										></a
+									>
+								</li>
+							</ol>
+						</li>
+						<li class="toc-item toc-level-3">
+							<a class="toc-link" href="#What-can-you-do-with-a-RyzenAI-NPU"
+								><span class="toc-number">3.</span>
+								<span class="toc-text">What can you do with a RyzenAI NPU?</span></a
+							>
+						</li>
+						<li class="toc-item toc-level-3">
+							<a class="toc-link" href="#What-can-you-do-with-a-RyzenAI-NPU-now"
+								><span class="toc-number">4.</span>
+								<span class="toc-text">What can you do with a RyzenAI NPU now?</span></a
+							>
+						</li>
+						<li class="toc-item toc-level-3">
+							<a class="toc-link" href="#Running-Llama-3-8B-Instruct-on-a-RyzenAI-NPU"
+								><span class="toc-number">5.</span>
+								<span class="toc-text">Running Llama-3-8B-Instruct on a RyzenAI NPU</span></a
+							>
+						</li>
+						<li class="toc-item toc-level-3">
+							<a class="toc-link" href="#Conclusion"
+								><span class="toc-number">6.</span> <span class="toc-text">Conclusion</span></a
+							>
+						</li>
+					</ol>
+				</div>
+			</span>
+		</div>
 
+		<div class="content index py4">
+			<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+				<header>
+					<h1 class="posttitle p-name" itemprop="name headline">
+						NPUs, the future of AI hardware? Idk but they&#39;re cool
+					</h1>
 
+					<div class="meta">
+						<span
+							class="author p-author h-card"
+							itemprop="author"
+							itemscope
+							itemtype="http://schema.org/Person"
+						>
+							<span class="p-name" itemprop="name">Kesku</span>
+						</span>
 
-    <div class="meta">
-      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span class="p-name" itemprop="name">Kesku</span>
-      </span>
-      
-    <div class="postdate">
-      
-        <time datetime="2024-07-23T23:00:00.000Z" class="dt-published" itemprop="datePublished">2024-07-24</time>
-        
-      
-    </div>
+						<div class="postdate">
+							<time
+								datetime="2024-07-23T23:00:00.000Z"
+								class="dt-published"
+								itemprop="datePublished"
+								>2024-07-24</time
+							>
+						</div>
 
+						<div class="article-tag">
+							<i class="fa-solid fa-tag"></i>
+							<a class="p-category" href="/tags/AI/" rel="tag">AI</a>,
+							<a class="p-category" href="/tags/Hardware/" rel="tag">Hardware</a>,
+							<a class="p-category" href="/tags/NPU/" rel="tag">NPU</a>
+						</div>
+					</div>
+				</header>
 
-      
+				<div class="content e-content" itemprop="articleBody">
+					<p>Hey, it’s Kes!</p>
+					<p>I DEFINITELY didn’t forget to write a blog post for 2 months shut up</p>
+					<p><img src="/images/kana-anger.png" alt="arima kana pic for no apparent reason" /></p>
+					<p>
+						This post is specific to my experiences with AMD RyzenAI NPUs, I still need to mess with
+						the Neural Engine more, and my Copilot+ PC never arrived so I can’t talk about that yet.
+						I will be buying more tech to test, and am currently quantizing Llama-3-8B-Instruct to
+						run on a Snapdragon 8 Gen 3, so I’ll tweet about that soon.
+					</p>
+					<h3 id="Neural-Processing-Units-NPUs-huh">
+						<a
+							href="#Neural-Processing-Units-NPUs-huh"
+							class="headerlink"
+							title="Neural Processing Units (NPUs) huh?"
+						></a
+						>Neural Processing Units (NPUs) huh?
+					</h3>
+					<p>
+						I think NPUs are cool. They’re power efficient machine learning accelerators you can
+						find built into other hardware (like your CPU, GPU or motherboard), designed to run
+						small models fast and efficiently.
+					</p>
+					<p>
+						You used to see NPUs being called AI chips in smartphones just for fancier camera
+						processing but with the LLM era, they’re becoming more common everywhere else, along
+						with being capable of running more complex models.
+					</p>
+					<p>
+						Here’s a solid example - the Apple Neural Engine. It’s an NPU Apple’s had in their
+						devices since the A11 Bionic chip, but was limited to apple-only stuff like
+						<a
+							target="_blank"
+							rel="noopener"
+							href="https://www.wired.com/story/apples-neural-engine-infuses-the-iphone-with-ai-smarts/"
+							>FaceID on the iPhone X</a
+						>.
+					</p>
+					<p>
+						With the A12 though, Apple opened up the NPU to developers via the
+						<a
+							target="_blank"
+							rel="noopener"
+							href="https://developer.apple.com/documentation/coreml"
+							>CoreML framework</a
+						>
+						since it was more powerful with 5 TOPs (Trillion Operations Per Second) compared to the
+						A11’s 600 billion operations per second.
+					</p>
+					<p>
+						This is why
+						<a
+							target="_blank"
+							rel="noopener"
+							href="https://www.apple.com/newsroom/2024/06/ios-18-makes-iphone-more-personal-capable-and-intelligent-than-ever/"
+							>iOS 18 requires an A12 chip or newer to run</a
+						>
+						- the Neural Engine is needed for some of the new AI stuff they introduced
+					</p>
+					<p><img src="/images/ios18req.png" alt="ios 18 requirements" /></p>
+					<p>
+						Seems like I’m going to need to buy a couple iPhone 15s and 16s<br />Dear bank account,
+						I’m sorry.
+					</p>
+					<h3 id="So-time-to-get-some-NPUs">
+						<a
+							href="#So-time-to-get-some-NPUs"
+							class="headerlink"
+							title="So, time to get some NPUs"
+						></a
+						>So, time to get some NPUs
+					</h3>
+					<p>
+						I picked up a couple laptops with AMD RyzenAI NPUs, some M series Macbooks with Apple’s
+						Neural Engine, and a few other devices with NPUs like snapdragon phones.
+					</p>
+					<p>
+						For starters I got a new daily laptop - an Asus Zephyrus G14 with a
+						<code>Ryzen™ 9 8945HS</code> and <code>RTX 4070</code>. It’s a pretty good laptop, I
+						use it for most of my work now - but more importantly the CPU it has comes with a
+						built-in <em>AMD Ryzen™ AI NPU</em>, that maxes out at 16 TOPs.
+					</p>
+					<p><img src="/images/g14tskmgr.png" alt="Zephyrus G14" /></p>
+					<h4 id="“But-Kes-you-have-a-4070-in-there-why-not-use-that-for-AI-stuff-”">
+						<a
+							href="#“But-Kes-you-have-a-4070-in-there-why-not-use-that-for-AI-stuff-”"
+							class="headerlink"
+							title="“But Kes, you have a 4070 in there, why not use that for AI stuff?”"
+						></a
+						>“But Kes, you have a 4070 in there, why not use that for AI stuff?”
+					</h4>
+					<p>
+						First of all, shut up, I like my NPU, it’s cool. Second, the NPU is better for some
+						stuff than the GPU.
+					</p>
+					<p>
+						The NPU is more power efficient and is built into the CPU, so it’s better for on-device
+						stuff - I won’t need to run my GPU and waste power just to run a model like Meta’s
+						<a
+							target="_blank"
+							rel="noopener"
+							href="https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct"
+							>llama 8b instruct</a
+						>. Most importantly (imo) is the fact I’m <strong>offloading</strong> work from my
+						CPU&#x2F;GPU to the NPU.
+					</p>
+					<p>
+						This means I can run models without choking my GPU<br />So I can play games while I run
+						models then - at least in theory…
+					</p>
+					<h3 id="What-can-you-do-with-a-RyzenAI-NPU">
+						<a
+							href="#What-can-you-do-with-a-RyzenAI-NPU"
+							class="headerlink"
+							title="What can you do with a RyzenAI NPU?"
+						></a
+						>What can you do with a RyzenAI NPU?
+					</h3>
+					<p>Not much at first, since Microsoft really doesn’t make the most out of them.</p>
+					<p>
+						Here’s the one and only trick you can do on Windows natively with an supported NPU:
+						Studio Effects.<br /><img
+							src="https://learn.microsoft.com/en-us/windows/ai/images/windows-studio-effects-open.gif"
+							alt="Windows Studio Effects Demo"
+						/><br /><sup
+							>(I got this GIF from
+							<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/ai"
+								>Microsoft’s AI page</a
+							>, no way I’m demoing this myself)</sup
+						>
+					</p>
+					<p>
+						As you can see, all it does is some background blur and framing stuff. It’s neat, but
+						it’s not really what I want to do with my NPU. Why would I buy a laptop with an NPU just
+						to blur my background?
+					</p>
+					<p>
+						I was hoping to use the
+						<a
+							target="_blank"
+							rel="noopener"
+							href="https://support.microsoft.com/en-gb/windows/use-cocreator-in-paint-53857513-e36c-472d-8d4a-adbcd14b2e54"
+							>Cocreator feature in Paint</a
+						>, but I guess that’s a Copilot+ exclusive - makes sense, image generation is a bit more
+						complex than background blur.
+					</p>
+					<p>
+						So I uninstalled the NPU driver and replaced it with a development one I got from
+						<a
+							target="_blank"
+							rel="noopener"
+							href="https://ryzenai.docs.amd.com/en/latest/inst.html"
+							>here</a
+						>
+						- along with this I install the Vitis AI Quantizer, the Onnx Runtime and PyTorch. Now I
+						can do cool stuff with the NPU!
+					</p>
+					<h3 id="What-can-you-do-with-a-RyzenAI-NPU-now">
+						<a
+							href="#What-can-you-do-with-a-RyzenAI-NPU-now"
+							class="headerlink"
+							title="What can you do with a RyzenAI NPU now?"
+						></a
+						>What can you do with a RyzenAI NPU now?
+					</h3>
+					<p>I can run models on it! I can run models on it! I can run models on it!</p>
+					<p>Before I get into this part, worth noting a couple things:</p>
+					<ol>
+						<li>
+							<p>
+								The RyzenAI NPU is a 16 TOPs NPU, so it’s not the most powerful thing in the world.
+								It’s FAR from beating the 4070 in this laptop, but it’s still cool to have. I know
+								it’s (very) slow but think of what the future NPUs could do with more power! I
+								mean.. Copilot+ PCs have
+								<a
+									target="_blank"
+									rel="noopener"
+									href="https://support.microsoft.com/en-gb/topic/copilot-pc-hardware-requirements-35782169-6eab-4d63-a5c5-c498c3037364#:~:text=The%20Copilot%2B%20PC%20features%20are,function%20properly%20or%20at%20all."
+									>40 TOPS for their NPUs, and that’s just the minimum</a
+								>.
+							</p>
+						</li>
+						<li>
+							<p>
+								The driver I had to install is a development driver, and removed the
+								<code>NPU Compute Accelerator Device</code> from Task Manager. This means I can’t
+								use the NPU for Studio Effects anymore, nor can I see it and its usage in Task
+								Manager like I could before when testing Studio Effects.
+							</p>
+						</li>
+					</ol>
+					<p>
+						Before: <img src="/images/device-manager-before.png" alt="Before switching drivers" />
+					</p>
+					<p>After: <img src="/images/device-manager-after.png" alt="After switching drivers" /></p>
+					<ol start="3">
+						<li>
+							This is based on gochi harada’s hackster project,
+							<a
+								target="_blank"
+								rel="noopener"
+								href="https://www.hackster.io/gharada2013/running-llm-on-amd-npu-hardware-19322f"
+								>Running LLM on AMD NPU Hardware</a
+							>
+							posted in March 2024 where he used a slightly older Ryzen 9 7940HS which maxes out at
+							10 TOPs. I used this as a sort of guide for my own experiments and led me to quantize
+							<a
+								target="_blank"
+								rel="noopener"
+								href="https://huggingface.co/togethercomputer/Llama-2-7B-32K-Instruct"
+								>togethercomputer&#x2F;Llama-2-7B-32K-Instruct</a
+							>
+							to run on my RyzenAI NPU. It was not a good experience, but I learned a lot from it at
+							least and I’m currently quantizing
+							<a
+								target="_blank"
+								rel="noopener"
+								href="https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct"
+								>meta-llama&#x2F;Meta-Llama-3-8B-Instruct</a
+							>
+							to run on my Snapdragon 8 Gen 3.
+						</li>
+					</ol>
+					<p>
+						About that last point - it turns out I was blind and&#x2F;or stupid, since gochi already
+						quanized&#x2F;converted
+						<a
+							target="_blank"
+							rel="noopener"
+							href="https://huggingface.co/dahara1/llama3-8b-amd-npu"
+							>Llama-3-8B-Instruct to work on a RyzenAI NPU</a
+						>, and it’s FAR better than anything I could do (this is why I’m quantizing
+						Llama-3-8B-Instruct to run on a Snapdragon 8 Gen 3 now, kind of inspired by gochi’s
+						work).
+					</p>
+					<p>
+						So, from this point on, I’ll be using gochi’s quantized model to test the RyzenAI NPU.
+						Read his blog post for more details on how he did it, it’s a good read.
+					</p>
+					<h3 id="Running-Llama-3-8B-Instruct-on-a-RyzenAI-NPU">
+						<a
+							href="#Running-Llama-3-8B-Instruct-on-a-RyzenAI-NPU"
+							class="headerlink"
+							title="Running Llama-3-8B-Instruct on a RyzenAI NPU"
+						></a
+						>Running Llama-3-8B-Instruct on a RyzenAI NPU
+					</h3>
+					<p>Now for the fun part - running a model on the NPU!</p>
+					<p>
+						This took me a while since along with the development driver, I need the RyzenAI
+						package, and for some reason both the driver and the package could only be installed via
+						command prompt - not powershell, not Anaconda Prompt, just command prompt. Also, the
+						package <strong>specifically</strong> needed VS 2019 with build tools, and 2022 wouldn’t
+						work. I had to install 2019 just for this package..
+					</p>
+					<p><img src="/images/sadtwt.png" alt="a sad tweet" /></p>
+					<p>
+						What’s worse is that the development driver gets replaced with the normal driver every
+						time I restart my laptop, so I have to reinstall the development driver every time I
+						want to use the NPU - kind of led to an endless cycle of me reinstalling the driver,
+						running a model, then restarting my laptop and reinstalling the driver again.
+					</p>
+					<p>
+						The solution?
+						<em
+							>Buy a cheap NPU laptop and
+							<a
+								target="_blank"
+								rel="noopener"
+								href="https://x.com/yoimnotkesku/status/1809629801445023811"
+								>get flamed on twitter for it</a
+							>!</em
+						><br />I’m kidding (mostly), the solution was to just not restart my laptop for the
+						duration of my tests.
+					</p>
+					<p>
+						Past that all I had to do was run the .py file gochi provided in his blog post, and it
+						worked! His code loaded the weights and then ran a few predefined prompts to llama with
+						the system prompt
+						<code>You are a pirate chatbot who always responds in pirate speak!</code>
+					</p>
+					<p>
+						It did run nicely, but I modified the code to let me append my own inputted prompts to
+						llama with the system prompt <code>You are a helpful assistant</code> - I wanted to see
+						how fast it could be while actually being useful. Modified it in a lot of other ways
+						too, but that’s the main change I made.
+					</p>
+					<p>
+						<img
+							src="/images/llama-running-npu.png"
+							alt="Llama 3 8B running on just the NPU, no GPU/CPU compute used on this"
+						/>
+					</p>
+					<p>
+						As you can see the CPU is at 0%, GPU is at 0%, and the NPU is.. well we can’t see it in
+						Task Manager anymore, but it’s running the model :D<br />It’s not the fastest thing in
+						the world, but it’s cool to see it running on just the NPU!
+					</p>
+					<p>
+						In case you want to know how fast it is, I get around 1.8-2.2 tokens per second on the
+						NPU, which is very slow compared to the 4070 in this laptop, but it’s still cool to see
+						it running on just the NPU.
+					</p>
+					<p>
+						For fun I ran this prompt on the NPU via this code, and on
+						<a target="_blank" rel="noopener" href="https://huggingface.co/janhq/llama3"
+							>janhq&#x2F;llama3</a
+						>
+						(a GGUF version of meta-llama&#x2F;Meta-Llama-3-8B-Instruct) on my 4070 using the
+						<a target="_blank" rel="noopener" href="https://lmstudio.ai/">LM Studio</a> app.
+					</p>
+					<p>
+						Same temperature, same max tokens, same everything else - just different hardware. Tried
+						to make things as fair as possible without going too deep into the settings.
+					</p>
+					<p><img src="/images/lmstudio-settings.png" alt="LM Studio Settings" /></p>
+					<p><img src="/images/code-llm-config.png" alt="NPU Code Settings" /></p>
+					<p>
+						<sup
+							>I am a bit of an idiot and this is absolutely a high level and uneducated way to go
+							about things, DM me on twitter if you want to know more info, or if you feel like
+							lecturing me</sup
+						>
+					</p>
+					<p>
+						The NPU llama is slow, but it’s still cool to see it running on just the NPU! It took 12
+						seconds for this little prompt:
+					</p>
+					<p><img src="/images/npu-cat-prompt.png" alt="cat prompt on NPU" /></p>
+					<p>And 0.8 seconds for the same prompt on the 4070:</p>
+					<p><img src="/images/4070-cat-prompt.png" alt="cat prompt on 4070" /></p>
+					<p>
+						HUGE difference, but the GPU pulls 90W while the NPU pulls 15W to 54W (depending on what
+						the CPU is doing) - so it’s not a fair comparison at all.
+					</p>
+					<h3 id="Conclusion">
+						<a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion
+					</h3>
+					<p>
+						You should give me more money so I can buy more tech to test, and I should probably
+						write more blog posts.
+					</p>
+					<p>
+						Also NPUs are probably going to be important in the future, so keep an eye on them and
+						if you have one start developing w them! Just imaging a SLM running on it while you game
+						giving you tips based on your gameplay, or a chatbot that can run on your phone without
+						draining your battery - it’s cool stuff!
+					</p>
+					<p>I’m going to go back to quantizing and crying now<br />kes out</p>
+				</div>
+			</article>
 
-      
-    <div class="article-tag">
-        <i class="fa-solid fa-tag"></i>
-        <a class="p-category" href="/tags/AI/" rel="tag">AI</a>, <a class="p-category" href="/tags/Hardware/" rel="tag">Hardware</a>, <a class="p-category" href="/tags/NPU/" rel="tag">NPU</a>
-    </div>
+			<div id="footer-post-container">
+				<div id="footer-post">
+					<div id="nav-footer" style="display: none">
+						<ul>
+							<li><a href="/">Home</a></li>
 
+							<li><a href="/about/">About</a></li>
 
-    </div>
-  </header>
-  
+							<li><a href="/archives/">Writing</a></li>
 
-  <div class="content e-content" itemprop="articleBody">
-    <p>Hey, it’s Kes!</p>
-<p>I DEFINITELY didn’t forget to write a blog post for 2 months shut up</p>
-<p><img src="/images/kana-anger.png" alt="arima kana pic for no apparent reason"></p>
-<p>This post is specific to my experiences with AMD RyzenAI NPUs, I still need to mess with the Neural Engine more, and my Copilot+ PC never arrived so I can’t talk about that yet. I will be buying more tech to test, and am currently quantizing Llama-3-8B-Instruct to run on a Snapdragon 8 Gen 3, so I’ll tweet about that soon.</p>
-<h3 id="Neural-Processing-Units-NPUs-huh"><a href="#Neural-Processing-Units-NPUs-huh" class="headerlink" title="Neural Processing Units (NPUs) huh?"></a>Neural Processing Units (NPUs) huh?</h3><p>I think NPUs are cool. They’re power efficient machine learning accelerators you can find built into other hardware (like your CPU, GPU or motherboard), designed to run small models fast and efficiently.</p>
-<p>You used to see NPUs being called AI chips in smartphones just for fancier camera processing but with the LLM era, they’re becoming more common everywhere else, along with being capable of running more complex models.</p>
-<p>Here’s a solid example - the Apple Neural Engine. It’s an NPU Apple’s had in their devices since the A11 Bionic chip, but was limited to apple-only stuff like <a target="_blank" rel="noopener" href="https://www.wired.com/story/apples-neural-engine-infuses-the-iphone-with-ai-smarts/">FaceID on the iPhone X</a>.</p>
-<p>With the A12 though, Apple opened up the NPU to developers via the <a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/coreml">CoreML framework</a> since it was more powerful with 5 TOPs (Trillion Operations Per Second) compared to the A11’s 600 billion operations per second.</p>
-<p>This is why <a target="_blank" rel="noopener" href="https://www.apple.com/newsroom/2024/06/ios-18-makes-iphone-more-personal-capable-and-intelligent-than-ever/">iOS 18 requires an A12 chip or newer to run</a> - the Neural Engine is needed for some of the new AI stuff they introduced</p>
-<p><img src="/images/ios18req.png" alt="ios 18 requirements"></p>
-<p>Seems like I’m going to need to buy a couple iPhone 15s and 16s<br>Dear bank account, I’m sorry.</p>
-<h3 id="So-time-to-get-some-NPUs"><a href="#So-time-to-get-some-NPUs" class="headerlink" title="So, time to get some NPUs"></a>So, time to get some NPUs</h3><p>I picked up a couple laptops with AMD RyzenAI NPUs, some M series Macbooks with Apple’s Neural Engine, and a few other devices with NPUs like snapdragon phones.</p>
-<p>For starters I got a new daily laptop - an Asus Zephyrus G14 with a <code>Ryzen™ 9 8945HS</code> and <code>RTX 4070</code>. It’s a pretty good laptop, I use it for most of my work now - but more importantly the CPU it has comes with a built-in <em>AMD Ryzen™ AI NPU</em>, that maxes out at 16 TOPs.</p>
-<p><img src="/images/g14tskmgr.png" alt="Zephyrus G14"></p>
-<h4 id="“But-Kes-you-have-a-4070-in-there-why-not-use-that-for-AI-stuff-”"><a href="#“But-Kes-you-have-a-4070-in-there-why-not-use-that-for-AI-stuff-”" class="headerlink" title="“But Kes, you have a 4070 in there, why not use that for AI stuff?”"></a>“But Kes, you have a 4070 in there, why not use that for AI stuff?”</h4><p>First of all, shut up, I like my NPU, it’s cool. Second, the NPU is better for some stuff than the GPU.</p>
-<p>The NPU is more power efficient and is built into the CPU, so it’s better for on-device stuff - I won’t need to run my GPU and waste power just to run a model like Meta’s <a target="_blank" rel="noopener" href="https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct">llama 8b instruct</a>. Most importantly (imo) is the fact I’m <strong>offloading</strong> work from my CPU&#x2F;GPU to the NPU.</p>
-<p>This means I can run models without choking my GPU<br>So I can play games while I run models then - at least in theory…</p>
-<h3 id="What-can-you-do-with-a-RyzenAI-NPU"><a href="#What-can-you-do-with-a-RyzenAI-NPU" class="headerlink" title="What can you do with a RyzenAI NPU?"></a>What can you do with a RyzenAI NPU?</h3><p>Not much at first, since Microsoft really doesn’t make the most out of them.</p>
-<p>Here’s the one and only trick you can do on Windows natively with an supported NPU: Studio Effects.<br><img src="https://learn.microsoft.com/en-us/windows/ai/images/windows-studio-effects-open.gif" alt="Windows Studio Effects Demo"><br><sup>(I got this GIF from <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/ai">Microsoft’s AI page</a>, no way I’m demoing this myself)</sup></p>
-<p>As you can see, all it does is some background blur and framing stuff. It’s neat, but it’s not really what I want to do with my NPU. Why would I buy a laptop with an NPU just to blur my background?</p>
-<p>I was hoping to use the <a target="_blank" rel="noopener" href="https://support.microsoft.com/en-gb/windows/use-cocreator-in-paint-53857513-e36c-472d-8d4a-adbcd14b2e54">Cocreator feature in Paint</a>, but I guess that’s a Copilot+ exclusive - makes sense, image generation is a bit more complex than background blur.</p>
-<p>So I uninstalled the NPU driver and replaced it with a development one I got from <a target="_blank" rel="noopener" href="https://ryzenai.docs.amd.com/en/latest/inst.html">here</a> - along with this I install the Vitis AI Quantizer, the Onnx Runtime and PyTorch. Now I can do cool stuff with the NPU!</p>
-<h3 id="What-can-you-do-with-a-RyzenAI-NPU-now"><a href="#What-can-you-do-with-a-RyzenAI-NPU-now" class="headerlink" title="What can you do with a RyzenAI NPU now?"></a>What can you do with a RyzenAI NPU now?</h3><p>I can run models on it! I can run models on it! I can run models on it!</p>
-<p>Before I get into this part, worth noting a couple things:</p>
-<ol>
-<li><p>The RyzenAI NPU is a 16 TOPs NPU, so it’s not the most powerful thing in the world. It’s FAR from beating the 4070 in this laptop, but it’s still cool to have. I know it’s (very) slow but think of what the future NPUs could do with more power! I mean.. Copilot+ PCs have <a target="_blank" rel="noopener" href="https://support.microsoft.com/en-gb/topic/copilot-pc-hardware-requirements-35782169-6eab-4d63-a5c5-c498c3037364#:~:text=The%20Copilot%2B%20PC%20features%20are,function%20properly%20or%20at%20all.">40 TOPS for their NPUs, and that’s just the minimum</a>.</p>
-</li>
-<li><p>The driver I had to install is a development driver, and removed the <code>NPU Compute Accelerator Device</code> from Task Manager. This means I can’t use the NPU for Studio Effects anymore, nor can I see it and its usage in Task Manager like I could before when testing Studio Effects.</p>
-</li>
-</ol>
-<p>Before: <img src="/images/device-manager-before.png" alt="Before switching drivers"></p>
-<p>After: <img src="/images/device-manager-after.png" alt="After switching drivers"></p>
-<ol start="3">
-<li>This is based on gochi harada’s hackster project, <a target="_blank" rel="noopener" href="https://www.hackster.io/gharada2013/running-llm-on-amd-npu-hardware-19322f">Running LLM on AMD NPU Hardware</a> posted in March 2024 where he used a slightly older Ryzen 9 7940HS which maxes out at 10 TOPs. I used this as a sort of guide for my own experiments and led me to quantize <a target="_blank" rel="noopener" href="https://huggingface.co/togethercomputer/Llama-2-7B-32K-Instruct">togethercomputer&#x2F;Llama-2-7B-32K-Instruct</a> to run on my RyzenAI NPU. It was not a good experience, but I learned a lot from it at least and I’m currently quantizing <a target="_blank" rel="noopener" href="https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct">meta-llama&#x2F;Meta-Llama-3-8B-Instruct</a> to run on my Snapdragon 8 Gen 3.</li>
-</ol>
-<p>About that last point - it turns out I was blind and&#x2F;or stupid, since gochi already quanized&#x2F;converted <a target="_blank" rel="noopener" href="https://huggingface.co/dahara1/llama3-8b-amd-npu">Llama-3-8B-Instruct to work on a RyzenAI NPU</a>, and it’s FAR better than anything I could do (this is why I’m quantizing Llama-3-8B-Instruct to run on a Snapdragon 8 Gen 3 now, kind of inspired by gochi’s work).</p>
-<p>So, from this point on, I’ll be using gochi’s quantized model to test the RyzenAI NPU. Read his blog post for more details on how he did it, it’s a good read.</p>
-<h3 id="Running-Llama-3-8B-Instruct-on-a-RyzenAI-NPU"><a href="#Running-Llama-3-8B-Instruct-on-a-RyzenAI-NPU" class="headerlink" title="Running Llama-3-8B-Instruct on a RyzenAI NPU"></a>Running Llama-3-8B-Instruct on a RyzenAI NPU</h3><p>Now for the fun part - running a model on the NPU!</p>
-<p>This took me a while since along with the development driver, I need the RyzenAI package, and for some reason both the driver and the package could only be installed via command prompt - not powershell, not Anaconda Prompt, just command prompt. Also, the package <strong>specifically</strong> needed VS 2019 with build tools, and 2022 wouldn’t work. I had to install 2019 just for this package..</p>
-<p><img src="/images/sadtwt.png" alt="a sad tweet"></p>
-<p>What’s worse is that the development driver gets replaced with the normal driver every time I restart my laptop, so I have to reinstall the development driver every time I want to use the NPU - kind of led to an endless cycle of me reinstalling the driver, running a model, then restarting my laptop and reinstalling the driver again.</p>
-<p>The solution? <em>Buy a cheap NPU laptop and <a target="_blank" rel="noopener" href="https://x.com/yoimnotkesku/status/1809629801445023811">get flamed on twitter for it</a>!</em><br>I’m kidding (mostly), the solution was to just not restart my laptop for the duration of my tests.</p>
-<p>Past that all I had to do was run the .py file gochi provided in his blog post, and it worked! His code loaded the weights and then ran a few predefined prompts to llama with the system prompt <code>You are a pirate chatbot who always responds in pirate speak!</code></p>
-<p>It did run nicely, but I modified the code to let me append my own inputted prompts to llama with the system prompt <code>You are a helpful assistant</code> - I wanted to see how fast it could be while actually being useful. Modified it in a lot of other ways too, but that’s the main change I made.</p>
-<p><img src="/images/llama-running-npu.png" alt="Llama 3 8B running on just the NPU, no GPU/CPU compute used on this"></p>
-<p>As you can see the CPU is at 0%, GPU is at 0%, and the NPU is.. well we can’t see it in Task Manager anymore, but it’s running the model :D<br>It’s not the fastest thing in the world, but it’s cool to see it running on just the NPU!</p>
-<p>In case you want to know how fast it is, I get around 1.8-2.2 tokens per second on the NPU, which is very slow compared to the 4070 in this laptop, but it’s still cool to see it running on just the NPU.</p>
-<p>For fun I ran this prompt on the NPU via this code, and on <a target="_blank" rel="noopener" href="https://huggingface.co/janhq/llama3">janhq&#x2F;llama3</a> (a GGUF version of meta-llama&#x2F;Meta-Llama-3-8B-Instruct) on my 4070 using the <a target="_blank" rel="noopener" href="https://lmstudio.ai/">LM Studio</a> app.</p>
-<p>Same temperature, same max tokens, same everything else - just different hardware. Tried to make things as fair as possible without going too deep into the settings.</p>
-<p><img src="/images/lmstudio-settings.png" alt="LM Studio Settings"></p>
-<p><img src="/images/code-llm-config.png" alt="NPU Code Settings"></p>
-<p><sup>I am a bit of an idiot and this is absolutely a high level and uneducated way to go about things, DM me on twitter if you want to know more info, or if you feel like lecturing me</sup></p>
-<p>The NPU llama is slow, but it’s still cool to see it running on just the NPU! It took 12 seconds for this little prompt:</p>
-<p><img src="/images/npu-cat-prompt.png" alt="cat prompt on NPU"></p>
-<p>And 0.8 seconds for the same prompt on the 4070:</p>
-<p><img src="/images/4070-cat-prompt.png" alt="cat prompt on 4070"></p>
-<p>HUGE difference, but the GPU pulls 90W while the NPU pulls 15W to 54W (depending on what the CPU is doing) - so it’s not a fair comparison at all.</p>
-<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>You should give me more money so I can buy more tech to test, and I should probably write more blog posts.</p>
-<p>Also NPUs are probably going to be important in the future, so keep an eye on them and if you have one start developing w them! Just imaging a SLM running on it while you game giving you tips based on your gameplay, or a chatbot that can run on your phone without draining your battery - it’s cool stuff!</p>
-<p>I’m going to go back to quantizing and crying now<br>kes out</p>
+							<li><a target="_blank" rel="noopener" href="http://github.com/kesku">Projects</a></li>
+						</ul>
+					</div>
 
-  </div>
-</article>
+					<div id="toc-footer" style="display: none">
+						<ol class="toc">
+							<li class="toc-item toc-level-3">
+								<a class="toc-link" href="#Neural-Processing-Units-NPUs-huh"
+									><span class="toc-number">1.</span>
+									<span class="toc-text">Neural Processing Units (NPUs) huh?</span></a
+								>
+							</li>
+							<li class="toc-item toc-level-3">
+								<a class="toc-link" href="#So-time-to-get-some-NPUs"
+									><span class="toc-number">2.</span>
+									<span class="toc-text">So, time to get some NPUs</span></a
+								>
+								<ol class="toc-child">
+									<li class="toc-item toc-level-4">
+										<a
+											class="toc-link"
+											href="#%E2%80%9CBut-Kes-you-have-a-4070-in-there-why-not-use-that-for-AI-stuff-%E2%80%9D"
+											><span class="toc-number">2.1.</span>
+											<span class="toc-text"
+												>“But Kes, you have a 4070 in there, why not use that for AI stuff?”</span
+											></a
+										>
+									</li>
+								</ol>
+							</li>
+							<li class="toc-item toc-level-3">
+								<a class="toc-link" href="#What-can-you-do-with-a-RyzenAI-NPU"
+									><span class="toc-number">3.</span>
+									<span class="toc-text">What can you do with a RyzenAI NPU?</span></a
+								>
+							</li>
+							<li class="toc-item toc-level-3">
+								<a class="toc-link" href="#What-can-you-do-with-a-RyzenAI-NPU-now"
+									><span class="toc-number">4.</span>
+									<span class="toc-text">What can you do with a RyzenAI NPU now?</span></a
+								>
+							</li>
+							<li class="toc-item toc-level-3">
+								<a class="toc-link" href="#Running-Llama-3-8B-Instruct-on-a-RyzenAI-NPU"
+									><span class="toc-number">5.</span>
+									<span class="toc-text">Running Llama-3-8B-Instruct on a RyzenAI NPU</span></a
+								>
+							</li>
+							<li class="toc-item toc-level-3">
+								<a class="toc-link" href="#Conclusion"
+									><span class="toc-number">6.</span> <span class="toc-text">Conclusion</span></a
+								>
+							</li>
+						</ol>
+					</div>
 
+					<div id="share-footer" style="display: none">
+						<ul>
+							<li>
+								<a
+									class="icon"
+									target="_blank"
+									rel="noopener"
+									href="http://www.facebook.com/sharer.php?u=http://kesku.me/2024/07/24/npus/"
+									><i class="fab fa-facebook fa-lg" aria-hidden="true"></i
+								></a>
+							</li>
+							<li>
+								<a
+									class="icon"
+									target="_blank"
+									rel="noopener"
+									href="https://twitter.com/share?url=http://kesku.me/2024/07/24/npus/&text=NPUs, the future of AI hardware? Idk but they&#39;re cool"
+									><i class="fab fa-twitter fa-lg" aria-hidden="true"></i
+								></a>
+							</li>
+							<li>
+								<a
+									class="icon"
+									target="_blank"
+									rel="noopener"
+									href="http://www.linkedin.com/shareArticle?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"
+									><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i
+								></a>
+							</li>
+							<li>
+								<a
+									class="icon"
+									target="_blank"
+									rel="noopener"
+									href="https://pinterest.com/pin/create/bookmarklet/?url=http://kesku.me/2024/07/24/npus/&is_video=false&description=NPUs, the future of AI hardware? Idk but they&#39;re cool"
+									><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i
+								></a>
+							</li>
+							<li>
+								<a
+									class="icon"
+									href="mailto:?subject=NPUs, the future of AI hardware? Idk but they&#39;re cool&body=Check out this article: http://kesku.me/2024/07/24/npus/"
+									><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i
+								></a>
+							</li>
+							<li>
+								<a
+									class="icon"
+									target="_blank"
+									rel="noopener"
+									href="https://getpocket.com/save?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"
+									><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i
+								></a>
+							</li>
+							<li>
+								<a
+									class="icon"
+									target="_blank"
+									rel="noopener"
+									href="http://reddit.com/submit?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"
+									><i class="fab fa-reddit fa-lg" aria-hidden="true"></i
+								></a>
+							</li>
+							<li>
+								<a
+									class="icon"
+									target="_blank"
+									rel="noopener"
+									href="http://www.stumbleupon.com/submit?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"
+									><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i
+								></a>
+							</li>
+							<li>
+								<a
+									class="icon"
+									target="_blank"
+									rel="noopener"
+									href="http://digg.com/submit?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"
+									><i class="fab fa-digg fa-lg" aria-hidden="true"></i
+								></a>
+							</li>
+							<li>
+								<a
+									class="icon"
+									target="_blank"
+									rel="noopener"
+									href="http://www.tumblr.com/share/link?url=http://kesku.me/2024/07/24/npus/&name=NPUs, the future of AI hardware? Idk but they&#39;re cool&description="
+									><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i
+								></a>
+							</li>
+							<li>
+								<a
+									class="icon"
+									target="_blank"
+									rel="noopener"
+									href="https://news.ycombinator.com/submitlink?u=http://kesku.me/2024/07/24/npus/&t=NPUs, the future of AI hardware? Idk but they&#39;re cool"
+									><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i
+								></a>
+							</li>
+						</ul>
+					</div>
 
+					<div id="actions-footer">
+						<a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"
+							><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a
+						>
 
-        
-          <div id="footer-post-container">
-  <div id="footer-post">
+						<a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"
+							><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a
+						>
 
-    <div id="nav-footer" style="display: none">
-      <ul>
-        
-          <li><a href="/">Home</a></li>
-        
-          <li><a href="/about/">About</a></li>
-        
-          <li><a href="/archives/">Writing</a></li>
-        
-          <li><a target="_blank" rel="noopener" href="http://github.com/kesku">Projects</a></li>
-        
-      </ul>
-    </div>
+						<a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"
+							><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a
+						>
+						<a
+							id="top"
+							style="display: none"
+							class="icon"
+							href="#"
+							onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"
+							><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a
+						>
+					</div>
+				</div>
+			</div>
 
-    
-    
-      <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Neural-Processing-Units-NPUs-huh"><span class="toc-number">1.</span> <span class="toc-text">Neural Processing Units (NPUs) huh?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#So-time-to-get-some-NPUs"><span class="toc-number">2.</span> <span class="toc-text">So, time to get some NPUs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%80%9CBut-Kes-you-have-a-4070-in-there-why-not-use-that-for-AI-stuff-%E2%80%9D"><span class="toc-number">2.1.</span> <span class="toc-text">“But Kes, you have a 4070 in there, why not use that for AI stuff?”</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What-can-you-do-with-a-RyzenAI-NPU"><span class="toc-number">3.</span> <span class="toc-text">What can you do with a RyzenAI NPU?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What-can-you-do-with-a-RyzenAI-NPU-now"><span class="toc-number">4.</span> <span class="toc-text">What can you do with a RyzenAI NPU now?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Running-Llama-3-8B-Instruct-on-a-RyzenAI-NPU"><span class="toc-number">5.</span> <span class="toc-text">Running Llama-3-8B-Instruct on a RyzenAI NPU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conclusion"><span class="toc-number">6.</span> <span class="toc-text">Conclusion</span></a></li></ol>
-      </div>
-    
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://kesku.me/2024/07/24/npus/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://kesku.me/2024/07/24/npus/&text=NPUs, the future of AI hardware? Idk but they&#39;re cool"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://kesku.me/2024/07/24/npus/&is_video=false&description=NPUs, the future of AI hardware? Idk but they&#39;re cool"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=NPUs, the future of AI hardware? Idk but they&#39;re cool&body=Check out this article: http://kesku.me/2024/07/24/npus/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://kesku.me/2024/07/24/npus/&title=NPUs, the future of AI hardware? Idk but they&#39;re cool"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://kesku.me/2024/07/24/npus/&name=NPUs, the future of AI hardware? Idk but they&#39;re cool&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://kesku.me/2024/07/24/npus/&t=NPUs, the future of AI hardware? Idk but they&#39;re cool"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
-        
-          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
-        
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
-    </div>
-
-  </div>
-</div>
-
-        
-        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
-    
-    
-    2024
-    Kesku
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
+			<footer id="footer">
+				<div class="footer-left">Copyright &copy; 2024 Kesku</div>
+				<div class="footer-right">
+					<nav>
+						<ul>
+							<!--
+       -->
+							<li><a href="/">Home</a></li>
+							<!--
      --><!--
-       --><li><a href="/about/">About</a></li><!--
+       -->
+							<li><a href="/about/">About</a></li>
+							<!--
      --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
+       -->
+							<li><a href="/archives/">Writing</a></li>
+							<!--
      --><!--
-       --><li><a target="_blank" rel="noopener" href="http://github.com/kesku">Projects</a></li><!--
+       -->
+							<li><a target="_blank" rel="noopener" href="http://github.com/kesku">Projects</a></li>
+							<!--
      -->
-      </ul>
-    </nav>
-  </div>
-</footer>
+						</ul>
+					</nav>
+				</div>
+			</footer>
+		</div>
+		<!-- styles -->
 
-    </div>
-    <!-- styles -->
+		<link
+			rel="preload"
+			as="style"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+			crossorigin="anonymous"
+			onload="this.onload=null;this.rel='stylesheet'"
+		/>
 
+		<!-- jquery -->
 
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+			crossorigin="anonymous"
+		></script>
 
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+		<!-- clipboard -->
 
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js"
+			crossorigin="anonymous"
+		></script>
 
-    <!-- jquery -->
+		<script type="text/javascript">
+			$(function () {
+				// copy-btn HTML
+				var btn =
+					'<span class="btn-copy tooltipped tooltipped-sw" aria-label="Copy to clipboard!">';
+				btn += '<i class="fa-regular fa-clone"></i>';
+				btn += "</span>";
+				// mount it!
+				$(".highlight table").before(btn);
+				var clip = new ClipboardJS(".btn-copy", {
+					text: function (trigger) {
+						return Array.from(trigger.nextElementSibling.querySelectorAll(".code")).reduce(
+							(str, it) => str + it.innerText + "\n",
+							"",
+						);
+					},
+				});
+				clip.on("success", function (e) {
+					e.trigger.setAttribute("aria-label", "Copied!");
+					e.clearSelection();
+				});
+			});
+		</script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+		<script src="/js/main.js"></script>
 
+		<!-- search -->
 
+		<!-- Baidu Analytics -->
 
+		<!-- Cloudflare Analytics -->
 
-<!-- clipboard -->
+		<!-- Disqus Comments -->
 
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
-  
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
-    btn += '<i class="fa-regular fa-clone"></i>';
-    btn += '</span>';
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
-      }
-    });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "Copied!");
-      e.clearSelection();
-    })
-  })
-  </script>
-
-
-<script src="/js/main.js"></script>
-
-<!-- search -->
-
-<!-- Baidu Analytics -->
-
-<!-- Cloudflare Analytics -->
-
-<!-- Disqus Comments -->
-
-<!-- utterances Comments -->
-
-</body>
+		<!-- utterances Comments -->
+	</body>
 </html>
