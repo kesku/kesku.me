@@ -19,8 +19,7 @@ export const projectOverrides: Record<string, Partial<Project>> = {
 			"I got bored and made an unofficial client NHK Easy News, it barely works but I had fun making it!",
 	},
 	"texstudio-org/texstudio": {
-		customDescription:
-			"A LaTeX editor that I don't use, but contributed to since a friend asked me to.",
+		customDescription: "A pretty cool LaTeX editor written in C++.",
 	},
 	"perplexityai/perplexity-py": {
 		customDescription: "The official Python client for Perplexity's API, built with Stainless!",
