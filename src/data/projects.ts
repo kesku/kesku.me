@@ -6,6 +6,7 @@ export const projectRepos: string[] = [
 	"texstudio-org/texstudio",
 	"perplexityai/perplexity-py",
 	"perplexityai/perplexity-node",
+	"kesku/kesku.me",
 ];
 
 export const projectOverrides: Record<string, Partial<Project>> = {
@@ -26,5 +27,9 @@ export const projectOverrides: Record<string, Partial<Project>> = {
 	},
 	"perplexityai/perplexity-node": {
 		customDescription: "The official JS/TS client for Perplexity's API, built with Stainless!",
+	},
+	"kesku/kesku.me": {
+		customDescription: "This website you're looking at right now!",
+		featured: true,
 	},
 };
