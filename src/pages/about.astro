@@ -30,6 +30,13 @@ const socials = [
 	},
 	{ name: "Email", link: "mailto:admin@kesku.me", icon: "mdi:email", extra: "admin@kesku.me" },
 ];
+
+const gamesListHtml = games
+	.map((game, i) => {
+		const separator = i < games.length - 2 ? ", " : i === games.length - 2 ? ", and " : "";
+		return `<a href="${game.link}" target="_blank" rel="noopener noreferrer" class="text-accent transition-all hover:underline hover:underline-offset-2">${game.name}</a>${separator}`;
+	})
+	.join("");
 ---
 
 <PageLayout meta={meta}>
@@ -107,37 +114,7 @@ const socials = [
 			<div class="rounded-xl border border-gray-800 bg-gray-900/30 p-6">
 				<Icon name="mdi:controller" class="mb-3 h-8 w-8 text-accent" />
 				<h3 class="mb-2 font-semibold">Gaming</h3>
-				<p class="mb-4 text-sm text-gray-400">
-					Big fan of <a
-						href="https://store.steampowered.com/app/2988580/"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-accent transition-all hover:underline hover:underline-offset-2">Yakuza</a
-					>, <a
-						href="https://zenless.hoyoverse.com/"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-accent transition-all hover:underline hover:underline-offset-2"
-						>Zenless Zone Zero</a
-					>, <a
-						href="https://store.steampowered.com/app/1091500/"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-accent transition-all hover:underline hover:underline-offset-2"
-						>Cyberpunk 2077</a
-					>, <a
-						href="https://store.steampowered.com/app/3240220/"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-accent transition-all hover:underline hover:underline-offset-2"
-						>GTA Online</a
-					>, and <a
-						href="https://www.minecraft.net/"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-accent transition-all hover:underline hover:underline-offset-2">Minecraft</a
-					>.
-				</p>
+				<p class="mb-4 text-sm text-gray-400" set:html={`Big fan of ${gamesListHtml}.`} />
 				<p class="mb-4 text-sm text-gray-400">
 					As a kid, I'd play till late at night, and the game was all I thought about. Now the music
 					hooks sends me back in time, and with VR (Through <a
