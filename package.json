@@ -8,7 +8,6 @@
 		"dev": "astro dev",
 		"start": "astro dev",
 		"build": "astro check && astro build",
-		"postbuild": "pagefind --site dist",
 		"preview": "astro preview",
 		"format": "prettier -w --cache . && prettier -w --cache **/*.astro",
 		"check": "astro check"
@@ -31,7 +30,6 @@
 	"devDependencies": {
 		"@astrojs/check": "^0.8.2",
 		"@iconify-json/mdi": "^1.1.67",
-		"@pagefind/default-ui": "^1.1.0",
 		"@resvg/resvg-js": "^2.6.2",
 		"@tailwindcss/aspect-ratio": "^0.4.2",
 		"@tailwindcss/typography": "^0.5.13",
@@ -49,7 +47,6 @@
 		"eslint-plugin-markdown": "^4.0.1",
 		"eslint-plugin-regexp": "^2.5.0",
 		"eslint-plugin-typescript-sort-keys": "^3.2.0",
-		"pagefind": "^1.1.0",
 		"prettier": "^3.3.3",
 		"prettier-plugin-astro": "0.14.1",
 		"prettier-plugin-tailwindcss": "^0.6.5",
