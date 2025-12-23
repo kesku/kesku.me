@@ -6,7 +6,6 @@ import PerplexitySpinner from "@/components/PerplexitySpinner.astro";
 ---
 
 <PageLayout meta={{ title: "Home" }}>
-	<!-- Hero Section -->
 	<section class="mb-16">
 		<div class="mb-8 flex items-center gap-4">
 			<div class="h-1 w-12 bg-accent"></div>
@@ -16,25 +15,51 @@ import PerplexitySpinner from "@/components/PerplexitySpinner.astro";
 		<h1 class="title mb-6">But you can call me Kes!</h1>
 
 		<p class="mb-4">
-			I'm a self-taught dev, former ML student (dropped out), and <a href="https://x.com/yoimnotkesku/status/1811161077037801698" target="_blank" rel="noopener noreferrer" class="text-accent transition-all hover:underline hover:underline-offset-2">train enjoyer</a> from the UK. I spend my time building stuff, breaking stuff, and trying to figure out how to fix the stuff I broke
+			I'm a self-taught dev, former ML student (dropped out), and <a
+				href="https://x.com/yoimnotkesku/status/1811161077037801698"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-accent transition-all hover:underline hover:underline-offset-2">train enjoyer</a
+			> from the UK. I spend my time building stuff, breaking stuff, and trying to figure out how to
+			fix the stuff I broke
 		</p>
 		<p class="mb-4">
-			I've been coding (badly) since I was 9 (or since I was 7 if you count <a href="https://scratch.mit.edu/" target="_blank" rel="noopener noreferrer" class="text-accent transition-all hover:underline hover:underline-offset-2">Scratch</a>). Now I'm 20, and I still suck at it!
+			I've been coding (badly) since I was 9 (or since I was 7 if you count <a
+				href="https://scratch.mit.edu/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-accent transition-all hover:underline hover:underline-offset-2">Scratch</a
+			>). Now I'm 20, and I still suck at it!
 		</p>
 		<p class="mb-8">
-			I only post online like twice a month, so when I'm not ruining your feed you'll find me either on <span class="group relative inline-block cursor-pointer">
+			I only post online like twice a month, so when I'm not ruining your feed you'll find me either
+			on <span class="group relative inline-block cursor-pointer">
 				<span class="text-accent underline decoration-dotted underline-offset-2">Discord</span>
-				<span class="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-gray-800 px-3 py-1.5 text-xs text-gray-300 opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+				<span
+					class="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-gray-800 px-3 py-1.5 text-xs text-gray-300 opacity-0 shadow-lg transition-opacity group-hover:opacity-100"
+				>
 					my username is <code class="font-mono text-accent">kesku</code>
-					<span class="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-gray-800"></span>
+					<span
+						class="absolute left-1/2 top-full -mt-1 -translate-x-1/2 border-4 border-transparent border-t-gray-800"
+					></span>
 				</span>
-			</span>, watching a <a href="https://www.perplexity.ai/search/best-k-drama-movies-tv-shows-i-sQFCgkdlQ1C4xbqJ3hzDYQ#0" target="_blank" rel="noopener noreferrer" class="text-accent transition-all hover:underline hover:underline-offset-2">K-Drama</a>, or hanging out with my <a href="https://x.com/Angry_Ann_" target="_blank" rel="noopener noreferrer" class="text-accent transition-all hover:underline hover:underline-offset-2">Girlfriend <Icon name="mdi:heart" class="inline-block h-4 w-4 align-text-bottom" /></a>
+			</span>, watching a <a
+				href="https://www.perplexity.ai/search/best-k-drama-movies-tv-shows-i-sQFCgkdlQ1C4xbqJ3hzDYQ#0"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-accent transition-all hover:underline hover:underline-offset-2">K-Drama</a
+			>, or hanging out with my <a
+				href="https://x.com/Angry_Ann_"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-accent transition-all hover:underline hover:underline-offset-2"
+				>Girlfriend <Icon name="mdi:heart" class="inline-block h-4 w-4 align-text-bottom" /></a
+			>
 		</p>
 
 		<SocialList />
 	</section>
 
-	<!-- Projects -->
 	<section>
 		<div class="mb-6 flex items-center gap-4">
 			<div class="h-1 w-8 bg-accent/50"></div>
@@ -42,7 +67,6 @@ import PerplexitySpinner from "@/components/PerplexitySpinner.astro";
 		</div>
 
 		<div class="grid gap-4 sm:grid-cols-2">
-			<!-- Perplexity Card -->
 			<a
 				href="https://www.perplexity.ai/"
 				target="_blank"
@@ -55,13 +79,15 @@ import PerplexitySpinner from "@/components/PerplexitySpinner.astro";
 				<div class="flex-1">
 					<div class="mb-1 flex items-center gap-2">
 						<h3 class="font-semibold group-hover:text-accent">Perplexity AI</h3>
-						<Icon name="mdi:arrow-top-right" class="h-4 w-4 text-gray-500 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
+						<Icon
+							name="mdi:arrow-top-right"
+							class="h-4 w-4 text-gray-500 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+						/>
 					</div>
 					<p class="text-sm text-gray-400">Where I currently work on a lot of cool stuff</p>
 				</div>
 			</a>
 
-			<!-- GitHub Card -->
 			<a
 				href="https://github.com/kesku"
 				target="_blank"
@@ -74,7 +100,10 @@ import PerplexitySpinner from "@/components/PerplexitySpinner.astro";
 				<div class="flex-1">
 					<div class="mb-1 flex items-center gap-2">
 						<h3 class="font-semibold group-hover:text-accent">GitHub Projects</h3>
-						<Icon name="mdi:arrow-top-right" class="h-4 w-4 text-gray-500 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
+						<Icon
+							name="mdi:arrow-top-right"
+							class="h-4 w-4 text-gray-500 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+						/>
 					</div>
 					<p class="text-sm text-gray-400">Check out what I've been building</p>
 				</div>
