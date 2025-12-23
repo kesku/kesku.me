@@ -1,6 +1,9 @@
 {
 	"name": "kesku-site",
 	"version": "4.6.0",
+	"engines": {
+		"node": ">=20.0.0"
+	},
 	"scripts": {
 		"dev": "astro dev",
 		"start": "astro dev",
