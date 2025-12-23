@@ -14,13 +14,11 @@ export const siteConfig: SiteConfig = {
 		},
 	},
 	// Meta property used as the default description meta property
-	description: "Kesku's personal blog for random stuff",
+	description: "Kesku's personal site for random stuff",
 	// HTML lang property, found in src/layouts/Base.astro L:18
 	lang: "en",
 	// Meta property, found in src/components/BaseHead.astro L:42
 	ogLocale: "en_GB",
-	// Option to sort posts by updatedDate if set to true (if property exists). Default (false) will sort by publishDate
-	sortPostsByUpdatedDate: false,
 	// Meta property used to construct the meta title property, found in src/components/BaseHead.astro L:11
 	title: "Call me Kes!",
 };
@@ -34,10 +32,6 @@ export const menuLinks: { path: string; title: string }[] = [
 	{
 		path: "/about/",
 		title: "About",
-	},
-	{
-		path: "/posts/",
-		title: "Posts",
 	},
 	{
 		path: "http://github.com/kesku",
