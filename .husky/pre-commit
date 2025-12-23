@@ -1,0 +1,38 @@
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "🔍 Running pre-commit checks..."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
+echo "✨ Formatting staged files..."
+NODE_OPTIONS="--no-deprecation" pnpm lint-staged > /dev/null 2>&1
+
+if [ $? -ne 0 ]; then
+  echo "❌ Formatting failed"
+  exit 1
+fi
+
+echo "✅ Formatting complete"
+echo ""
+
+echo "🔨 Building project..."
+BUILD_OUTPUT=$(NODE_OPTIONS="--no-deprecation" pnpm build:quiet 2>&1)
+BUILD_EXIT=$?
+
+if [ $BUILD_EXIT -ne 0 ]; then
+  echo "$BUILD_OUTPUT" | \
+    grep -v "DEP0180" | \
+    grep -v "vite-plugin-astro-expressive-code" | \
+    grep -v "The build was canceled" | \
+    grep -E "(ERROR|error|Error|✘|Failed|failed|warning.*ts\([0-9]+\))" || echo "$BUILD_OUTPUT"
+  echo ""
+  echo "❌ Build failed"
+  exit 1
+fi
+
+echo "✅ Build complete"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "✅ All checks passed!"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""

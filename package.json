@@ -8,9 +8,16 @@
 		"dev": "astro dev",
 		"start": "astro dev",
 		"build": "astro check && astro build",
+		"build:quiet": "NODE_OPTIONS='--no-deprecation' astro check && NODE_OPTIONS='--no-deprecation' astro build",
 		"preview": "astro preview",
 		"format": "prettier -w --cache . && prettier -w --cache **/*.astro",
-		"check": "astro check"
+		"check": "astro check",
+		"prepare": "husky"
+	},
+	"lint-staged": {
+		"*.{js,jsx,ts,tsx,json,css,scss,md,astro}": [
+			"prettier --write"
+		]
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.8.3",
@@ -47,6 +54,8 @@
 		"eslint-plugin-markdown": "^4.0.1",
 		"eslint-plugin-regexp": "^2.5.0",
 		"eslint-plugin-typescript-sort-keys": "^3.2.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.2.7",
 		"prettier": "^3.3.3",
 		"prettier-plugin-astro": "0.14.1",
 		"prettier-plugin-tailwindcss": "^0.6.5",
