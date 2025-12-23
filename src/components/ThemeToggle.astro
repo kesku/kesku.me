@@ -69,7 +69,12 @@
 		};
 
 		connectedCallback() {
-			this.#button = this.querySelector("button")!;
+			this.#button = this.querySelector("button");
+			if (!this.#button) {
+				console.warn("Theme Toggle: No button found");
+				return;
+			}
+
 			// set aria role value
 			this.#button.setAttribute("role", "switch");
 			this.updateAriaChecked();

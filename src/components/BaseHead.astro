@@ -16,26 +16,26 @@ const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url
 ---
 
 <meta charset="utf-8" />
-<meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-<meta content="IE=edge" http-equiv="X-UA-Compatible" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <title>{siteTitle}</title>
 
-{/* Icons / Favicon */}
-<link href="/favicon.ico" rel="icon" sizes="any" />
 <link href="/icon.svg" rel="icon" type="image/svg+xml" />
-<link href="/apple-touch-icon.png" rel="apple-touch-icon" />
-<link href="/manifest.webmanifest" rel="manifest" />
+{
+	import.meta.env.PROD && (
+		<>
+			<link rel="icon" href="/favicon.ico" sizes="any" />
+			<link href="/apple-touch-icon.png" rel="apple-touch-icon" />
+			<link href="/manifest.webmanifest" rel="manifest" />
+		</>
+	)
+}
+
 <link href={canonicalURL} rel="canonical" />
 
-{/* Primary Meta Tags */}
 <meta content={siteTitle} name="title" />
 <meta content={description} name="description" />
 <meta content={siteConfig.author} name="author" />
 
-{/* Theme Colour */}
-<meta content="" name="theme-color" />
-
-{/* Open Graph / Facebook */}
 <meta content={articleDate ? "article" : "website"} property="og:type" />
 <meta content={title} property="og:title" />
 <meta content={description} property="og:description" />
@@ -54,17 +54,16 @@ const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url
 	)
 }
 
-{/* Twitter */}
 <meta content="summary_large_image" property="twitter:card" />
 <meta content={canonicalURL} property="twitter:url" />
 <meta content={title} property="twitter:title" />
 <meta content={description} property="twitter:description" />
 <meta content={socialImageURL} property="twitter:image" />
 
-{/* RSS auto-discovery */}
+<link href="/sitemap-index.xml" rel="sitemap" />
+
 <link href="/rss.xml" rel="alternate" title={siteConfig.title} type="application/rss+xml" />
 
-{/* Webmentions */}
 {
 	siteConfig.webmentions && (
 		<>
