@@ -1,0 +1,167 @@
+---
+import { Icon } from "astro-icon/components";
+import PageLayout from "@/layouts/Base.astro";
+import { fetchRepos, mergeProjectData, sortProjects, normalizeRepoName } from "@/utils/github";
+import { projectOverrides, projectRepos } from "@/data/projects";
+import type { Project } from "@/utils/github";
+
+const meta = {
+	description: "Check out my projects and open source contributions on GitHub",
+	title: "Projects",
+};
+
+const normalizedRepos = projectRepos.map((repo) => normalizeRepoName(repo));
+const fetchedRepos = await fetchRepos(normalizedRepos);
+const mergedProjects = mergeProjectData(fetchedRepos, projectOverrides);
+const projects = sortProjects(mergedProjects);
+
+function formatDate(dateString: string): string {
+	const date = new Date(dateString);
+	return date.toLocaleDateString("en-GB", {
+		year: "numeric",
+		month: "short",
+		day: "numeric",
+	});
+}
+
+function getLanguageColor(language: string | null): string {
+	if (!language) return "hsl(var(--theme-muted))";
+
+	const colors: Record<string, string> = {
+		TypeScript: "#3178c6",
+		JavaScript: "#f7df1e",
+		Python: "#3776ab",
+		Rust: "#ce412b",
+		Go: "#00add8",
+		HTML: "#e34c26",
+		CSS: "#1572b6",
+		Shell: "#89e051",
+	};
+
+	return colors[language] || "hsl(var(--theme-accent))";
+}
+---
+
+<PageLayout meta={meta}>
+	<section class="mb-16">
+		<div class="mb-8 flex items-center gap-4">
+			<div class="h-1 w-12 bg-accent"></div>
+			<span class="text-sm font-medium uppercase tracking-widest text-accent">Projects</span>
+		</div>
+
+		<h1 class="title mb-6">Things I've Worked On</h1>
+
+		<p class="mb-8 text-muted">
+			A collection of my open source projects and contributions. Most are experiments, some are
+			useful tools, and a few are actually finished.
+		</p>
+	</section>
+
+	<section>
+		{
+			projects.length === 0 ? (
+				<div class="rounded-xl border border-border bg-surface/30 p-8 text-center">
+					<p class="text-muted">No projects found. Check back later!</p>
+				</div>
+			) : (
+				<ul class="flex flex-col gap-4">
+					{projects.map((project) => (
+						<li>
+							<a
+								href={project.html_url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="group block rounded-xl border border-border bg-surface/30 p-6 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50"
+							>
+								<div class="mb-3 flex items-start justify-between gap-4">
+									<div class="flex-1">
+										<div class="mb-2 flex items-center gap-2">
+											<h2 class="text-xl font-semibold group-hover:text-accent">{project.name}</h2>
+											{project.featured && (
+												<span class="rounded-full bg-accent/20 px-2 py-0.5 text-xs font-medium text-accent">
+													Featured
+												</span>
+											)}
+										</div>
+										{project.description && <p class="mb-3 text-muted">{project.description}</p>}
+									</div>
+									<Icon
+										name="mdi:arrow-top-right"
+										class="h-5 w-5 shrink-0 text-muted transition-colors group-hover:text-accent"
+									/>
+								</div>
+
+								<div class="flex flex-wrap items-center gap-4 text-sm">
+									{project.language && (
+										<div class="flex items-center gap-2">
+											<span
+												class="h-3 w-3 rounded-full"
+												style={`background-color: ${getLanguageColor(project.language)}`}
+											/>
+											<span class="text-muted">{project.language}</span>
+										</div>
+									)}
+
+									{project.stargazers_count > 0 && (
+										<div class="flex items-center gap-1 text-muted">
+											<Icon name="mdi:star" class="h-4 w-4" />
+											<span>{project.stargazers_count}</span>
+										</div>
+									)}
+
+									{project.forks_count > 0 && (
+										<div class="flex items-center gap-1 text-muted">
+											<Icon name="mdi:source-fork" class="h-4 w-4" />
+											<span>{project.forks_count}</span>
+										</div>
+									)}
+
+									{project.topics.length > 0 && (
+										<div class="flex flex-wrap items-center gap-2">
+											{project.topics.slice(0, 5).map((topic: string) => (
+												<span class="rounded-md bg-surface-2 px-2 py-0.5 text-xs text-muted">
+													{topic}
+												</span>
+											))}
+											{project.topics.length > 5 && (
+												<span class="text-xs text-muted">+{project.topics.length - 5} more</span>
+											)}
+										</div>
+									)}
+
+									<div class="ml-auto text-xs text-muted">
+										Updated {formatDate(project.updated_at)}
+									</div>
+								</div>
+							</a>
+						</li>
+					))}
+					<li>
+						<a
+							href="https://x.com/yoimnotkesku"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="group block rounded-xl border border-border bg-surface/30 p-6 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50"
+						>
+							<div class="mb-3 flex items-start justify-between gap-4">
+								<div class="flex-1">
+									<div class="mb-2 flex items-center gap-2">
+										<h2 class="text-xl font-semibold group-hover:text-accent">Everything else..</h2>
+									</div>
+									<p class="mb-3 text-muted">
+										..is probably going to stay hidden to you, since the majority of my repos are
+										private. You can look at my Twitter I guess?
+									</p>
+								</div>
+								<Icon
+									name="mdi:arrow-top-right"
+									class="h-5 w-5 shrink-0 text-muted transition-colors group-hover:text-accent"
+								/>
+							</div>
+						</a>
+					</li>
+				</ul>
+			)
+		}
+	</section>
+</PageLayout>

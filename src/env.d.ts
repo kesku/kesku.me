@@ -4,6 +4,7 @@
 
 interface ImportMetaEnv {
 	readonly WEBMENTION_API_KEY: string;
+	readonly GITHUB_TOKEN?: string;
 }
 
 interface ImportMeta {

@@ -34,7 +34,7 @@ export const menuLinks: { path: string; title: string }[] = [
 		title: "About",
 	},
 	{
-		path: "http://github.com/kesku",
+		path: "/projects/",
 		title: "Projects",
 	},
 ];
