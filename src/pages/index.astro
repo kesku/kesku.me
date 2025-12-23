@@ -3,6 +3,7 @@ import { Icon } from "astro-icon/components";
 import SocialList from "@/components/SocialList.astro";
 import PageLayout from "@/layouts/Base.astro";
 import PerplexitySpinner from "@/components/PerplexitySpinner.astro";
+import Brackets from "@/components/Brackets.astro";
 ---
 
 <PageLayout meta={{ title: "Home" }}>
@@ -89,17 +90,17 @@ import PerplexitySpinner from "@/components/PerplexitySpinner.astro";
 			</a>
 
 			<a
-				href="https://github.com/kesku"
+				href="https://github.com/kesku?tab=repositories"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="group flex items-start gap-4 rounded-xl border border-gray-800 bg-gray-900/30 p-5 transition-all duration-300 hover:border-accent/50 hover:bg-gray-900/50"
 			>
 				<div class="rounded-lg bg-accent/10 p-3">
-					<Icon name="mdi:github" class="h-6 w-6 text-accent" />
+					<Brackets size={24} class="text-accent" />
 				</div>
 				<div class="flex-1">
 					<div class="mb-1 flex items-center gap-2">
-						<h3 class="font-semibold group-hover:text-accent">GitHub Projects</h3>
+						<h3 class="font-semibold group-hover:text-accent">Projects</h3>
 						<Icon
 							name="mdi:arrow-top-right"
 							class="h-4 w-4 text-gray-500 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
