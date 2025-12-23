@@ -4,7 +4,6 @@ import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
-import fs from "fs";
 import rehypeExternalLinks from "rehype-external-links";
 import remarkUnwrapImages from "remark-unwrap-images";
 
@@ -50,24 +49,5 @@ export default defineConfig({
 		optimizeDeps: {
 			exclude: ["@resvg/resvg-js"],
 		},
-		plugins: [rawFonts([".ttf", ".woff"])],
 	},
 });
-
-function rawFonts(ext: string[]) {
-	return {
-		name: "vite-plugin-raw-fonts",
-		// @ts-expect-error:next-line
-		transform(_, id) {
-			// eslint-disable-next-line
-			if (ext.some((e) => id.endsWith(e))) {
-				// eslint-disable-next-line
-				const buffer = fs.readFileSync(id);
-				return {
-					code: `export default ${JSON.stringify(buffer)}`,
-					map: null,
-				};
-			}
-		},
-	};
-}
