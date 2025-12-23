@@ -47,6 +47,10 @@ export default {
 				link: "hsl(var(--theme-link) / <alpha-value>)",
 				quote: "hsl(var(--theme-quote) / <alpha-value>)",
 				textColor: "hsl(var(--theme-text) / <alpha-value>)",
+				surface: "hsl(var(--theme-surface) / <alpha-value>)",
+				"surface-2": "hsl(var(--theme-surface-2) / <alpha-value>)",
+				border: "hsl(var(--theme-border) / <alpha-value>)",
+				muted: "hsl(var(--theme-muted) / <alpha-value>)",
 			},
 			fontFamily: {
 				// Add any custom fonts here

@@ -1,13 +1,19 @@
 {/* Inlined to avoid FOUC. */}
 <script is:inline>
 	const lightModePref = window.matchMedia("(prefers-color-scheme: light)");
+	const USER_PREF_KEY = "theme";
+	const USER_CHOICE_KEY = "theme-user-choice";
+
+	function hasUserChoice() {
+		return typeof localStorage !== "undefined" && localStorage.getItem(USER_CHOICE_KEY) === "true";
+	}
 
 	function getUserPref() {
-		const storedTheme = typeof localStorage !== "undefined" && localStorage.getItem("theme");
+		const storedTheme = typeof localStorage !== "undefined" && localStorage.getItem(USER_PREF_KEY);
 		return storedTheme || (lightModePref.matches ? "light" : "dark");
 	}
 
-	function setTheme(newTheme) {
+	function setTheme(newTheme, isUserChoice = false) {
 		if (newTheme !== "light" && newTheme !== "dark") {
 			return console.warn(
 				`Invalid theme value '${newTheme}' received. Expected 'light' or 'dark'.`,
@@ -24,11 +30,23 @@
 		root.setAttribute("data-theme", newTheme);
 
 		const colorThemeMetaTag = document.querySelector("meta[name='theme-color']");
-		const bgColour = getComputedStyle(document.body).getPropertyValue("--theme-bg");
-		colorThemeMetaTag.setAttribute("content", `hsl(${bgColour})`);
-		if (typeof localStorage !== "undefined") {
-			localStorage.setItem("theme", newTheme);
+		if (colorThemeMetaTag) {
+			const bgColour = getComputedStyle(document.body).getPropertyValue("--theme-bg");
+			colorThemeMetaTag.setAttribute("content", `hsl(${bgColour})`);
 		}
+
+		if (typeof localStorage !== "undefined") {
+			localStorage.setItem(USER_PREF_KEY, newTheme);
+			if (isUserChoice) {
+				localStorage.setItem(USER_CHOICE_KEY, "true");
+			}
+		}
+
+		document.dispatchEvent(
+			new CustomEvent("theme-updated", {
+				detail: { theme: newTheme },
+			}),
+		);
 	}
 
 	// initial setup
@@ -39,9 +57,12 @@
 
 	// listen for theme-change custom event, fired in src/components/ThemeToggle.astro
 	document.addEventListener("theme-change", (e) => {
-		setTheme(e.detail.theme);
+		setTheme(e.detail.theme, true);
 	});
 
-	// listen for prefers-color-scheme change.
-	lightModePref.addEventListener("change", (e) => setTheme(e.matches ? "light" : "dark"));
+	lightModePref.addEventListener("change", (e) => {
+		if (!hasUserChoice()) {
+			setTheme(e.matches ? "light" : "dark");
+		}
+	});
 </script>
