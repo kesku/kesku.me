@@ -1,42 +1,43 @@
 ---
 import { Icon } from "astro-icon/components";
 
-/** 
-	Uses https://www.astroicon.dev/getting-started/
-	Find icons via guide: https://www.astroicon.dev/guides/customization/#open-source-icon-sets
-	Only installed pack is: @iconify-json/mdi
-*/
 const socialLinks: {
 	friendlyName: string;
-	isWebmention?: boolean;
 	link: string;
 	name: string;
 }[] = [
 	{
-		friendlyName: "Github",
-		link: "https://github.com/chrismwilliams/astro-cactus",
+		friendlyName: "GitHub",
+		link: "https://github.com/kesku",
 		name: "mdi:github",
+	},
+	{
+		friendlyName: "Twitter / X",
+		link: "https://x.com/yoimnotkesku",
+		name: "mdi:twitter",
+	},
+	{
+		friendlyName: "Discord",
+		link: "https://discord.gg/perplexity-ai",
+		name: "mdi:discord",
 	},
 ];
 ---
 
-<div class="flex flex-wrap items-end gap-x-2">
-	<p>Find me on</p>
-	<ul class="flex flex-1 items-center gap-x-2 sm:flex-initial">
-		{
-			socialLinks.map(({ friendlyName, isWebmention, link, name }) => (
-				<li class="flex">
-					<a
-						class="inline-block p-1 sm:hover:text-link"
-						href={link}
-						rel={`noopener noreferrer ${isWebmention ? "me authn" : ""}`}
-						target="_blank"
-					>
-						<Icon aria-hidden="true" class="h-6 w-6" focusable="false" name={name} />
-						<span class="sr-only">{friendlyName}</span>
-					</a>
-				</li>
-			))
-		}
-	</ul>
-</div>
+<ul class="flex items-center gap-4">
+	{
+		socialLinks.map(({ friendlyName, link, name }) => (
+			<li>
+				<a
+					class="group flex items-center gap-2 rounded-lg border border-accent/30 bg-accent/5 px-4 py-2 transition-all duration-300 hover:border-accent hover:bg-accent/15"
+					href={link}
+					rel="noopener noreferrer"
+					target="_blank"
+				>
+					<Icon aria-hidden="true" class="h-5 w-5 text-accent transition-transform group-hover:scale-110" focusable="false" name={name} />
+					<span class="text-sm font-medium">{friendlyName}</span>
+				</a>
+			</li>
+		))
+	}
+</ul>
