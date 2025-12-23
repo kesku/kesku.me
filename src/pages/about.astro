@@ -1,64 +1,191 @@
 ---
+import { Icon } from "astro-icon/components";
 import aboutImg from "@/assets/about-kesku.png";
+import aboutImgIsukash from "@/assets/about-kesku-isukash.png";
 import PageLayout from "@/layouts/Base.astro";
 import { Image } from "astro:assets";
 
 const meta = {
-	description: "I'm Kesku, a community-builder, tech enthusiast, and student. Learn more about me and my work.",
+	description:
+		"I'm Kesku, a developer relations engineer and tech enthusiast. Learn more about me and my work!",
 	title: "About Me, Kesku",
 };
+
+const games = [
+	{ name: "Yakuza", link: "https://store.steampowered.com/app/2988580/" },
+	{ name: "Zenless Zone Zero", link: "https://zenless.hoyoverse.com/" },
+	{ name: "Cyberpunk 2077", link: "https://store.steampowered.com/app/1091500/" },
+	{ name: "GTA Online", link: "https://store.steampowered.com/app/3240220/" },
+	{ name: "Minecraft", link: "https://www.minecraft.net/" },
+];
+
+const socials = [
+	{ name: "Twitter", link: "https://x.com/yoimnotkesku", icon: "mdi:twitter" },
+	{ name: "GitHub", link: "https://github.com/kesku", icon: "mdi:github" },
+	{
+		name: "Discord",
+		link: "https://discordapp.com/users/539468067923820546",
+		icon: "mdi:discord",
+		extra: "kesku",
+	},
+	{ name: "Email", link: "mailto:admin@kesku.me", icon: "mdi:email", extra: "admin@kesku.me" },
+];
 ---
 
 <PageLayout meta={meta}>
-	<div class="space-y-6">
-		<h1 class="title">About me, Kesku</h1>
-		<div class="justify-left flex">
-			<Image
-				alt="twitter profile picture of Kesku, art is of Usada Pekora from Hololive by @isukash"
-				fetchpriority="high"
-				loading="eager"
-				src={aboutImg}
-				style={{ width: "200px", height: "auto" }}
-			/>
+	<!-- Header -->
+	<section class="mb-12">
+		<div class="mb-8 flex items-center gap-4">
+			<div class="h-1 w-12 bg-accent"></div>
+			<span class="text-sm font-medium uppercase tracking-widest text-accent">About</span>
 		</div>
-		<sub class="text-center">
-			Art by <a href="https://twitter.com/isukash" target="_blank" rel="noopener noreferrer" style="color: #10a7b2; text-decoration: underline;">@isukash</a>
-		</sub>
 
-		<p>
-			Hey, I’m Kesku — a UK-based student and hobbyist ML Engineer. I’ve spent the last few years helping build and moderate large-scale communities, most notably as a Senior Moderator at the <a href="https://discord.gg/openai" target="_blank" rel="noopener noreferrer" style="color: #10a7b2; text-decoration: underline;">OpenAI Discord</a>, which reached a peak of 3/5 million members! I also previously worked at 2 AI startups over the past 2 years in SWE/AI roles (~1 year of experience in total).
+		<div class="flex flex-col gap-8 sm:flex-row sm:items-start">
+			<div class="group shrink-0">
+				<div class="relative h-[180px] w-[180px] cursor-pointer [perspective:1000px]">
+					<div
+						class="relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
+					>
+						<!-- Front (default image) -->
+						<div class="absolute inset-0 [backface-visibility:hidden]">
+							<Image
+								alt="Profile picture of Kesku"
+								class="h-full w-full rounded-xl border border-gray-800 object-cover"
+								fetchpriority="high"
+								loading="eager"
+								src={aboutImg}
+								width={400}
+								densities={[1, 2]}
+							/>
+						</div>
+						<!-- Back (isukash art) -->
+						<div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
+							<Image
+								alt="Profile picture of Kesku, art is of Usada Pekora from Hololive by @isukash"
+								class="h-full w-full rounded-xl border border-gray-800 object-cover"
+								src={aboutImgIsukash}
+								width={400}
+								densities={[1, 2]}
+							/>
+						</div>
+					</div>
+				</div>
+				<p
+					class="mt-2 text-center text-xs text-gray-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+				>
+					Art by <a
+						href="https://twitter.com/isukash"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-accent transition-all hover:underline hover:underline-offset-2">@isukash</a
+					>
+				</p>
+			</div>
+
+			<div>
+				<p class="mb-4 text-gray-300">
+					UK-based software engineer working @ <a
+						href="https://www.perplexity.ai/"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-accent transition-all hover:underline hover:underline-offset-2"
+						>Perplexity AI</a
+					>. I focus on developer relations — helping devs build cool things, creating technical
+					content, and bridging the gap between product and community.
+				</p>
+				<p class="text-gray-400">
+					Passionate about AI, developer experience, and making complex tech feel approachable.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- What I'm Into -->
+	<section class="mb-12">
+		<div class="mb-6 flex items-center gap-4">
+			<div class="h-1 w-8 bg-accent/50"></div>
+			<h2 class="text-xl font-semibold">What I'm Into</h2>
+		</div>
+
+		<div class="grid gap-6 sm:grid-cols-2">
+			<div class="rounded-xl border border-gray-800 bg-gray-900/30 p-6">
+				<Icon name="mdi:controller" class="mb-3 h-8 w-8 text-accent" />
+				<h3 class="mb-2 font-semibold">Gaming</h3>
+				<p class="mb-4 text-sm text-gray-400">
+					Big fan of <a href="https://store.steampowered.com/app/2988580/" target="_blank" rel="noopener noreferrer" class="text-accent transition-all hover:underline hover:underline-offset-2">Yakuza</a>, <a href="https://zenless.hoyoverse.com/" target="_blank" rel="noopener noreferrer" class="text-accent transition-all hover:underline hover:underline-offset-2">Zenless Zone Zero</a>, <a href="https://store.steampowered.com/app/1091500/" target="_blank" rel="noopener noreferrer" class="text-accent transition-all hover:underline hover:underline-offset-2">Cyberpunk 2077</a>, <a href="https://store.steampowered.com/app/3240220/" target="_blank" rel="noopener noreferrer" class="text-accent transition-all hover:underline hover:underline-offset-2">GTA Online</a>, and <a href="https://www.minecraft.net/" target="_blank" rel="noopener noreferrer" class="text-accent transition-all hover:underline hover:underline-offset-2">Minecraft</a>.
+				</p>
+				<p class="mb-4 text-sm text-gray-400">
+					As a kid, I'd play till late at night, and the game was all I thought about. Now the music hooks sends me back in time, and with VR (Through <a href="https://www.vivecraft.org/" target="_blank" rel="noopener noreferrer" class="text-accent transition-all hover:underline hover:underline-offset-2">Vivecraft</a>), I'm closer to it than ever.
+				</p>
+				<p class="text-sm text-gray-400">
+          BTW: I use a <a href="https://www.meta.com/quest/quest-3/" target="_blank" rel="noopener noreferrer" class="text-accent transition-all hover:underline hover:underline-offset-2">Quest 3</a> and <a href="https://varjo.com/products/varjo-vr-3" target="_blank" rel="noopener noreferrer" class="text-accent transition-all hover:underline hover:underline-offset-2">Varjo VR-3</a> for my VR gaming.
+				</p>
+			</div>
+
+			<div class="rounded-xl border border-gray-800 bg-gray-900/30 p-6">
+				<Icon name="mdi:account-group" class="mb-3 h-8 w-8 text-accent" />
+				<h3 class="mb-2 font-semibold">Community</h3>
+				<p class="mb-4 text-sm text-gray-400">
+					Moderating communities since I was 11, starting on old <a href="https://www.perplexity.ai/search/what-was-the-amino-app-ZfVunsx2Tfe8tdQlK39GoA#0" target="_blank" rel="noopener noreferrer" class="text-accent transition-all hover:underline hover:underline-offset-2">Amino forums</a>.
+				</p>
+				<p class="mb-4 text-sm text-gray-400">
+					Helped manage the <a href="https://discord.gg/openai" target="_blank" rel="noopener noreferrer" class="text-accent transition-all hover:underline hover:underline-offset-2">OpenAI Discord</a> up to its peak of 3.5M members (at one point 2nd biggest on Discord).
+          </p>
+          <p class="text-sm text-gray-400">
+          I love answering questions, building relationships, and creating spaces where people can thrive.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- The Name -->
+	<section class="mb-12">
+		<div class="mb-6 flex items-center gap-4">
+			<div class="h-1 w-8 bg-accent/50"></div>
+			<h2 class="text-xl font-semibold">"Kesku" is an acronym</h2>
+		</div>
+
+		<p class="mb-4 text-gray-300">
+			It stands for <span class="font-semibold text-accent"
+				>Keep Everything Simple, Keep Understanding</span
+			>.
 		</p>
-
-		<p>
-			I'm really passionate about AI, moderation, and digital spaces that feel both human and helpful. I'm also a full-time student (for now), and I try to keep things balanced between work, study, and occasionally touching grass. Or at least touching a controller.
+		<p class="text-gray-400">
+			It's a mindset I try to carry into everything I do: make things understandable, approachable,
+			and clear. Whether it's documentation, APIs, or developer tools — clarity makes all the
+			difference.
 		</p>
+	</section>
 
-		<p>
-			In my spare time, I game a lot. Lifelong Minecraft player (since 2011), big fan of <a href="https://yakuza.sega.com" target="_blank" rel="noopener noreferrer" style="color: #10a7b2; text-decoration: underline;">Yakuza</a>, <a href="https://zzz.hoyoverse.com/en-us/" target="_blank" rel="noopener noreferrer" style="color: #10a7b2; text-decoration: underline;">Zenless Zone Zero</a>, <a href="https://www.cyberpunk.net" target="_blank" rel="noopener noreferrer" style="color: #10a7b2; text-decoration: underline;">Cyberpunk 2077</a>, and GTA Online. I’ve also been known to rewrite moderation guides at 3AM.
-		</p>
+	<!-- Connect -->
+	<section class="mb-12">
+		<div class="mb-6 flex items-center gap-4">
+			<div class="h-1 w-8 bg-accent/50"></div>
+			<h2 class="text-xl font-semibold">Connect</h2>
+		</div>
 
-		<h2 class="title">"Kesku" is an acronym.</h2>
-		<p>It stands for:</p>
-		<ul class="list-inside list-disc">
-			<li style="color: #10a7b2;"><strong>K</strong>eep</li>
-			<li style="color: #10a7b2;"><strong>E</strong>verything</li>
-			<li style="color: #10a7b2;"><strong>S</strong>imple</li>
-			<li style="color: #10a7b2;"><strong>K</strong>eep</li>
-			<li style="color: #10a7b2;"><strong>U</strong>nderstanding</li>
+		<ul class="flex flex-wrap items-center gap-4">
+			{
+				socials.map(({ name, link, icon, extra }) => (
+					<li>
+						<a
+							href={link}
+							target={link.startsWith("mailto:") ? undefined : "_blank"}
+							rel={link.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+							class="group flex items-center gap-2 rounded-lg border border-accent/30 bg-accent/5 px-4 py-2 transition-all duration-300 hover:border-accent hover:bg-accent/15"
+						>
+							<Icon
+								aria-hidden="true"
+								class="h-5 w-5 text-accent transition-transform group-hover:scale-110"
+								focusable="false"
+								name={icon}
+							/>
+							<span class="text-sm font-medium">{name}</span>
+							{extra && <span class="text-xs text-gray-500">({extra})</span>}
+						</a>
+					</li>
+				))
+			}
 		</ul>
-		<p>
-			It’s a mindset I try to carry into everything I do: make things understandable, approachable, and clear. Especially when working in fast-moving, high-stakes communities where clarity makes all the difference.
-		</p>
-
-		<p>
-			You can find me on <a href="https://x.com/yoimnotkesku" target="_blank" rel="noopener noreferrer" style="color: #10a7b2; text-decoration: underline;">Twitter</a>, <a href="https://github.com/kesku" target="_blank" rel="noopener noreferrer" style="color: #10a7b2; text-decoration: underline;">GitHub</a>, and <a href="https://discordapp.com/users/539468067923820546" target="_blank" rel="noopener noreferrer" style="color: #10a7b2; text-decoration: underline;">Discord</a> (<code>kesku</code>). You can also reach me at <a href="mailto:admin@kesku.me" style="color: #10a7b2; text-decoration: underline;">admin@kesku.me</a>.
-		</p>
-
-		<h2 class="title">This blog?</h2>
-		<p>
-			It’s mostly vibes. I ramble about tech, life, and whatever weird project I’ve picked up that week. I’m not trying to be a thought leader. I'm just a guy with a keyboard and way too many browser tabs.
-		</p>
-
-		<p>kes out</p>
-	</div>
+	</section>
 </PageLayout>
