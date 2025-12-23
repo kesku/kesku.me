@@ -7,6 +7,8 @@ export const projectRepos: string[] = [
 	"perplexityai/perplexity-py",
 	"perplexityai/perplexity-node",
 	"kesku/kesku.me",
+	"perplexityai/api-cookbook",
+	"openai/openai-cookbook",
 ];
 
 export const projectOverrides: Record<string, Partial<Project>> = {
@@ -30,5 +32,9 @@ export const projectOverrides: Record<string, Partial<Project>> = {
 	"kesku/kesku.me": {
 		customDescription: "This website you're looking at right now!",
 		featured: true,
+	},
+	"perplexityai/api-cookbook": {
+		customDescription:
+			"A cookbook for the Perplexity API, everything here gets featured on our docs (https://docs.perplexity.ai/docs/api-cookbook)",
 	},
 };
