@@ -7,6 +7,7 @@
 		color-scheme: light dark;
 		accent-color: hsl(var(--theme-accent));
 		scrollbar-gutter: stable;
+		background-color: hsl(var(--theme-bg));
 
 		&[data-theme="light"] {
 			color-scheme: light;
@@ -58,5 +59,19 @@
 	}
 	[data-astro-image="constrained"] {
 		max-width: 100%;
+	}
+
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation-duration: 0.2s;
+		animation-timing-function: ease-in-out;
+	}
+
+	::view-transition-old(root) {
+		z-index: 1;
+	}
+
+	::view-transition-new(root) {
+		z-index: 2;
 	}
 }
