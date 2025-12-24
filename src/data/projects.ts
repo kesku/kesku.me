@@ -13,21 +13,21 @@ export const projectRepos: string[] = [
 
 export const projectOverrides: Record<string, Partial<Project>> = {
 	"perplexityai/modelcontextprotocol": {
-		customDescription: "The official MCP Server for Perplexity's API, which I own and maintain. ",
+		customDescription: "The official MCP Server for Perplexity's API, which I own and maintain",
 		featured: true,
 	},
 	"kesku/Shinpo": {
 		customDescription:
-			"I got bored and made an unofficial client NHK Easy News, it barely works but I had fun making it!",
+			"I got bored and made an unofficial client NHK Easy News, it barely works but I had fun making it",
 	},
 	"texstudio-org/texstudio": {
-		customDescription: "A pretty cool LaTeX editor written in C++.",
+		customDescription: "A pretty cool LaTeX editor written in C++",
 	},
 	"perplexityai/perplexity-py": {
-		customDescription: "The official Python client for Perplexity's API, built with Stainless!",
+		customDescription: "The official Python client for Perplexity's API, built with Stainless",
 	},
 	"perplexityai/perplexity-node": {
-		customDescription: "The official JS/TS client for Perplexity's API, built with Stainless!",
+		customDescription: "The official JS/TS client for Perplexity's API, built with Stainless",
 	},
 	"kesku/kesku.me": {
 		customDescription: "This website you're looking at right now!",
@@ -35,6 +35,6 @@ export const projectOverrides: Record<string, Partial<Project>> = {
 	},
 	"perplexityai/api-cookbook": {
 		customDescription:
-			"A cookbook for the Perplexity API, everything here gets featured on our docs (https://docs.perplexity.ai/docs/api-cookbook)",
+			"A cookbook for the Perplexity API, everything here gets featured on our docs",
 	},
 };
