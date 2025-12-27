@@ -34,6 +34,52 @@ const gamesListHtml = games
 	.join("");
 ---
 
+<style>
+	.attribution-container .attribution-isukash {
+		pointer-events: none;
+	}
+
+	.image-wrapper[data-flipped="true"] .flip-inner {
+		transform: rotateY(180deg);
+	}
+	.image-wrapper[data-flipped="true"] .attribution-container .attribution-romye {
+		opacity: 0;
+		pointer-events: none;
+	}
+	.image-wrapper[data-flipped="true"] .attribution-container .attribution-isukash {
+		opacity: 1;
+		pointer-events: auto;
+	}
+</style>
+
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		const wrapper = document.querySelector(".image-wrapper");
+		const imageContainer = wrapper?.querySelector(".image-container");
+		const attributionContainer = wrapper?.querySelector(".attribution-container");
+
+		if (!wrapper || !imageContainer || !attributionContainer) return;
+
+		let imageHovered = false;
+
+		imageContainer.addEventListener("mouseenter", () => {
+			imageHovered = true;
+			wrapper.setAttribute("data-flipped", "true");
+		});
+
+		wrapper.addEventListener("mouseleave", () => {
+			imageHovered = false;
+			wrapper.removeAttribute("data-flipped");
+		});
+
+		attributionContainer.addEventListener("mouseenter", () => {
+			if (imageHovered) {
+				wrapper.setAttribute("data-flipped", "true");
+			}
+		});
+	});
+</script>
+
 <PageLayout meta={meta}>
 	<section class="mb-12">
 		<div class="mb-8 flex items-center gap-4">
@@ -42,10 +88,12 @@ const gamesListHtml = games
 		</div>
 
 		<div class="flex flex-col gap-8 sm:flex-row sm:items-start">
-			<div class="group shrink-0">
-				<div class="relative h-[180px] w-[180px] cursor-pointer [perspective:1000px]">
+			<div class="image-wrapper shrink-0">
+				<div
+					class="image-container relative h-[180px] w-[180px] cursor-pointer [perspective:1000px]"
+				>
 					<div
-						class="relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
+						class="flip-inner relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d]"
 					>
 						<div class="absolute inset-0 [backface-visibility:hidden]">
 							<Image
@@ -69,9 +117,9 @@ const gamesListHtml = games
 						</div>
 					</div>
 				</div>
-				<div class="relative mt-2">
+				<div class="attribution-container relative mt-2">
 					<p
-						class="text-center text-xs text-muted opacity-100 transition-opacity duration-300 group-hover:opacity-0"
+						class="attribution-romye text-center text-xs text-muted opacity-100 transition-opacity duration-300"
 					>
 						Art by <a
 							href="https://x.com/romye_99"
@@ -82,7 +130,7 @@ const gamesListHtml = games
 						>
 					</p>
 					<p
-						class="absolute inset-x-0 top-0 text-center text-xs text-muted opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+						class="attribution-isukash absolute inset-x-0 top-0 text-center text-xs text-muted opacity-0 transition-opacity duration-300"
 					>
 						Art by <a
 							href="https://twitter.com/isukash"
