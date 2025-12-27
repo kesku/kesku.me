@@ -52,34 +52,56 @@ const gamesListHtml = games
 	}
 </style>
 
-<script>
-	function initImageHover() {
-		const wrapper = document.querySelector(".image-wrapper");
-		const imageContainer = wrapper?.querySelector(".image-container");
-		const attributionContainer = wrapper?.querySelector(".attribution-container");
-
-		if (!wrapper || !imageContainer || !attributionContainer) return;
-
+<script is:inline>
+	(function () {
 		let imageHovered = false;
+		let handlers = {};
 
-		imageContainer.addEventListener("mouseenter", () => {
-			imageHovered = true;
-			wrapper.setAttribute("data-flipped", "true");
-		});
+		function initImageHover() {
+			const wrapper = document.querySelector(".image-wrapper");
+			const imageContainer = wrapper?.querySelector(".image-container");
+			const attributionContainer = wrapper?.querySelector(".attribution-container");
 
-		wrapper.addEventListener("mouseleave", () => {
+			if (!wrapper || !imageContainer || !attributionContainer) return;
+
+			if (handlers.imageEnter) {
+				imageContainer.removeEventListener("mouseenter", handlers.imageEnter);
+				wrapper.removeEventListener("mouseleave", handlers.wrapperLeave);
+				attributionContainer.removeEventListener("mouseenter", handlers.attrEnter);
+			}
+
 			imageHovered = false;
 			wrapper.removeAttribute("data-flipped");
-		});
 
-		attributionContainer.addEventListener("mouseenter", () => {
-			if (imageHovered) {
+			handlers.imageEnter = () => {
+				imageHovered = true;
 				wrapper.setAttribute("data-flipped", "true");
-			}
-		});
-	}
-	initImageHover();
-	document.addEventListener("astro:page-load", initImageHover);
+			};
+
+			handlers.wrapperLeave = () => {
+				imageHovered = false;
+				wrapper.removeAttribute("data-flipped");
+			};
+
+			handlers.attrEnter = () => {
+				if (imageHovered) {
+					wrapper.setAttribute("data-flipped", "true");
+				}
+			};
+
+			imageContainer.addEventListener("mouseenter", handlers.imageEnter);
+			wrapper.addEventListener("mouseleave", handlers.wrapperLeave);
+			attributionContainer.addEventListener("mouseenter", handlers.attrEnter);
+		}
+
+		if (document.readyState === "loading") {
+			document.addEventListener("DOMContentLoaded", initImageHover);
+		} else {
+			initImageHover();
+		}
+
+		document.addEventListener("astro:page-load", initImageHover);
+	})();
 </script>
 
 <PageLayout meta={meta}>
