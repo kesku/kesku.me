@@ -52,17 +52,26 @@ const gamesListHtml = games
 	}
 </style>
 
-<script is:inline>
+<script is:inline data-cfasync="false" data-pagespeed-no-defer>
 	(function () {
+		"use strict";
 		let imageHovered = false;
 		let handlers = {};
+		let initAttempts = 0;
+		const MAX_ATTEMPTS = 10;
 
 		function initImageHover() {
+			initAttempts++;
 			const wrapper = document.querySelector(".image-wrapper");
 			const imageContainer = wrapper?.querySelector(".image-container");
 			const attributionContainer = wrapper?.querySelector(".attribution-container");
 
-			if (!wrapper || !imageContainer || !attributionContainer) return;
+			if (!wrapper || !imageContainer || !attributionContainer) {
+				if (initAttempts < MAX_ATTEMPTS && document.readyState !== "complete") {
+					setTimeout(initImageHover, 100);
+				}
+				return;
+			}
 
 			if (handlers.imageEnter) {
 				imageContainer.removeEventListener("mouseenter", handlers.imageEnter);
@@ -72,18 +81,19 @@ const gamesListHtml = games
 
 			imageHovered = false;
 			wrapper.removeAttribute("data-flipped");
+			initAttempts = 0;
 
-			handlers.imageEnter = () => {
+			handlers.imageEnter = function () {
 				imageHovered = true;
 				wrapper.setAttribute("data-flipped", "true");
 			};
 
-			handlers.wrapperLeave = () => {
+			handlers.wrapperLeave = function () {
 				imageHovered = false;
 				wrapper.removeAttribute("data-flipped");
 			};
 
-			handlers.attrEnter = () => {
+			handlers.attrEnter = function () {
 				if (imageHovered) {
 					wrapper.setAttribute("data-flipped", "true");
 				}
@@ -94,13 +104,32 @@ const gamesListHtml = games
 			attributionContainer.addEventListener("mouseenter", handlers.attrEnter);
 		}
 
-		if (document.readyState === "loading") {
-			document.addEventListener("DOMContentLoaded", initImageHover);
-		} else {
-			initImageHover();
+		function setup() {
+			if (typeof document === "undefined") return;
+
+			if (document.readyState === "loading") {
+				document.addEventListener("DOMContentLoaded", function () {
+					setTimeout(initImageHover, 0);
+				});
+			} else if (document.readyState === "interactive" || document.readyState === "complete") {
+				setTimeout(initImageHover, 0);
+			} else {
+				setTimeout(initImageHover, 100);
+			}
 		}
 
-		document.addEventListener("astro:page-load", initImageHover);
+		setup();
+
+		if (typeof document !== "undefined") {
+			document.addEventListener("astro:page-load", function () {
+				initAttempts = 0;
+				setTimeout(initImageHover, 0);
+			});
+			document.addEventListener("astro:after-swap", function () {
+				initAttempts = 0;
+				setTimeout(initImageHover, 0);
+			});
+		}
 	})();
 </script>
 
