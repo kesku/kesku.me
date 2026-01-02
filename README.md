@@ -16,3 +16,5 @@ See [`docs/DEPLOYMENT.md`](./docs/DEPLOYMENT.md) for complete setup instructions
 - Cloudflare Tunnel for ingress
 
 **Rollback:** DNS can be switched back to Cloudflare Pages instantly (no repo changes needed).
+
+# Test deploy
