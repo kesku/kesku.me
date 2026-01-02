@@ -27,7 +27,9 @@ jobs:
         run: pnpm install
 
       - name: Build site
-        run: pnpm build
+        run: |
+          export NODE_OPTIONS="--max-old-space-size=384"
+          pnpm build
 
       - name: Deploy to web root
         run: |
