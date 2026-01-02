@@ -8,8 +8,6 @@
 		"dev": "astro dev",
 		"start": "astro dev",
 		"build": "astro check && astro build",
-		"build:ci": "astro build",
-		"build:quiet": "NODE_OPTIONS='--no-deprecation' astro check && NODE_OPTIONS='--no-deprecation' astro build",
 		"preview": "astro preview",
 		"format": "prettier -w --cache . && prettier -w --cache **/*.astro",
 		"check": "astro check",

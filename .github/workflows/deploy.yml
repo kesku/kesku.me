@@ -1,0 +1,49 @@
+name: Deploy to Homelab
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build site
+        run: pnpm build
+
+      - name: Deploy to web root
+        run: |
+          rsync -av --delete dist/ /var/www/html/
+
+      - name: Reload Nginx
+        run: |
+          sudo systemctl reload nginx
+
+      - name: Verify deployment
+        run: |
+          if [ -f /var/www/html/index.html ]; then
+            echo "✅ Deployment successful"
+            echo "Files deployed: $(find /var/www/html -type f | wc -l)"
+          else
+            echo "❌ Deployment failed: index.html not found"
+            exit 1
+          fi
+
