@@ -15,6 +15,7 @@ export interface GitHubRepo {
 
 export interface Project extends GitHubRepo {
 	customDescription?: string;
+	customName?: string;
 	featured?: boolean;
 }
 
@@ -77,6 +78,7 @@ export function mergeProjectData(
 		const override = overrides[repo.full_name] || overrides[repo.name] || {};
 		return {
 			...repo,
+			name: override.customName || repo.name,
 			description: override.customDescription || repo.description || "",
 			featured: override.featured ?? false,
 		};

@@ -9,6 +9,8 @@ export const projectRepos: string[] = [
 	"kesku/kesku.me",
 	"perplexityai/api-cookbook",
 	"openai/openai-cookbook",
+	"vercel/ai",
+	"langchain-ai/langchain",
 ];
 
 export const projectOverrides: Record<string, Partial<Project>> = {
@@ -36,5 +38,13 @@ export const projectOverrides: Record<string, Partial<Project>> = {
 	"perplexityai/api-cookbook": {
 		customDescription:
 			"A cookbook for the Perplexity API, everything here gets featured on our docs",
+	},
+	"vercel/ai": {
+		customName: "vercel/ai",
+		customDescription: "The official AI SDK by Vercel for TypeScript",
+	},
+	"langchain-ai/langchain": {
+		customName: "langchain-ai/langchain",
+		customDescription: "A cool framework for building agents",
 	},
 };
