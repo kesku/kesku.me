@@ -14,37 +14,37 @@ export const projectRepos: string[] = [
 ];
 
 export const projectOverrides: Record<string, Partial<Project>> = {
-	"perplexityai/modelcontextprotocol": {
-		customDescription: "The official MCP Server for Perplexity's API, which I own and maintain",
+	"kesku/kesku.me": {
+		customDescription: "This website you're looking at right now!",
 		featured: true,
 	},
 	"kesku/Shinpo": {
 		customDescription:
 			"I got bored and made an unofficial client NHK Easy News, it barely works but I had fun making it",
 	},
-	"texstudio-org/texstudio": {
-		customDescription: "A pretty cool LaTeX editor written in C++",
-	},
-	"perplexityai/perplexity-py": {
-		customDescription: "The official Python client for Perplexity's API, built with Stainless",
-	},
-	"perplexityai/perplexity-node": {
-		customDescription: "The official JS/TS client for Perplexity's API, built with Stainless",
-	},
-	"kesku/kesku.me": {
-		customDescription: "This website you're looking at right now!",
-		featured: true,
+	"langchain-ai/langchain": {
+		customDescription: "A cool framework for building agents",
+		customName: "langchain-ai/langchain",
 	},
 	"perplexityai/api-cookbook": {
 		customDescription:
 			"A cookbook for the Perplexity API, everything here gets featured on our docs",
 	},
-	"vercel/ai": {
-		customName: "vercel/ai",
-		customDescription: "The official AI SDK by Vercel for TypeScript",
+	"perplexityai/modelcontextprotocol": {
+		customDescription: "The official MCP Server for Perplexity's API, which I own and maintain",
+		featured: true,
 	},
-	"langchain-ai/langchain": {
-		customName: "langchain-ai/langchain",
-		customDescription: "A cool framework for building agents",
+	"perplexityai/perplexity-node": {
+		customDescription: "The official JS/TS client for Perplexity's API, built with Stainless",
+	},
+	"perplexityai/perplexity-py": {
+		customDescription: "The official Python client for Perplexity's API, built with Stainless",
+	},
+	"texstudio-org/texstudio": {
+		customDescription: "A pretty cool LaTeX editor written in C++",
+	},
+	"vercel/ai": {
+		customDescription: "The official AI SDK by Vercel for TypeScript",
+		customName: "vercel/ai",
 	},
 };

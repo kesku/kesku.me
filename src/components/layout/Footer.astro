@@ -12,7 +12,7 @@ const year = new Date().getFullYear();
 		{year}
 	</div>
 	<nav aria-labelledby="footer_links" class="flex gap-x-2 sm:gap-x-0 sm:divide-x sm:divide-muted">
-		<p id="footer_links" class="sr-only">More on this site</p>
+		<p class="sr-only" id="footer_links">More on this site</p>
 		{
 			menuLinks.map((link) => (
 				<a class="px-4 py-2 sm:py-0 sm:hover:text-textColor sm:hover:underline" href={link.path}>

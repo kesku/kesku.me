@@ -1,16 +1,16 @@
 export interface GitHubRepo {
-	name: string;
-	full_name: string;
-	description: string | null;
-	html_url: string;
-	homepage: string | null;
-	language: string | null;
-	stargazers_count: number;
-	forks_count: number;
-	updated_at: string;
-	topics: string[];
 	archived: boolean;
+	description: null | string;
 	fork: boolean;
+	forks_count: number;
+	full_name: string;
+	homepage: null | string;
+	html_url: string;
+	language: null | string;
+	name: string;
+	stargazers_count: number;
+	topics: string[];
+	updated_at: string;
 }
 
 export interface Project extends GitHubRepo {
@@ -34,7 +34,7 @@ export async function fetchRepo(owner: string, repo: string): Promise<GitHubRepo
 				headers: { ...baseHeaders, Authorization: `token ${token}` },
 			});
 
-			if (response.ok) return await response.json();
+			if (response.ok) return (await response.json()) as GitHubRepo;
 			if (response.status !== 403) return null;
 		} catch {
 			return null;
@@ -46,7 +46,7 @@ export async function fetchRepo(owner: string, repo: string): Promise<GitHubRepo
 			headers: baseHeaders,
 		});
 		if (!response.ok) return null;
-		return await response.json();
+		return (await response.json()) as GitHubRepo;
 	} catch {
 		return null;
 	}
@@ -63,26 +63,26 @@ export async function fetchRepos(repoNames: string[]): Promise<GitHubRepo[]> {
 	return repos.filter((repo): repo is GitHubRepo => repo !== null);
 }
 
-export function normalizeRepoName(repoName: string, defaultOwner: string = "kesku"): string {
+export function mergeProjectData(
+	repos: GitHubRepo[],
+	overrides: Partial<Record<string, Partial<Project>>>,
+): Project[] {
+	return repos.map((repo) => {
+		const override = overrides[repo.full_name] ?? overrides[repo.name] ?? {};
+		return {
+			...repo,
+			description: override.customDescription ?? repo.description ?? "",
+			featured: override.featured ?? false,
+			name: override.customName ?? repo.name,
+		};
+	});
+}
+
+export function normalizeRepoName(repoName: string, defaultOwner = "kesku"): string {
 	if (repoName.includes("/")) {
 		return repoName;
 	}
 	return `${defaultOwner}/${repoName}`;
-}
-
-export function mergeProjectData(
-	repos: GitHubRepo[],
-	overrides: Record<string, Partial<Project>>,
-): Project[] {
-	return repos.map((repo) => {
-		const override = overrides[repo.full_name] || overrides[repo.name] || {};
-		return {
-			...repo,
-			name: override.customName || repo.name,
-			description: override.customDescription || repo.description || "",
-			featured: override.featured ?? false,
-		};
-	});
 }
 
 export function sortProjects(projects: Project[]): Project[] {

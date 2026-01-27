@@ -1,9 +1,10 @@
 ---
 import { Icon } from "astro-icon/components";
-import aboutImg from "@/assets/about-kesku.png";
-import aboutImgIsukash from "@/assets/about-kesku-isukash.png";
-import PageLayout from "@/layouts/Base.astro";
 import { Image } from "astro:assets";
+
+import aboutImgIsukash from "@/assets/about-kesku-isukash.png";
+import aboutImg from "@/assets/about-kesku.png";
+import PageLayout from "@/layouts/Base.astro";
 
 const meta = {
 	description:
@@ -12,18 +13,18 @@ const meta = {
 };
 
 const games = [
-	{ name: "Yakuza", link: "https://store.steampowered.com/app/2988580/" },
-	{ name: "Zenless Zone Zero", link: "https://zenless.hoyoverse.com/" },
-	{ name: "Cyberpunk 2077", link: "https://store.steampowered.com/app/1091500/" },
-	{ name: "GTA Online", link: "https://store.steampowered.com/app/3240220/" },
-	{ name: "Minecraft", link: "https://www.minecraft.net/" },
+	{ link: "https://store.steampowered.com/app/2988580/", name: "Yakuza" },
+	{ link: "https://zenless.hoyoverse.com/", name: "Zenless Zone Zero" },
+	{ link: "https://store.steampowered.com/app/1091500/", name: "Cyberpunk 2077" },
+	{ link: "https://store.steampowered.com/app/3240220/", name: "GTA Online" },
+	{ link: "https://www.minecraft.net/", name: "Minecraft" },
 ];
 
 const socials = [
-	{ name: "GitHub", link: "https://github.com/kesku", icon: "mdi:github" },
-	{ name: "Twitter", link: "https://x.com/yoimnotkesku", icon: "mdi:twitter" },
-	{ name: "Discord", link: "https://discordapp.com/users/539468067923820546", icon: "mdi:discord" },
-	{ name: "Email", link: "mailto:admin@kesku.me", icon: "mdi:email", extra: "admin@kesku.me" },
+	{ icon: "mdi:github", link: "https://github.com/kesku", name: "GitHub" },
+	{ icon: "mdi:twitter", link: "https://x.com/yoimnotkesku", name: "Twitter" },
+	{ icon: "mdi:discord", link: "https://discordapp.com/users/539468067923820546", name: "Discord" },
+	{ extra: "admin@kesku.me", icon: "mdi:email", link: "mailto:admin@kesku.me", name: "Email" },
 ];
 
 const gamesListHtml = games
@@ -52,7 +53,7 @@ const gamesListHtml = games
 	}
 </style>
 
-<script is:inline data-cfasync="false" data-pagespeed-no-defer>
+<script data-cfasync="false" data-pagespeed-no-defer is:inline>
 	(function () {
 		"use strict";
 		let imageHovered = false;
@@ -152,20 +153,20 @@ const gamesListHtml = games
 							<Image
 								alt="Profile picture of Kesku"
 								class="h-full w-full rounded-xl border border-border object-cover"
+								densities={[1, 2]}
 								fetchpriority="high"
 								loading="eager"
 								src={aboutImg}
 								width={400}
-								densities={[1, 2]}
 							/>
 						</div>
 						<div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
 							<Image
 								alt="Profile picture of Kesku, art is of Usada Pekora from Hololive by @isukash"
 								class="h-full w-full rounded-xl border border-border object-cover"
+								densities={[1, 2]}
 								src={aboutImgIsukash}
 								width={400}
-								densities={[1, 2]}
 							/>
 						</div>
 					</div>
@@ -175,22 +176,20 @@ const gamesListHtml = games
 						class="attribution-romye text-center text-xs text-muted opacity-100 transition-opacity duration-300"
 					>
 						Art by <a
-							href="https://x.com/romye_99"
-							target="_blank"
-							rel="noopener noreferrer"
 							class="text-accent transition-all hover:underline hover:underline-offset-2"
-							>@romye_99</a
+							href="https://x.com/romye_99"
+							rel="noopener noreferrer"
+							target="_blank">@romye_99</a
 						>
 					</p>
 					<p
 						class="attribution-isukash absolute inset-x-0 top-0 text-center text-xs text-muted opacity-0 transition-opacity duration-300"
 					>
 						Art by <a
-							href="https://twitter.com/isukash"
-							target="_blank"
-							rel="noopener noreferrer"
 							class="text-accent transition-all hover:underline hover:underline-offset-2"
-							>@isukash</a
+							href="https://twitter.com/isukash"
+							rel="noopener noreferrer"
+							target="_blank">@isukash</a
 						>
 					</p>
 				</div>
@@ -199,11 +198,10 @@ const gamesListHtml = games
 			<div>
 				<p class="mb-4 text-textColor">
 					UK-based software engineer working @ <a
-						href="https://www.perplexity.ai/"
-						target="_blank"
-						rel="noopener noreferrer"
 						class="text-accent transition-all hover:underline hover:underline-offset-2"
-						>Perplexity AI</a
+						href="https://www.perplexity.ai/"
+						rel="noopener noreferrer"
+						target="_blank">Perplexity AI</a
 					>. I focus on developer relations — helping devs build cool things, creating technical
 					content, and bridging the gap between product and community.
 				</p>
@@ -222,53 +220,50 @@ const gamesListHtml = games
 
 		<div class="grid gap-6 sm:grid-cols-2">
 			<div class="rounded-xl border border-border bg-surface/30 p-6">
-				<Icon name="mdi:controller" class="mb-3 h-8 w-8 text-accent" />
+				<Icon class="mb-3 h-8 w-8 text-accent" name="mdi:controller" />
 				<h3 class="mb-2 font-semibold">Gaming</h3>
 				<p class="mb-4 text-sm text-muted" set:html={`Big fan of ${gamesListHtml}.`} />
 				<p class="mb-4 text-sm text-muted">
 					As a kid, I'd play till late at night, and the game was all I thought about. Now the music
 					hooks sends me back in time, and with VR (Through <a
+						class="text-accent transition-all hover:underline hover:underline-offset-2"
 						href="https://www.vivecraft.org/"
-						target="_blank"
 						rel="noopener noreferrer"
-						class="text-accent transition-all hover:underline hover:underline-offset-2">Vivecraft</a
+						target="_blank">Vivecraft</a
 					>), I'm closer to it than ever.
 				</p>
 				<p class="text-sm text-muted">
 					BTW: I use a <a
-						href="https://www.meta.com/quest/quest-3/"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-accent transition-all hover:underline hover:underline-offset-2">Quest 3</a
-					> and <a
-						href="https://varjo.com/products/varjo-vr-3"
-						target="_blank"
-						rel="noopener noreferrer"
 						class="text-accent transition-all hover:underline hover:underline-offset-2"
-						>Varjo VR-3</a
+						href="https://www.meta.com/quest/quest-3/"
+						rel="noopener noreferrer"
+						target="_blank">Quest 3</a
+					> and <a
+						class="text-accent transition-all hover:underline hover:underline-offset-2"
+						href="https://varjo.com/products/varjo-vr-3"
+						rel="noopener noreferrer"
+						target="_blank">Varjo VR-3</a
 					> for my VR gaming.
 				</p>
 			</div>
 
 			<div class="rounded-xl border border-border bg-surface/30 p-6">
-				<Icon name="mdi:account-group" class="mb-3 h-8 w-8 text-accent" />
+				<Icon class="mb-3 h-8 w-8 text-accent" name="mdi:account-group" />
 				<h3 class="mb-2 font-semibold">Community</h3>
 				<p class="mb-4 text-sm text-muted">
 					Moderating communities since I was 11, starting on old <a
-						href="https://www.perplexity.ai/search/what-was-the-amino-app-ZfVunsx2Tfe8tdQlK39GoA#0"
-						target="_blank"
-						rel="noopener noreferrer"
 						class="text-accent transition-all hover:underline hover:underline-offset-2"
-						>Amino forums</a
+						href="https://www.perplexity.ai/search/what-was-the-amino-app-ZfVunsx2Tfe8tdQlK39GoA#0"
+						rel="noopener noreferrer"
+						target="_blank">Amino forums</a
 					>.
 				</p>
 				<p class="mb-4 text-sm text-muted">
 					Helped manage the <a
-						href="https://discord.gg/openai"
-						target="_blank"
-						rel="noopener noreferrer"
 						class="text-accent transition-all hover:underline hover:underline-offset-2"
-						>OpenAI Discord</a
+						href="https://discord.gg/openai"
+						rel="noopener noreferrer"
+						target="_blank">OpenAI Discord</a
 					> up to its peak of 3.5M members (at one point 2nd biggest on Discord).
 				</p>
 				<p class="text-sm text-muted">
@@ -305,13 +300,13 @@ const gamesListHtml = games
 
 		<ul class="flex flex-wrap items-center gap-4">
 			{
-				socials.map(({ name, link, icon, extra }) => (
+				socials.map(({ extra, icon, link, name }) => (
 					<li>
 						<a
-							href={link}
-							target={link.startsWith("mailto:") ? undefined : "_blank"}
-							rel={link.startsWith("mailto:") ? undefined : "noopener noreferrer"}
 							class="group flex items-center gap-2 rounded-lg border border-accent/30 bg-accent/5 px-4 py-2 transition-all duration-300 hover:border-accent hover:bg-accent/15"
+							href={link}
+							rel={link.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+							target={link.startsWith("mailto:") ? undefined : "_blank"}
 						>
 							<Icon
 								aria-hidden="true"

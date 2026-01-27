@@ -23,7 +23,7 @@ const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url
 {
 	import.meta.env.PROD && (
 		<>
-			<link rel="icon" href="/favicon.ico" sizes="any" />
+			<link href="/favicon.ico" rel="icon" sizes="any" />
 			<link href="/apple-touch-icon.png" rel="apple-touch-icon" />
 			<link href="/manifest.webmanifest" rel="manifest" />
 		</>

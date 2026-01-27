@@ -44,13 +44,13 @@ export default {
 				accent: "hsl(var(--theme-accent) / <alpha-value>)",
 				"accent-2": "hsl(var(--theme-accent-2) / <alpha-value>)",
 				bgColor: "hsl(var(--theme-bg) / <alpha-value>)",
+				border: "hsl(var(--theme-border) / <alpha-value>)",
 				link: "hsl(var(--theme-link) / <alpha-value>)",
+				muted: "hsl(var(--theme-muted) / <alpha-value>)",
 				quote: "hsl(var(--theme-quote) / <alpha-value>)",
-				textColor: "hsl(var(--theme-text) / <alpha-value>)",
 				surface: "hsl(var(--theme-surface) / <alpha-value>)",
 				"surface-2": "hsl(var(--theme-surface-2) / <alpha-value>)",
-				border: "hsl(var(--theme-border) / <alpha-value>)",
-				muted: "hsl(var(--theme-muted) / <alpha-value>)",
+				textColor: "hsl(var(--theme-text) / <alpha-value>)",
 			},
 			fontFamily: {
 				// Add any custom fonts here
@@ -63,7 +63,21 @@ export default {
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-expect-error
 			// Remove above once tailwindcss exposes theme type
+			/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 			typography: (theme) => ({
+				cactus: {
+					css: {
+						"--tw-prose-body": theme("colors.textColor / 1"),
+						"--tw-prose-bold": theme("colors.textColor / 1"),
+						"--tw-prose-bullets": theme("colors.textColor / 1"),
+						"--tw-prose-code": theme("colors.textColor / 1"),
+						"--tw-prose-headings": theme("colors.accent-2 / 1"),
+						"--tw-prose-hr": "0.5px dashed #666",
+						"--tw-prose-links": theme("colors.textColor / 1"),
+						"--tw-prose-quotes": theme("colors.quote / 1"),
+						"--tw-prose-th-borders": "#666",
+					},
+				},
 				DEFAULT: {
 					css: {
 						a: {
@@ -112,19 +126,6 @@ export default {
 						},
 					},
 				},
-				cactus: {
-					css: {
-						"--tw-prose-body": theme("colors.textColor / 1"),
-						"--tw-prose-bold": theme("colors.textColor / 1"),
-						"--tw-prose-bullets": theme("colors.textColor / 1"),
-						"--tw-prose-code": theme("colors.textColor / 1"),
-						"--tw-prose-headings": theme("colors.accent-2 / 1"),
-						"--tw-prose-hr": "0.5px dashed #666",
-						"--tw-prose-links": theme("colors.textColor / 1"),
-						"--tw-prose-quotes": theme("colors.quote / 1"),
-						"--tw-prose-th-borders": "#666",
-					},
-				},
 				sm: {
 					css: {
 						code: {
@@ -134,6 +135,7 @@ export default {
 					},
 				},
 			}),
+			/* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 		},
 	},
 } satisfies Config;
