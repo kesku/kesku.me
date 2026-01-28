@@ -11,6 +11,8 @@
 		"preview": "astro preview",
 		"format": "prettier -w --cache . && prettier -w --cache **/*.astro",
 		"check": "astro check",
+		"lint": "eslint . --ext .js,.cjs,.mjs,.ts,.tsx,.astro,.md",
+		"lint:fix": "pnpm lint --fix",
 		"prepare": "husky"
 	},
 	"lint-staged": {
@@ -51,6 +53,7 @@
 		"eslint-plugin-import": "^2.29.1",
 		"eslint-plugin-jsx-a11y": "^6.8.0",
 		"eslint-plugin-markdown": "^4.0.1",
+		"eslint-plugin-perfectionist": "^5.4.0",
 		"eslint-plugin-regexp": "^2.5.0",
 		"eslint-plugin-typescript-sort-keys": "^3.2.0",
 		"husky": "^9.1.7",

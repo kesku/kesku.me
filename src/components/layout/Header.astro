@@ -1,7 +1,8 @@
 ---
 import { Image } from "astro:assets";
-import { menuLinks } from "@/site-config";
+
 import logo from "@/assets/logo.png";
+import { menuLinks } from "@/site-config";
 
 import ThemeToggle from "../ThemeToggle.astro";
 
@@ -9,7 +10,7 @@ const url = new URL(Astro.request.url);
 ---
 
 <header class="group relative mb-28 flex items-center" id="main-header">
-	<Image src={logo} alt="Call Me Kes!" width={80} class="max-w-[5rem] pr-3" />
+	<Image alt="Call Me Kes!" class="max-w-[5rem] pr-3" src={logo} width={80} />
 	<div class="flex sm:flex-col">
 		<a
 			aria-current={url.pathname === "/" ? "page" : false}

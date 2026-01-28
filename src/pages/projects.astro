@@ -1,9 +1,9 @@
 ---
 import { Icon } from "astro-icon/components";
-import PageLayout from "@/layouts/Base.astro";
-import { fetchRepos, mergeProjectData, sortProjects, normalizeRepoName } from "@/utils/github";
+
 import { projectOverrides, projectRepos } from "@/data/projects";
-import type { Project } from "@/utils/github";
+import PageLayout from "@/layouts/Base.astro";
+import { fetchRepos, mergeProjectData, normalizeRepoName, sortProjects } from "@/utils/github";
 
 const meta = {
 	description: "Check out my projects and open source contributions on GitHub",
@@ -18,24 +18,24 @@ const projects = sortProjects(mergedProjects);
 function formatDate(dateString: string): string {
 	const date = new Date(dateString);
 	return date.toLocaleDateString("en-GB", {
-		year: "numeric",
-		month: "short",
 		day: "numeric",
+		month: "short",
+		year: "numeric",
 	});
 }
 
-function getLanguageColor(language: string | null): string {
+function getLanguageColor(language: null | string): string {
 	if (!language) return "hsl(var(--theme-muted))";
 
 	const colors: Record<string, string> = {
-		TypeScript: "#3178c6",
+		CSS: "#1572b6",
+		Go: "#00add8",
+		HTML: "#e34c26",
 		JavaScript: "#f7df1e",
 		Python: "#3776ab",
 		Rust: "#ce412b",
-		Go: "#00add8",
-		HTML: "#e34c26",
-		CSS: "#1572b6",
 		Shell: "#89e051",
+		TypeScript: "#3178c6",
 	};
 
 	return colors[language] || "hsl(var(--theme-accent))";
@@ -68,10 +68,10 @@ function getLanguageColor(language: string | null): string {
 					{projects.map((project) => (
 						<li>
 							<a
-								href={project.html_url}
-								target="_blank"
-								rel="noopener noreferrer"
 								class="group block rounded-xl border border-border bg-surface/30 p-6 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50"
+								href={project.html_url}
+								rel="noopener noreferrer"
+								target="_blank"
 							>
 								<div class="mb-3 flex items-start justify-between gap-4">
 									<div class="flex-1">
@@ -86,8 +86,8 @@ function getLanguageColor(language: string | null): string {
 										{project.description && <p class="mb-3 text-muted">{project.description}</p>}
 									</div>
 									<Icon
-										name="mdi:arrow-top-right"
 										class="h-5 w-5 shrink-0 text-muted transition-colors group-hover:text-accent"
+										name="mdi:arrow-top-right"
 									/>
 								</div>
 
@@ -104,14 +104,14 @@ function getLanguageColor(language: string | null): string {
 
 									{project.stargazers_count > 0 && (
 										<div class="flex items-center gap-1 text-muted">
-											<Icon name="mdi:star" class="h-4 w-4" />
+											<Icon class="h-4 w-4" name="mdi:star" />
 											<span>{project.stargazers_count}</span>
 										</div>
 									)}
 
 									{project.forks_count > 0 && (
 										<div class="flex items-center gap-1 text-muted">
-											<Icon name="mdi:source-fork" class="h-4 w-4" />
+											<Icon class="h-4 w-4" name="mdi:source-fork" />
 											<span>{project.forks_count}</span>
 										</div>
 									)}
@@ -138,10 +138,10 @@ function getLanguageColor(language: string | null): string {
 					))}
 					<li>
 						<a
-							href="https://x.com/yoimnotkesku"
-							target="_blank"
-							rel="noopener noreferrer"
 							class="group block rounded-xl border border-border bg-surface/30 p-6 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50"
+							href="https://x.com/yoimnotkesku"
+							rel="noopener noreferrer"
+							target="_blank"
 						>
 							<div class="mb-3 flex items-start justify-between gap-4">
 								<div class="flex-1">
@@ -154,8 +154,8 @@ function getLanguageColor(language: string | null): string {
 									</p>
 								</div>
 								<Icon
-									name="mdi:arrow-top-right"
 									class="h-5 w-5 shrink-0 text-muted transition-colors group-hover:text-accent"
+									name="mdi:arrow-top-right"
 								/>
 							</div>
 						</a>

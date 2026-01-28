@@ -10,7 +10,7 @@ module.exports = {
 		"plugin:@typescript-eslint/recommended",
 		"plugin:astro/recommended",
 		"plugin:astro/jsx-a11y-recommended",
-		"plugin:perfectionist/recommended-natural",
+		"plugin:perfectionist/recommended-natural-legacy",
 		"plugin:regexp/recommended",
 		"plugin:typescript-sort-keys/recommended",
 		"plugin:deprecation/recommended",
