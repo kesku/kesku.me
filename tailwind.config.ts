@@ -60,11 +60,8 @@ export default {
 			transitionProperty: {
 				height: "height",
 			},
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-expect-error
-			// Remove above once tailwindcss exposes theme type
 			/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
-			typography: (theme) => ({
+			typography: (theme: any) => ({
 				cactus: {
 					css: {
 						"--tw-prose-body": theme("colors.textColor / 1"),
