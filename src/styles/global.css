@@ -18,32 +18,49 @@
 		}
 	}
 
+	/* Light mode — warm off-white, not cold grey */
 	:root,
 	:root[data-theme="light"] {
 		/* https://tailwindcss.com/docs/customizing-colors#using-css-variables */
-		--theme-bg: 0 0% 96%;
+		/* Warm off-white background (slight warm tint) */
+		--theme-bg: 36 20% 96%;
 		--theme-link: 208 100% 42%;
 		--theme-text: 210 15% 20%;
+		/* Keep the teal accent — it's Kesku's identity */
 		--theme-accent: 184 90% 35%;
 		--theme-accent-2: 0 0% 25%;
 		--theme-quote: 50 100% 80%;
-		--theme-surface: 0 0% 100%;
-		--theme-surface-2: 0 0% 92%;
-		--theme-border: 0 0% 80%;
+		/* Warm white surface */
+		--theme-surface: 36 25% 99%;
+		/* Slightly warmer secondary surface */
+		--theme-surface-2: 36 15% 93%;
+		/* Warmer, more visible borders */
+		--theme-border: 36 12% 78%;
 		--theme-muted: 0 0% 45%;
+		/* Card-specific shadow tokens */
+		--shadow-card: 0 1px 3px hsl(36 15% 50% / 0.08), 0 4px 12px hsl(36 15% 40% / 0.06);
+		--shadow-card-hover: 0 4px 16px hsl(36 15% 40% / 0.12), 0 8px 24px hsl(36 15% 30% / 0.08);
 	}
 
+	/* Dark mode — warmer, deeper surfaces (not cold/bluish) */
 	:root[data-theme="dark"] {
-		--theme-bg: 180 20% 3%;
+		/* Slightly warmer dark bg (warm near-black instead of cold) */
+		--theme-bg: 210 12% 6%;
 		--theme-link: 182.93 100% 16.08%;
-		--theme-text: 220 2.86% 79.41%;
+		--theme-text: 220 5% 80%;
+		/* Keep teal accent in dark mode */
 		--theme-accent: 184.07 83.51% 38.04%;
 		--theme-accent-2: 184.07 83.51% 38.04%;
 		--theme-quote: 101.92 100% 85.69%;
-		--theme-surface: 180 15% 8%;
-		--theme-surface-2: 180 15% 12%;
-		--theme-border: 180 10% 20%;
+		/* Warmer dark surfaces */
+		--theme-surface: 210 10% 10%;
+		--theme-surface-2: 210 10% 14%;
+		/* More visible borders in dark */
+		--theme-border: 210 8% 22%;
 		--theme-muted: 220 5% 55%;
+		/* Dark mode card shadows */
+		--shadow-card: 0 1px 3px hsl(0 0% 0% / 0.25), 0 4px 12px hsl(0 0% 0% / 0.2);
+		--shadow-card-hover: 0 4px 16px hsl(0 0% 0% / 0.35), 0 8px 24px hsl(0 0% 0% / 0.25);
 	}
 
 	:target {
@@ -61,10 +78,11 @@
 		max-width: 100%;
 	}
 
+	/* View transitions — smooth and quick */
 	::view-transition-old(root),
 	::view-transition-new(root) {
 		animation-duration: 0.2s;
-		animation-timing-function: ease-in-out;
+		animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	::view-transition-old(root) {
@@ -74,4 +92,61 @@
 	::view-transition-new(root) {
 		z-index: 2;
 	}
+}
+
+@layer components {
+	/* Card — base style for all interactive cards */
+	.card {
+		@apply rounded-xl border bg-surface/50 transition-all;
+		border-color: hsl(var(--theme-border));
+		box-shadow: var(--shadow-card);
+		transition-duration: 180ms;
+		transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.card:hover,
+	.card-hover:hover {
+		border-color: hsl(var(--theme-accent) / 0.5);
+		box-shadow: var(--shadow-card-hover);
+		transform: translateY(-2px);
+	}
+
+	/* Section header accent line + label */
+	.section-label {
+		@apply mb-8 flex items-center gap-4;
+	}
+
+	.section-label-bar {
+		@apply h-1 w-12 rounded-full bg-accent;
+	}
+
+	.section-label-text {
+		@apply text-sm font-medium uppercase tracking-widest text-accent;
+	}
+}
+
+/* ----------------------------------------------------------------
+   Scroll-driven fade-in animations (CSS-only, opacity only → no CLS)
+   Progressive enhancement: only activates where supported
+---------------------------------------------------------------- */
+@supports (animation-timeline: scroll()) {
+	@keyframes fade-in-section {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	.animate-section {
+		animation: fade-in-section linear both;
+		animation-timeline: view();
+		animation-range: entry 0% entry 20%;
+	}
+}
+
+/* Ensure sections are visible if animation-timeline is not supported */
+.animate-section {
+	opacity: 1;
 }

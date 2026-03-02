@@ -33,7 +33,7 @@ export default {
 					"@apply underline underline-offset-2": {},
 				},
 				".title": {
-					"@apply text-2xl font-semibold text-accent-2": {},
+					"@apply text-2xl font-bold text-accent-2 font-display": {},
 				},
 			});
 		}),
@@ -53,12 +53,24 @@ export default {
 				textColor: "hsl(var(--theme-text) / <alpha-value>)",
 			},
 			fontFamily: {
-				// Add any custom fonts here
-				sans: [...fontFamily.sans],
-				serif: [...fontFamily.serif],
+				// DM Sans for body/UI text — clean, modern, friendly
+				sans: ["DM Sans", ...fontFamily.sans],
+				// DM Serif Display for headings — warm character, distinctive
+				display: ["DM Serif Display", ...fontFamily.serif],
+				// Keep serif fallback
+				serif: ["DM Serif Display", ...fontFamily.serif],
+				// Monospace only for code
+				mono: [...fontFamily.mono],
 			},
 			transitionProperty: {
 				height: "height",
+			},
+			transitionTimingFunction: {
+				// Golden easing — snappy spring feel
+				spring: "cubic-bezier(0.16, 1, 0.3, 1)",
+			},
+			transitionDuration: {
+				180: "180ms",
 			},
 			/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 			typography: (theme: any) => ({
@@ -86,6 +98,7 @@ export default {
 						code: {
 							border: "1px dotted #666",
 							borderRadius: "2px",
+							fontFamily: "var(--font-mono)",
 						},
 						hr: {
 							borderTopStyle: "dashed",

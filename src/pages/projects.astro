@@ -43,24 +43,31 @@ function getLanguageColor(language: null | string): string {
 ---
 
 <PageLayout meta={meta}>
-	<section class="mb-16">
+	<!-- Hero section -->
+	<section class="mb-14 animate-section">
 		<div class="mb-8 flex items-center gap-4">
-			<div class="h-1 w-12 bg-accent"></div>
+			<div class="h-1 w-12 rounded-full bg-accent"></div>
 			<span class="text-sm font-medium uppercase tracking-widest text-accent">Projects</span>
 		</div>
 
-		<h1 class="title mb-6">Things I've Worked On</h1>
+		<h1 class="mb-5 font-display text-4xl font-normal leading-tight text-accent-2 sm:text-5xl">
+			Things I've Worked On
+		</h1>
 
-		<p class="mb-8 text-muted">
+		<p class="text-base leading-relaxed text-muted">
 			A collection of my open source projects and contributions. Most are experiments, some are
 			useful tools, and a few are actually finished.
 		</p>
 	</section>
 
-	<section>
+	<!-- Projects list -->
+	<section class="animate-section">
 		{
 			projects.length === 0 ? (
-				<div class="rounded-xl border border-border bg-surface/30 p-8 text-center">
+				<div
+					class="rounded-xl border p-8 text-center"
+					style="border-color: hsl(var(--theme-border)); background-color: hsl(var(--theme-surface) / 0.5);"
+				>
 					<p class="text-muted">No projects found. Check back later!</p>
 				</div>
 			) : (
@@ -68,25 +75,32 @@ function getLanguageColor(language: null | string): string {
 					{projects.map((project) => (
 						<li>
 							<a
-								class="group block rounded-xl border border-border bg-surface/30 p-6 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50"
+								class="group block rounded-xl border p-6 transition-all duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5"
 								href={project.html_url}
 								rel="noopener noreferrer"
+								style="border-color: hsl(var(--theme-border)); background-color: hsl(var(--theme-surface) / 0.5); box-shadow: var(--shadow-card);"
 								target="_blank"
+								onmouseover="this.style.boxShadow='var(--shadow-card-hover)'; this.style.borderColor='hsl(var(--theme-accent) / 0.5)'"
+								onmouseout="this.style.boxShadow='var(--shadow-card)'; this.style.borderColor='hsl(var(--theme-border))'"
 							>
 								<div class="mb-3 flex items-start justify-between gap-4">
-									<div class="flex-1">
-										<div class="mb-2 flex items-center gap-2">
-											<h2 class="text-xl font-semibold group-hover:text-accent">{project.name}</h2>
+									<div class="flex-1 min-w-0">
+										<div class="mb-2 flex items-center gap-2 flex-wrap">
+											<h2 class="text-xl font-semibold transition-colors duration-[180ms] group-hover:text-accent">
+												{project.name}
+											</h2>
 											{project.featured && (
-												<span class="rounded-full bg-accent/20 px-2 py-0.5 text-xs font-medium text-accent">
+												<span class="rounded-full bg-accent/20 px-2 py-0.5 text-xs font-medium text-accent ring-1 ring-accent/30">
 													Featured
 												</span>
 											)}
 										</div>
-										{project.description && <p class="mb-3 text-muted">{project.description}</p>}
+										{project.description && (
+											<p class="mb-3 text-sm leading-relaxed text-muted">{project.description}</p>
+										)}
 									</div>
 									<Icon
-										class="h-5 w-5 shrink-0 text-muted transition-colors group-hover:text-accent"
+										class="h-5 w-5 shrink-0 text-muted transition-all duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
 										name="mdi:arrow-top-right"
 									/>
 								</div>
@@ -119,7 +133,7 @@ function getLanguageColor(language: null | string): string {
 									{project.topics.length > 0 && (
 										<div class="flex flex-wrap items-center gap-2">
 											{project.topics.slice(0, 5).map((topic: string) => (
-												<span class="rounded-md bg-surface-2 px-2 py-0.5 text-xs text-muted">
+												<span class="rounded-md bg-surface-2 px-2 py-0.5 text-xs text-muted ring-1 ring-border">
 													{topic}
 												</span>
 											))}
@@ -129,32 +143,36 @@ function getLanguageColor(language: null | string): string {
 										</div>
 									)}
 
-									<div class="ml-auto text-xs text-muted">
-										Updated {formatDate(project.updated_at)}
-									</div>
+									<div class="ml-auto text-xs text-muted">Updated {formatDate(project.updated_at)}</div>
 								</div>
 							</a>
 						</li>
 					))}
+					<!-- Catch-all "Everything else" card -->
 					<li>
 						<a
-							class="group block rounded-xl border border-border bg-surface/30 p-6 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50"
+							class="group block rounded-xl border p-6 transition-all duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5"
 							href="https://x.com/yoimnotkesku"
 							rel="noopener noreferrer"
+							style="border-color: hsl(var(--theme-border)); background-color: hsl(var(--theme-surface) / 0.5); box-shadow: var(--shadow-card);"
 							target="_blank"
+							onmouseover="this.style.boxShadow='var(--shadow-card-hover)'; this.style.borderColor='hsl(var(--theme-accent) / 0.5)'"
+							onmouseout="this.style.boxShadow='var(--shadow-card)'; this.style.borderColor='hsl(var(--theme-border))'"
 						>
 							<div class="mb-3 flex items-start justify-between gap-4">
 								<div class="flex-1">
 									<div class="mb-2 flex items-center gap-2">
-										<h2 class="text-xl font-semibold group-hover:text-accent">Everything else..</h2>
+										<h2 class="text-xl font-semibold transition-colors duration-[180ms] group-hover:text-accent">
+											Everything else..
+										</h2>
 									</div>
-									<p class="mb-3 text-muted">
+									<p class="mb-3 text-sm leading-relaxed text-muted">
 										..is probably going to stay hidden to you, since the majority of my repos are
 										private. You can look at my Twitter I guess?
 									</p>
 								</div>
 								<Icon
-									class="h-5 w-5 shrink-0 text-muted transition-colors group-hover:text-accent"
+									class="h-5 w-5 shrink-0 text-muted transition-all duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
 									name="mdi:arrow-top-right"
 								/>
 							</div>

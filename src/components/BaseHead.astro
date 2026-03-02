@@ -19,6 +19,18 @@ const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <title>{siteTitle}</title>
 
+<!-- Theme color: teal accent, matches Kesku's brand -->
+<meta content="hsl(184, 90%, 35%)" name="theme-color" media="(prefers-color-scheme: light)" />
+<meta content="hsl(184, 83%, 38%)" name="theme-color" media="(prefers-color-scheme: dark)" />
+
+<!-- Google Fonts: DM Serif Display (headings) + DM Sans (body/UI) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+	href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap"
+	rel="stylesheet"
+/>
+
 <link href="/icon.svg" rel="icon" type="image/svg+xml" />
 {
 	import.meta.env.PROD && (

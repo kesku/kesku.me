@@ -24,23 +24,23 @@ const socialLinks: {
 ];
 ---
 
-<ul class="flex items-center gap-4">
+<ul class="flex flex-wrap items-center gap-3">
 	{
 		socialLinks.map(({ friendlyName, link, name }) => (
 			<li>
 				<a
-					class="group flex items-center gap-2 rounded-lg border border-accent/30 bg-accent/5 px-4 py-2 transition-all duration-300 hover:border-accent hover:bg-accent/15"
+					class="group flex items-center gap-2 rounded-lg border border-accent/30 bg-accent/5 px-4 py-2.5 font-medium transition-all duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:border-accent hover:bg-accent/15 hover:shadow-md"
 					href={link}
 					rel="noopener noreferrer"
 					target="_blank"
 				>
 					<Icon
 						aria-hidden="true"
-						class="h-5 w-5 text-accent transition-transform group-hover:scale-110"
+						class="h-5 w-5 text-accent transition-transform duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
 						focusable="false"
 						name={name}
 					/>
-					<span class="text-sm font-medium">{friendlyName}</span>
+					<span class="text-sm font-semibold">{friendlyName}</span>
 				</a>
 			</li>
 		))

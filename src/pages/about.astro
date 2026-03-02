@@ -135,13 +135,15 @@ const gamesListHtml = games
 </script>
 
 <PageLayout meta={meta}>
-	<section class="mb-12">
+	<!-- About intro section -->
+	<section class="mb-14 animate-section">
 		<div class="mb-8 flex items-center gap-4">
-			<div class="h-1 w-12 bg-accent"></div>
+			<div class="h-1 w-12 rounded-full bg-accent"></div>
 			<span class="text-sm font-medium uppercase tracking-widest text-accent">About</span>
 		</div>
 
 		<div class="flex flex-col gap-8 sm:flex-row sm:items-start">
+			<!-- Flip image — keep working interaction intact -->
 			<div class="image-wrapper shrink-0">
 				<div
 					class="image-container relative h-[180px] w-[180px] cursor-pointer [perspective:1000px]"
@@ -152,7 +154,8 @@ const gamesListHtml = games
 						<div class="absolute inset-0 [backface-visibility:hidden]">
 							<Image
 								alt="Profile picture of Kesku"
-								class="h-full w-full rounded-xl border border-border object-cover"
+								class="h-full w-full rounded-xl border object-cover"
+								style="border-color: hsl(var(--theme-border)); box-shadow: var(--shadow-card);"
 								densities={[1, 2]}
 								fetchpriority="high"
 								loading="eager"
@@ -163,7 +166,8 @@ const gamesListHtml = games
 						<div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
 							<Image
 								alt="Profile picture of Kesku, art is of Usada Pekora from Hololive by @isukash"
-								class="h-full w-full rounded-xl border border-border object-cover"
+								class="h-full w-full rounded-xl border object-cover"
+								style="border-color: hsl(var(--theme-border)); box-shadow: var(--shadow-card);"
 								densities={[1, 2]}
 								src={aboutImgIsukash}
 								width={400}
@@ -196,34 +200,41 @@ const gamesListHtml = games
 			</div>
 
 			<div>
-				<p class="mb-4 text-textColor">
+				<p class="mb-4 text-base leading-relaxed text-textColor">
 					UK-based software engineer working @ <a
-						class="text-accent transition-all hover:underline hover:underline-offset-2"
+						class="text-accent transition-all duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:underline hover:underline-offset-2"
 						href="https://www.perplexity.ai/"
 						rel="noopener noreferrer"
 						target="_blank">Perplexity AI</a
 					>. I focus on developer relations — helping devs build cool things, creating technical
 					content, and bridging the gap between product and community.
 				</p>
-				<p class="text-muted">
+				<p class="text-base leading-relaxed text-muted">
 					Passionate about AI, developer experience, and making complex tech feel approachable.
 				</p>
 			</div>
 		</div>
 	</section>
 
-	<section class="mb-12">
+	<!-- What I'm Into section -->
+	<section class="mb-14 animate-section">
 		<div class="mb-6 flex items-center gap-4">
-			<div class="h-1 w-8 bg-accent/50"></div>
+			<div class="h-1 w-8 rounded-full bg-accent/50"></div>
 			<h2 class="text-xl font-semibold">What I'm Into</h2>
 		</div>
 
-		<div class="grid gap-6 sm:grid-cols-2">
-			<div class="rounded-xl border border-border bg-surface/30 p-6">
+		<div class="grid gap-5 sm:grid-cols-2">
+			<!-- Gaming card -->
+			<div
+				class="rounded-xl border p-6 transition-all duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5"
+				style="border-color: hsl(var(--theme-border)); background-color: hsl(var(--theme-surface) / 0.6); box-shadow: var(--shadow-card);"
+				onmouseover="this.style.boxShadow='var(--shadow-card-hover)'; this.style.borderColor='hsl(var(--theme-accent) / 0.4)'"
+				onmouseout="this.style.boxShadow='var(--shadow-card)'; this.style.borderColor='hsl(var(--theme-border))'"
+			>
 				<Icon class="mb-3 h-8 w-8 text-accent" name="mdi:controller" />
 				<h3 class="mb-2 font-semibold">Gaming</h3>
-				<p class="mb-4 text-sm text-muted" set:html={`Big fan of ${gamesListHtml}.`} />
-				<p class="mb-4 text-sm text-muted">
+				<p class="mb-4 text-sm leading-relaxed text-muted" set:html={`Big fan of ${gamesListHtml}.`} />
+				<p class="mb-4 text-sm leading-relaxed text-muted">
 					As a kid, I'd play till late at night, and the game was all I thought about. Now the music
 					hooks sends me back in time, and with VR (Through <a
 						class="text-accent transition-all hover:underline hover:underline-offset-2"
@@ -232,7 +243,7 @@ const gamesListHtml = games
 						target="_blank">Vivecraft</a
 					>), I'm closer to it than ever.
 				</p>
-				<p class="text-sm text-muted">
+				<p class="text-sm leading-relaxed text-muted">
 					BTW: I use a <a
 						class="text-accent transition-all hover:underline hover:underline-offset-2"
 						href="https://www.meta.com/quest/quest-3/"
@@ -247,10 +258,16 @@ const gamesListHtml = games
 				</p>
 			</div>
 
-			<div class="rounded-xl border border-border bg-surface/30 p-6">
+			<!-- Community card -->
+			<div
+				class="rounded-xl border p-6 transition-all duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5"
+				style="border-color: hsl(var(--theme-border)); background-color: hsl(var(--theme-surface) / 0.6); box-shadow: var(--shadow-card);"
+				onmouseover="this.style.boxShadow='var(--shadow-card-hover)'; this.style.borderColor='hsl(var(--theme-accent) / 0.4)'"
+				onmouseout="this.style.boxShadow='var(--shadow-card)'; this.style.borderColor='hsl(var(--theme-border))'"
+			>
 				<Icon class="mb-3 h-8 w-8 text-accent" name="mdi:account-group" />
 				<h3 class="mb-2 font-semibold">Community</h3>
-				<p class="mb-4 text-sm text-muted">
+				<p class="mb-4 text-sm leading-relaxed text-muted">
 					Moderating communities since I was 11, starting on old <a
 						class="text-accent transition-all hover:underline hover:underline-offset-2"
 						href="https://www.perplexity.ai/search/what-was-the-amino-app-ZfVunsx2Tfe8tdQlK39GoA#0"
@@ -258,7 +275,7 @@ const gamesListHtml = games
 						target="_blank">Amino forums</a
 					>.
 				</p>
-				<p class="mb-4 text-sm text-muted">
+				<p class="mb-4 text-sm leading-relaxed text-muted">
 					Helped manage the <a
 						class="text-accent transition-all hover:underline hover:underline-offset-2"
 						href="https://discord.gg/openai"
@@ -266,7 +283,7 @@ const gamesListHtml = games
 						target="_blank">OpenAI Discord</a
 					> up to its peak of 3.5M members (at one point 2nd biggest on Discord).
 				</p>
-				<p class="text-sm text-muted">
+				<p class="text-sm leading-relaxed text-muted">
 					I love answering questions, building relationships, and creating spaces where people can
 					thrive.
 				</p>
@@ -274,47 +291,49 @@ const gamesListHtml = games
 		</div>
 	</section>
 
-	<section class="mb-12">
+	<!-- Kesku acronym section -->
+	<section class="mb-14 animate-section">
 		<div class="mb-6 flex items-center gap-4">
-			<div class="h-1 w-8 bg-accent/50"></div>
+			<div class="h-1 w-8 rounded-full bg-accent/50"></div>
 			<h2 class="text-xl font-semibold">"Kesku" is an acronym</h2>
 		</div>
 
-		<p class="mb-4 text-textColor">
+		<p class="mb-4 text-base leading-relaxed text-textColor">
 			It stands for <span class="font-semibold text-accent"
 				>Keep Everything Simple, Keep Understanding</span
 			>.
 		</p>
-		<p class="text-muted">
+		<p class="text-base leading-relaxed text-muted">
 			It's a mindset I try to carry into everything I do: make things understandable, approachable,
 			and clear. Whether it's documentation, APIs, or developer tools — clarity makes all the
 			difference.
 		</p>
 	</section>
 
-	<section class="mb-12">
+	<!-- Connect section -->
+	<section class="mb-12 animate-section">
 		<div class="mb-6 flex items-center gap-4">
-			<div class="h-1 w-8 bg-accent/50"></div>
+			<div class="h-1 w-8 rounded-full bg-accent/50"></div>
 			<h2 class="text-xl font-semibold">Connect</h2>
 		</div>
 
-		<ul class="flex flex-wrap items-center gap-4">
+		<ul class="flex flex-wrap items-center gap-3">
 			{
 				socials.map(({ extra, icon, link, name }) => (
 					<li>
 						<a
-							class="group flex items-center gap-2 rounded-lg border border-accent/30 bg-accent/5 px-4 py-2 transition-all duration-300 hover:border-accent hover:bg-accent/15"
+							class="group flex items-center gap-2.5 rounded-lg border border-accent/30 bg-accent/5 px-4 py-2.5 font-medium transition-all duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:border-accent hover:bg-accent/15 hover:shadow-md"
 							href={link}
 							rel={link.startsWith("mailto:") ? undefined : "noopener noreferrer"}
 							target={link.startsWith("mailto:") ? undefined : "_blank"}
 						>
 							<Icon
 								aria-hidden="true"
-								class="h-5 w-5 text-accent transition-transform group-hover:scale-110"
+								class="h-5 w-5 text-accent transition-transform duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
 								focusable="false"
 								name={icon}
 							/>
-							<span class="text-sm font-medium">{name}</span>
+							<span class="text-sm font-semibold">{name}</span>
 							{extra && <span class="text-xs text-muted">({extra})</span>}
 						</a>
 					</li>

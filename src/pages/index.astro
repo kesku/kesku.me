@@ -8,50 +8,54 @@ import PageLayout from "@/layouts/Base.astro";
 ---
 
 <PageLayout meta={{ title: "Home" }}>
-	<section class="mb-16">
+	<!-- Hero section -->
+	<section class="mb-20 animate-section">
 		<div class="mb-8 flex items-center gap-4">
-			<div class="h-1 w-12 bg-accent"></div>
+			<div class="h-1 w-12 rounded-full bg-accent"></div>
 			<span class="text-sm font-medium uppercase tracking-widest text-accent">Hiya! I'm Kesku</span>
 		</div>
 
-		<h1 class="title mb-6">But you can call me Kes!</h1>
+		<!-- Hero heading uses display font for personality -->
+		<h1 class="mb-6 font-display text-4xl font-normal leading-tight text-accent-2 sm:text-5xl">
+			But you can call me Kes!
+		</h1>
 
-		<p class="mb-4">
+		<p class="mb-4 text-base leading-relaxed">
 			I'm a self-taught dev, former ML student (dropped out), and <a
-				class="text-accent transition-all hover:underline hover:underline-offset-2"
+				class="text-accent transition-all duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:underline hover:underline-offset-2"
 				href="https://x.com/yoimnotkesku/status/1811161077037801698"
 				rel="noopener noreferrer"
 				target="_blank">train enjoyer</a
 			> from the UK. I spend my time building stuff, breaking stuff, and trying to figure out how to
 			fix the stuff I broke
 		</p>
-		<p class="mb-4">
+		<p class="mb-4 text-base leading-relaxed">
 			I've been coding (badly) since I was 9 (or since I was 7 if you count <a
-				class="text-accent transition-all hover:underline hover:underline-offset-2"
+				class="text-accent transition-all duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:underline hover:underline-offset-2"
 				href="https://scratch.mit.edu/"
 				rel="noopener noreferrer"
 				target="_blank">Scratch</a
 			>). Now I'm 20, and I still suck at it!
 		</p>
-		<p class="mb-8">
+		<p class="mb-10 text-base leading-relaxed">
 			I only post online like twice a month, so when I'm not ruining your feed you'll find me either
 			on <span class="group relative inline-block cursor-pointer">
 				<span class="text-accent underline decoration-dotted underline-offset-2">Discord</span>
 				<span
-					class="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-surface-2 px-3 py-1.5 text-xs text-muted opacity-0 shadow-lg transition-opacity group-hover:opacity-100"
+					class="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-lg border border-border bg-surface px-3 py-1.5 text-xs text-muted opacity-0 shadow-lg transition-opacity duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-100"
 				>
 					my username is <code class="font-mono text-accent">kesku</code>
 					<span
-						class="absolute left-1/2 top-full -mt-1 -translate-x-1/2 border-4 border-transparent border-t-surface-2"
+						class="absolute left-1/2 top-full -mt-1 -translate-x-1/2 border-4 border-transparent border-t-surface"
 					></span>
 				</span>
 			</span>, watching a <a
-				class="text-accent transition-all hover:underline hover:underline-offset-2"
+				class="text-accent transition-all duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:underline hover:underline-offset-2"
 				href="https://www.perplexity.ai/search/best-k-drama-movies-tv-shows-i-sQFCgkdlQ1C4xbqJ3hzDYQ#0"
 				rel="noopener noreferrer"
 				target="_blank">K-Drama</a
 			>, or hanging out with my <a
-				class="text-accent transition-all hover:underline hover:underline-offset-2"
+				class="text-accent transition-all duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:underline hover:underline-offset-2"
 				href="https://x.com/Angry_Ann_"
 				rel="noopener noreferrer"
 				target="_blank"
@@ -62,27 +66,34 @@ import PageLayout from "@/layouts/Base.astro";
 		<SocialList />
 	</section>
 
-	<section>
+	<!-- Check Out section -->
+	<section class="animate-section">
 		<div class="mb-6 flex items-center gap-4">
-			<div class="h-1 w-8 bg-accent/50"></div>
-			<h2 class="text-xl font-semibold">Check Out</h2>
+			<div class="h-1 w-8 rounded-full bg-accent/50"></div>
+			<h2 class="text-lg font-semibold text-textColor">Check Out</h2>
 		</div>
 
 		<div class="grid gap-4 sm:grid-cols-2">
+			<!-- Perplexity AI card -->
 			<a
-				class="group flex items-start gap-4 rounded-xl border border-border bg-surface/30 p-5 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50"
+				class="group flex items-start gap-4 rounded-xl border bg-surface/50 p-5 transition-all duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:border-accent/50 hover:bg-surface"
 				href="https://www.perplexity.ai/"
 				rel="noopener noreferrer"
+				style="border-color: hsl(var(--theme-border)); box-shadow: var(--shadow-card);"
 				target="_blank"
+				onmouseover="this.style.boxShadow='var(--shadow-card-hover)'"
+				onmouseout="this.style.boxShadow='var(--shadow-card)'"
 			>
-				<div class="rounded-lg bg-accent/10 p-3">
+				<div class="shrink-0 rounded-lg bg-accent/10 p-3 ring-1 ring-accent/20">
 					<PerplexitySpinner class="text-accent" size={24} />
 				</div>
-				<div class="flex-1">
+				<div class="flex-1 min-w-0">
 					<div class="mb-1 flex items-center gap-2">
-						<h3 class="font-semibold group-hover:text-accent">Perplexity AI</h3>
+						<h3 class="font-semibold transition-colors duration-[180ms] group-hover:text-accent">
+							Perplexity AI
+						</h3>
 						<Icon
-							class="h-4 w-4 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+							class="h-4 w-4 shrink-0 text-muted transition-transform duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
 							name="mdi:arrow-top-right"
 						/>
 					</div>
@@ -90,18 +101,24 @@ import PageLayout from "@/layouts/Base.astro";
 				</div>
 			</a>
 
+			<!-- Projects card -->
 			<a
-				class="group flex items-start gap-4 rounded-xl border border-border bg-surface/30 p-5 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50"
+				class="group flex items-start gap-4 rounded-xl border bg-surface/50 p-5 transition-all duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:border-accent/50 hover:bg-surface"
 				href="/projects/"
+				style="border-color: hsl(var(--theme-border)); box-shadow: var(--shadow-card);"
+				onmouseover="this.style.boxShadow='var(--shadow-card-hover)'"
+				onmouseout="this.style.boxShadow='var(--shadow-card)'"
 			>
-				<div class="rounded-lg bg-accent/10 p-3">
+				<div class="shrink-0 rounded-lg bg-accent/10 p-3 ring-1 ring-accent/20">
 					<Brackets class="text-accent" size={24} />
 				</div>
-				<div class="flex-1">
+				<div class="flex-1 min-w-0">
 					<div class="mb-1 flex items-center gap-2">
-						<h3 class="font-semibold group-hover:text-accent">Projects</h3>
+						<h3 class="font-semibold transition-colors duration-[180ms] group-hover:text-accent">
+							Projects
+						</h3>
 						<Icon
-							class="h-4 w-4 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+							class="h-4 w-4 shrink-0 text-muted transition-transform duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
 							name="mdi:arrow-top-right"
 						/>
 					</div>
