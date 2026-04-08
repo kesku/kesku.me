@@ -1,0 +1,143 @@
+---
+import { Image } from "astro:assets";
+
+import clawd from "@/assets/claudecode.svg";
+
+const { phraseClass = "text-accent" } = Astro.props;
+---
+
+<span class="clawd-wrap">
+	<span class={`clawd-word ${phraseClass}`}>
+		<slot />
+	</span>
+	<span class="clawd-stage" aria-hidden="true">
+		<Image alt="" class="clawd-figure" height={48} src={clawd} width={48} />
+	</span>
+</span>
+
+<style>
+	.clawd-wrap {
+		position: relative;
+		display: inline-flex;
+		white-space: nowrap;
+	}
+
+	.clawd-word {
+		position: relative;
+		z-index: 2;
+	}
+
+	.clawd-stage {
+		position: absolute;
+		left: 50%;
+		bottom: calc(100% - 0.08rem);
+		z-index: 1;
+		width: 2.6rem;
+		height: 2.1rem;
+		overflow: hidden;
+		pointer-events: none;
+		transform: translateX(-50%) translateY(0.08rem);
+		opacity: 0;
+		transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+		will-change: opacity, transform;
+	}
+
+	.clawd-figure {
+		display: block;
+		width: 100%;
+		transform-origin: 50% 100%;
+		opacity: 0;
+		will-change: transform, opacity;
+		filter: drop-shadow(0 4px 10px rgb(0 0 0 / 0.35));
+	}
+
+	.clawd-wrap:hover .clawd-stage {
+		opacity: 1;
+		transform: translateX(-50%) translateY(-0.04rem);
+		transition:
+			transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+			opacity 0ms;
+	}
+
+	.clawd-wrap:hover .clawd-figure {
+		animation:
+			clawd-swing-in 360ms cubic-bezier(0.23, 1, 0.32, 1) both,
+			clawd-swing-idle 1.5s cubic-bezier(0.45, 0.03, 0.52, 0.96) 360ms infinite;
+	}
+
+	.clawd-wrap:not(:hover) .clawd-stage {
+		opacity: 0;
+		transform: translateX(-50%) translateY(0.08rem);
+		/* delay snap-to-hidden until swing-out finishes */
+		transition:
+			transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+			opacity 1ms 420ms;
+	}
+
+	.clawd-wrap:not(:hover) .clawd-figure {
+		animation: clawd-swing-out 420ms cubic-bezier(0.16, 0.75, 0.36, 1) both;
+	}
+
+	@keyframes clawd-swing-in {
+		0% {
+			opacity: 0;
+			transform: translateY(0.6rem) rotate(14deg) scale(0.72);
+		}
+		48% {
+			opacity: 1;
+			transform: translateY(-0.08rem) rotate(-7deg) scale(1.05);
+		}
+		82% {
+			opacity: 1;
+			transform: translateY(0) rotate(1deg) scale(1);
+		}
+		100% {
+			opacity: 1;
+			transform: translateY(0) rotate(0deg) scale(1);
+		}
+	}
+
+	@keyframes clawd-swing-idle {
+		0% {
+			transform: translateY(0) rotate(0deg);
+		}
+		45% {
+			transform: translateY(-0.05rem) rotate(-2deg);
+		}
+		100% {
+			transform: translateY(-0.02rem) rotate(1deg);
+		}
+	}
+
+	@keyframes clawd-swing-out {
+		0% {
+			opacity: 1;
+			transform: translateY(0) rotate(0deg) scale(1);
+		}
+		28% {
+			transform: translateY(-0.08rem) rotate(-6deg) scale(1.05);
+		}
+		64% {
+			opacity: 0.45;
+			transform: translateY(0.16rem) rotate(6deg) scale(0.9);
+		}
+		100% {
+			opacity: 0;
+			transform: translateY(0.62rem) rotate(14deg) scale(0.72);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.clawd-wrap:hover .clawd-figure,
+		.clawd-wrap:not(:hover) .clawd-figure,
+		.clawd-wrap .clawd-figure {
+			animation: none !important;
+			opacity: 0;
+			transform: translateY(0.62rem) rotate(14deg) scale(0.72);
+		}
+	}
+
+	.clawd-wrap:hover .clawd-figure {
+		opacity: 1;
+	}
+</style>
