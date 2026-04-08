@@ -4,8 +4,6 @@ import { Image } from "astro:assets";
 import logo from "@/assets/logo.svg";
 import { menuLinks } from "@/site-config";
 
-import ThemeToggle from "../ThemeToggle.astro";
-
 const url = new URL(Astro.request.url);
 ---
 
@@ -39,7 +37,7 @@ const url = new URL(Astro.request.url);
 		</nav>
 	</div>
 
-	<div class="ms-auto flex items-center gap-4">
+	<div class="ms-auto flex items-center">
 		<mobile-button>
 			<button
 				aria-expanded="false"
@@ -78,13 +76,10 @@ const url = new URL(Astro.request.url);
 				</svg>
 			</button>
 		</mobile-button>
-		<ThemeToggle />
 	</div>
 </header>
 
 <script>
-	import { toggleClass } from "@/utils";
-
 	class MobileNavBtn extends HTMLElement {
 		#menuOpen: boolean = false;
 
@@ -93,7 +88,7 @@ const url = new URL(Astro.request.url);
 			const mobileButtonEl = this.querySelector<HTMLButtonElement>("button");
 
 			mobileButtonEl?.addEventListener("click", () => {
-				if (headerEl) toggleClass(headerEl, "menu-open");
+				if (headerEl) headerEl.classList.toggle("menu-open");
 				this.#menuOpen = !this.#menuOpen;
 				mobileButtonEl.setAttribute("aria-expanded", this.#menuOpen.toString());
 			});

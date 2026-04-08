@@ -10,7 +10,7 @@ const { phraseClass = "text-accent" } = Astro.props;
 	<span class={`clawd-word ${phraseClass}`}>
 		<slot />
 	</span>
-	<span class="clawd-stage" aria-hidden="true">
+	<span aria-hidden="true" class="clawd-stage">
 		<Image alt="" class="clawd-figure" height={48} src={clawd} width={48} />
 	</span>
 </span>

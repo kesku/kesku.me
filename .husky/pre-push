@@ -1,28 +1,11 @@
-echo ""
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "🔍 Running pre-push checks..."
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo ""
-
-echo "🔨 Building project..."
-BUILD_OUTPUT=$(NODE_OPTIONS="--no-deprecation" pnpm build 2>&1)
+BUILD_OUTPUT=$(NODE_OPTIONS="--no-deprecation" bun run build 2>&1)
 BUILD_EXIT=$?
 
 if [ $BUILD_EXIT -ne 0 ]; then
   echo "$BUILD_OUTPUT" | \
     grep -v "DEP0180" | \
-    grep -v "vite-plugin-astro-expressive-code" | \
     grep -v "The build was canceled" | \
     grep -E "(ERROR|error|Error|✘|Failed|failed|warning.*ts\([0-9]+\))" || echo "$BUILD_OUTPUT"
-  echo ""
-  echo "❌ Build failed - push aborted"
+  echo "pre-push failed"
   exit 1
 fi
-
-echo "✅ Build complete"
-echo ""
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "✅ All checks passed! Proceeding with push..."
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo ""
-

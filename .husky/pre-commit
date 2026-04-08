@@ -1,20 +1,4 @@
-echo ""
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "🔍 Running pre-commit checks..."
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo ""
-
-echo "✨ Formatting staged files..."
-NODE_OPTIONS="--no-deprecation" pnpm lint-staged > /dev/null 2>&1
-
-if [ $? -ne 0 ]; then
-  echo "❌ Formatting failed"
-  exit 1
-fi
-
-echo "✅ Formatting complete"
-echo ""
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "✅ All checks passed!"
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo ""
+NODE_OPTIONS="--no-deprecation" bunx lint-staged > /dev/null 2>&1 || {
+	echo "pre-commit failed"
+	exit 1
+}

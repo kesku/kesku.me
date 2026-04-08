@@ -7,7 +7,6 @@ import BaseHead from "@/components/BaseHead.astro";
 import Footer from "@/components/layout/Footer.astro";
 import Header from "@/components/layout/Header.astro";
 import SkipLink from "@/components/SkipLink.astro";
-import ThemeProvider from "@/components/ThemeProvider.astro";
 import { siteConfig } from "@/site-config";
 
 interface Props {
@@ -15,19 +14,18 @@ interface Props {
 }
 
 const {
-	meta: { articleDate, description = siteConfig.description, ogImage, title },
+	meta: { description = siteConfig.description, title },
 } = Astro.props;
 ---
 
 <html class="scroll-smooth" lang={siteConfig.lang}>
 	<head>
-		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
+		<BaseHead description={description} title={title} />
 		<ViewTransitions />
 	</head>
 	<body
 		class="mx-auto flex min-h-screen max-w-4xl flex-col bg-bgColor px-4 pt-16 font-mono font-normal text-textColor antialiased sm:px-8"
 	>
-		<ThemeProvider />
 		<SkipLink />
 		<Header />
 		<main id="main">

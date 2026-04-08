@@ -8,5 +8,4 @@ interface ImportMeta {
 
 interface ImportMetaEnv {
 	readonly GITHUB_TOKEN?: string;
-	readonly WEBMENTION_API_KEY: string;
 }

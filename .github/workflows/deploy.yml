@@ -20,7 +20,47 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Wait for GitHub API window (unauthenticated fallback)
+        run: |
+          # If a token is provided, project fetches run authenticated and we skip waiting.
+          if [ -n "${GITHUB_TOKEN:-}" ]; then
+            echo "GITHUB_TOKEN provided; skipping rate-limit wait"
+            exit 0
+          fi
+
+          headers="$(curl -sSI -H 'Accept: application/vnd.github.v3+json' -H 'User-Agent: kesku.me-deploy' https://api.github.com/rate_limit)"
+          remaining="$(printf '%s\n' "$headers" | awk -F': ' 'tolower($1)=="x-ratelimit-remaining"{print $2}' | tr -d '\r')"
+          reset="$(printf '%s\n' "$headers" | awk -F': ' 'tolower($1)=="x-ratelimit-reset"{print $2}' | tr -d '\r')"
+
+          if [ -z "$remaining" ] || [ -z "$reset" ]; then
+            echo "Could not read GitHub rate-limit headers; continuing"
+            exit 0
+          fi
+
+          # Projects page requests one API call per repo.
+          required_calls=10
+          if [ "$remaining" -ge "$required_calls" ]; then
+            echo "Sufficient GitHub API quota ($remaining available)"
+            exit 0
+          fi
+
+          now="$(date +%s)"
+          wait_seconds=$((reset - now + 5))
+
+          # Cap wait so deploy cannot hang indefinitely.
+          if [ "$wait_seconds" -gt 1200 ]; then
+            echo "GitHub reset is too far out (${wait_seconds}s); continuing with in-app fallback"
+            exit 0
+          fi
+
+          if [ "$wait_seconds" -gt 0 ]; then
+            echo "Insufficient GitHub API quota ($remaining available), sleeping ${wait_seconds}s until reset"
+            sleep "$wait_seconds"
+          fi
+
       - name: Build site
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           export NODE_OPTIONS="--max-old-space-size=384"
           bun run build

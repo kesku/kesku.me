@@ -3,15 +3,14 @@ import { Icon } from "astro-icon/components";
 
 import { projectOverrides, projectRepos } from "@/data/projects";
 import PageLayout from "@/layouts/Base.astro";
-import { fetchRepos, mergeProjectData, normalizeRepoName, sortProjects } from "@/utils/github";
+import { fetchRepos, mergeProjectData, sortProjects } from "@/utils/github";
 
 const meta = {
 	description: "Check out my projects and open source contributions on GitHub",
 	title: "Projects",
 };
 
-const normalizedRepos = projectRepos.map((repo) => normalizeRepoName(repo));
-const fetchedRepos = await fetchRepos(normalizedRepos);
+const fetchedRepos = await fetchRepos(projectRepos);
 const mergedProjects = mergeProjectData(fetchedRepos, projectOverrides);
 const projects = sortProjects(mergedProjects);
 
@@ -87,8 +86,8 @@ function getLanguageColor(language: null | string): string {
 									</div>
 									<Icon
 										class="h-5 w-5 shrink-0 text-muted transition-colors group-hover:text-accent"
-										name="mdi:arrow-top-right"
 										is:inline
+										name="mdi:arrow-top-right"
 									/>
 								</div>
 
@@ -156,8 +155,8 @@ function getLanguageColor(language: null | string): string {
 								</div>
 								<Icon
 									class="h-5 w-5 shrink-0 text-muted transition-colors group-hover:text-accent"
-									name="mdi:arrow-top-right"
 									is:inline
+									name="mdi:arrow-top-right"
 								/>
 							</div>
 						</a>

@@ -13,7 +13,6 @@ module.exports = {
 		"plugin:perfectionist/recommended-natural-legacy",
 		"plugin:regexp/recommended",
 		"plugin:typescript-sort-keys/recommended",
-		"plugin:deprecation/recommended",
 	],
 	ignorePatterns: ["node_modules", "dist"],
 	overrides: [
@@ -41,11 +40,6 @@ module.exports = {
 				"plugin:@typescript-eslint/stylistic-type-checked",
 			],
 			files: ["*.ts", "*.tsx"],
-		},
-		{
-			extends: ["plugin:markdown/recommended-legacy"],
-			files: ["**/*.md"],
-			processor: "markdown/markdown",
 		},
 	],
 	parser: "@typescript-eslint/parser",

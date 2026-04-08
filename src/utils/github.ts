@@ -1,4 +1,10 @@
-export interface GitHubRepo {
+export interface Project extends GitHubRepo {
+	customDescription?: string;
+	customName?: string;
+	featured?: boolean;
+}
+
+interface GitHubRepo {
 	archived: boolean;
 	description: null | string;
 	fork: boolean;
@@ -13,44 +19,11 @@ export interface GitHubRepo {
 	updated_at: string;
 }
 
-export interface Project extends GitHubRepo {
-	customDescription?: string;
-	customName?: string;
-	featured?: boolean;
-}
-
 const GITHUB_API_BASE = "https://api.github.com";
-
-export async function fetchRepo(owner: string, repo: string): Promise<GitHubRepo | null> {
-	const token = import.meta.env.GITHUB_TOKEN;
-	const baseHeaders: HeadersInit = {
-		Accept: "application/vnd.github.v3+json",
-		"User-Agent": "kesku.me",
-	};
-
-	if (token) {
-		try {
-			const response = await fetch(`${GITHUB_API_BASE}/repos/${owner}/${repo}`, {
-				headers: { ...baseHeaders, Authorization: `token ${token}` },
-			});
-
-			if (response.ok) return (await response.json()) as GitHubRepo;
-			if (response.status !== 403) return null;
-		} catch {
-			return null;
-		}
-	}
-
-	try {
-		const response = await fetch(`${GITHUB_API_BASE}/repos/${owner}/${repo}`, {
-			headers: baseHeaders,
-		});
-		if (!response.ok) return null;
-		return (await response.json()) as GitHubRepo;
-	} catch {
-		return null;
-	}
-}
+const BASE_HEADERS: HeadersInit = {
+	Accept: "application/vnd.github.v3+json",
+	"User-Agent": "kesku.me",
+};
 
 export async function fetchRepos(repoNames: string[]): Promise<GitHubRepo[]> {
 	const repos = await Promise.all(
@@ -78,13 +51,6 @@ export function mergeProjectData(
 	});
 }
 
-export function normalizeRepoName(repoName: string, defaultOwner = "kesku"): string {
-	if (repoName.includes("/")) {
-		return repoName;
-	}
-	return `${defaultOwner}/${repoName}`;
-}
-
 export function sortProjects(projects: Project[]): Project[] {
 	return [...projects].sort((a, b) => {
 		if (a.featured && !b.featured) return -1;
@@ -92,4 +58,31 @@ export function sortProjects(projects: Project[]): Project[] {
 
 		return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
 	});
+}
+
+async function fetchRepo(owner: string, repo: string): Promise<GitHubRepo | null> {
+	const token = import.meta.env.GITHUB_TOKEN;
+
+	if (token) {
+		try {
+			const response = await fetch(`${GITHUB_API_BASE}/repos/${owner}/${repo}`, {
+				headers: { ...BASE_HEADERS, Authorization: `token ${token}` },
+			});
+
+			if (response.ok) return (await response.json()) as GitHubRepo;
+			if (response.status !== 403) return null;
+		} catch {
+			return null;
+		}
+	}
+
+	try {
+		const response = await fetch(`${GITHUB_API_BASE}/repos/${owner}/${repo}`, {
+			headers: BASE_HEADERS,
+		});
+		if (!response.ok) return null;
+		return (await response.json()) as GitHubRepo;
+	} catch {
+		return null;
+	}
 }
