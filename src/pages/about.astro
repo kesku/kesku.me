@@ -2,13 +2,14 @@
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 
+import ClawdPeek from "@/components/ClawdPeek.astro";
 import aboutImgIsukash from "@/assets/about-kesku-isukash.png";
 import aboutImg from "@/assets/about-kesku.png";
 import PageLayout from "@/layouts/Base.astro";
 
 const meta = {
 	description:
-		"I'm Kesku, a self-taught dev, former ML student (dropped out), and train enjoyer from the UK!",
+		"UK-based developer working at Perplexity AI on developer platform and ecosystem systems.",
 	title: "About",
 };
 
@@ -28,8 +29,8 @@ const socials = [
 ];
 
 const gamesListHtml = games
-	.map((game, i) => {
-		const separator = i < games.length - 2 ? ", " : i === games.length - 2 ? ", and " : "";
+	.map((game, I) => {
+		const separator = I < games.length - 2 ? ", " : I === games.length - 2 ? ", and " : "";
 		return `<a href="${game.link}" target="_blank" rel="noopener noreferrer" class="text-accent transition-all hover:underline hover:underline-offset-2">${game.name}</a>${separator}`;
 	})
 	.join("");
@@ -197,19 +198,35 @@ const gamesListHtml = games
 
 			<div>
 				<p class="mb-4 text-textColor">
-					UK-based software engineer working @ <a
+					UK-based developer working @ <a
 						class="text-accent transition-all hover:underline hover:underline-offset-2"
 						href="https://www.perplexity.ai/"
 						rel="noopener noreferrer"
 						target="_blank">Perplexity AI</a
-					>. I focus on developer relations — helping devs build cool things, creating technical
-					content, and bridging the gap between product and community.
+					>. I work on developer platform and ecosystem systems sitting somewhere between product,
+					engineering, and community
 				</p>
 				<p class="text-muted">
-					Passionate about AI, developer experience, and making complex tech feel approachable.
+					most of what I do is focused on taking things that are technically powerful and making
+					them actually usable by developers, both pros and
+					<ClawdPeek phraseClass="text-accent">claudophiles</ClawdPeek>
 				</p>
 			</div>
 		</div>
+	</section>
+
+	<section class="mb-12">
+		<div class="mb-6 flex items-center gap-4">
+			<div class="h-1 w-8 bg-accent/50"></div>
+			<h2 class="text-xl font-semibold">What I actually work on</h2>
+		</div>
+
+		<ul class="mb-6 list-disc ps-5 text-muted">
+			<li>improving developer onboarding and post-onboarding experience</li>
+			<li>reducing confusion across api surfaces and docs</li>
+			<li>building systems for community → support → product feedback</li>
+			<li>open source integrations and developer tooling (sdks, cli, mcps)</li>
+		</ul>
 	</section>
 
 	<section class="mb-12">
@@ -224,8 +241,8 @@ const gamesListHtml = games
 				<h3 class="mb-2 font-semibold">Gaming</h3>
 				<p class="mb-4 text-sm text-muted" set:html={`Big fan of ${gamesListHtml}.`} />
 				<p class="mb-4 text-sm text-muted">
-					As a kid, I'd play till late at night, and the game was all I thought about. Now the music
-					hooks sends me back in time, and with VR (Through <a
+					as a kid, I'd play till late at night, and minecraft was all I dreamt about. now the music
+					sends me back in time when I hear it, and with vr (through <a
 						class="text-accent transition-all hover:underline hover:underline-offset-2"
 						href="https://www.vivecraft.org/"
 						rel="noopener noreferrer"
@@ -234,11 +251,6 @@ const gamesListHtml = games
 				</p>
 				<p class="text-sm text-muted">
 					BTW: I use a <a
-						class="text-accent transition-all hover:underline hover:underline-offset-2"
-						href="https://www.meta.com/quest/quest-3/"
-						rel="noopener noreferrer"
-						target="_blank">Quest 3</a
-					> and <a
 						class="text-accent transition-all hover:underline hover:underline-offset-2"
 						href="https://varjo.com/products/varjo-vr-3"
 						rel="noopener noreferrer"
@@ -259,16 +271,21 @@ const gamesListHtml = games
 					>.
 				</p>
 				<p class="mb-4 text-sm text-muted">
-					Helped manage the <a
+					later helped scale the <a
 						class="text-accent transition-all hover:underline hover:underline-offset-2"
 						href="https://discord.gg/openai"
 						rel="noopener noreferrer"
 						target="_blank">OpenAI Discord</a
-					> up to its peak of 3.5M members (at one point 2nd biggest on Discord).
+					> to ~3.5m users (at one point the 2nd largest server on the platform).
 				</p>
 				<p class="text-sm text-muted">
-					I love answering questions, building relationships, and creating spaces where people can
-					thrive.
+					I'm interested in how they function as systems, not just for engagement, but also
+					knowledge distribution (shoutout <a
+						class="text-accent transition-all hover:underline hover:underline-offset-2"
+						href="https://www.answeroverflow.com/"
+						rel="noopener noreferrer"
+						target="_blank">answer overflow</a
+					>), support, and feedback loops.
 				</p>
 			</div>
 		</div>
@@ -281,14 +298,14 @@ const gamesListHtml = games
 		</div>
 
 		<p class="mb-4 text-textColor">
-			It stands for <span class="font-semibold text-accent"
+			"kesku" stands for <span class="font-semibold text-accent"
 				>Keep Everything Simple, Keep Understanding</span
 			>.
 		</p>
 		<p class="text-muted">
-			It's a mindset I try to carry into everything I do: make things understandable, approachable,
-			and clear. Whether it's documentation, APIs, or developer tools — clarity makes all the
-			difference.
+			that mindset guides everything I do. if something is powerful but still hard to get, it’s not
+			done. I want to understand both what it is and why it works; if I can’t, it needs clearer
+			explanations and better examples.
 		</p>
 	</section>
 
