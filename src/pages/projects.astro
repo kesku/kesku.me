@@ -88,6 +88,7 @@ function getLanguageColor(language: null | string): string {
 									<Icon
 										class="h-5 w-5 shrink-0 text-muted transition-colors group-hover:text-accent"
 										name="mdi:arrow-top-right"
+										is:inline
 									/>
 								</div>
 
@@ -104,14 +105,14 @@ function getLanguageColor(language: null | string): string {
 
 									{project.stargazers_count > 0 && (
 										<div class="flex items-center gap-1 text-muted">
-											<Icon class="h-4 w-4" name="mdi:star" />
+											<Icon class="h-4 w-4" is:inline name="mdi:star" />
 											<span>{project.stargazers_count}</span>
 										</div>
 									)}
 
 									{project.forks_count > 0 && (
 										<div class="flex items-center gap-1 text-muted">
-											<Icon class="h-4 w-4" name="mdi:source-fork" />
+											<Icon class="h-4 w-4" is:inline name="mdi:source-fork" />
 											<span>{project.forks_count}</span>
 										</div>
 									)}
@@ -156,6 +157,7 @@ function getLanguageColor(language: null | string): string {
 								<Icon
 									class="h-5 w-5 shrink-0 text-muted transition-colors group-hover:text-accent"
 									name="mdi:arrow-top-right"
+									is:inline
 								/>
 							</div>
 						</a>

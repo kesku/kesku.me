@@ -237,7 +237,7 @@ const gamesListHtml = games
 
 		<div class="grid gap-6 sm:grid-cols-2">
 			<div class="rounded-xl border border-border bg-surface/30 p-6">
-				<Icon class="mb-3 h-8 w-8 text-accent" name="mdi:controller" />
+				<Icon class="mb-3 h-8 w-8 text-accent" is:inline name="mdi:controller" />
 				<h3 class="mb-2 font-semibold">Gaming</h3>
 				<p class="mb-4 text-sm text-muted" set:html={`Big fan of ${gamesListHtml}.`} />
 				<p class="mb-4 text-sm text-muted">
@@ -260,7 +260,7 @@ const gamesListHtml = games
 			</div>
 
 			<div class="rounded-xl border border-border bg-surface/30 p-6">
-				<Icon class="mb-3 h-8 w-8 text-accent" name="mdi:account-group" />
+				<Icon class="mb-3 h-8 w-8 text-accent" is:inline name="mdi:account-group" />
 				<h3 class="mb-2 font-semibold">Community</h3>
 				<p class="mb-4 text-sm text-muted">
 					Moderating communities since I was 11, starting on old <a
@@ -330,6 +330,7 @@ const gamesListHtml = games
 								class="h-5 w-5 text-accent transition-transform group-hover:scale-110"
 								focusable="false"
 								name={icon}
+								is:inline
 							/>
 							<span class="text-sm font-medium">{name}</span>
 							{extra && <span class="text-xs text-muted">({extra})</span>}
