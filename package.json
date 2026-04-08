@@ -12,7 +12,7 @@
 		"format": "prettier -w --cache . && prettier -w --cache **/*.astro",
 		"check": "astro check",
 		"lint": "eslint . --ext .js,.cjs,.mjs,.ts,.tsx,.astro,.md",
-		"lint:fix": "pnpm lint --fix",
+		"lint:fix": "bun run lint --fix",
 		"prepare": "husky"
 	},
 	"lint-staged": {

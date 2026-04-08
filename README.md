@@ -9,10 +9,10 @@ Deployment is configured for my personal Proxmox homelab hosting via a Cloudflar
 ## Local development
 
 ```bash
-pnpm install
-pnpm dev
+bun install
+bun dev
 # build:
-pnpm build
+bun run build
 # preview the built site:
-pnpm preview
+bun run preview
 ```
