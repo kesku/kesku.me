@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.svg";
 import { menuLinks } from "@/site-config";
 
 import ThemeToggle from "../ThemeToggle.astro";
@@ -9,7 +9,7 @@ import ThemeToggle from "../ThemeToggle.astro";
 const url = new URL(Astro.request.url);
 ---
 
-<header class="group relative mb-28 flex items-center" id="main-header">
+<header class="group relative mb-12 flex items-center" id="main-header">
 	<Image alt="Call Me Kes!" class="max-w-[5rem] pr-3" src={logo} width={80} />
 	<div class="flex sm:flex-col">
 		<a
