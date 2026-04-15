@@ -1,4 +1,4 @@
-NODE_OPTIONS="--no-deprecation" bunx lint-staged > /dev/null 2>&1 || {
+NODE_OPTIONS="--no-deprecation" bun x lint-staged > /dev/null 2>&1 || {
 	echo "pre-commit failed"
 	exit 1
 }

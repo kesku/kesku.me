@@ -1,0 +1,153 @@
+---
+import { Image } from "astro:assets";
+
+import aboutImgIsukash from "@/assets/about-kesku-isukash.png";
+import aboutImg from "@/assets/about-kesku.png";
+---
+
+<div class="image-wrapper shrink-0">
+	<div class="image-container relative h-[180px] w-[180px] cursor-pointer [perspective:1000px]">
+		<div
+			class="flip-inner relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d]"
+		>
+			<div class="absolute inset-0 [backface-visibility:hidden]">
+				<Image
+					alt="Profile picture of Kesku"
+					class="h-full w-full rounded-xl border border-border object-cover"
+					densities={[1, 2]}
+					fetchpriority="high"
+					loading="eager"
+					src={aboutImg}
+					width={400}
+				/>
+			</div>
+			<div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
+				<Image
+					alt="Profile picture of Kesku, art is of Usada Pekora from Hololive by @isukash"
+					class="h-full w-full rounded-xl border border-border object-cover"
+					densities={[1, 2]}
+					src={aboutImgIsukash}
+					width={400}
+				/>
+			</div>
+		</div>
+	</div>
+	<div class="attribution-container relative mt-2">
+		<p
+			class="attribution-romye text-center text-xs text-muted opacity-100 transition-opacity duration-300"
+		>
+			Art by <a
+				class="text-accent transition-all hover:underline hover:underline-offset-2"
+				href="https://x.com/romye_99"
+				rel="noopener noreferrer"
+				target="_blank">@romye_99</a
+			>
+		</p>
+		<p
+			class="attribution-isukash absolute inset-x-0 top-0 text-center text-xs text-muted opacity-0 transition-opacity duration-300"
+		>
+			Art by <a
+				class="text-accent transition-all hover:underline hover:underline-offset-2"
+				href="https://twitter.com/isukash"
+				rel="noopener noreferrer"
+				target="_blank">@isukash</a
+			>
+		</p>
+	</div>
+</div>
+
+<style>
+	.attribution-container .attribution-isukash {
+		pointer-events: none;
+	}
+
+	.image-wrapper[data-flipped="true"] .flip-inner {
+		transform: rotateY(180deg);
+	}
+
+	.image-wrapper[data-flipped="true"] .attribution-container .attribution-romye {
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.image-wrapper[data-flipped="true"] .attribution-container .attribution-isukash {
+		opacity: 1;
+		pointer-events: auto;
+	}
+</style>
+
+<script data-cfasync="false" data-pagespeed-no-defer is:inline>
+	(() => {
+		let imageHovered = false;
+		let initAttempts = 0;
+		const MAX_ATTEMPTS = 10;
+		const handlers = {};
+
+		function initImageHover() {
+			initAttempts++;
+			const wrapper = document.querySelector(".image-wrapper");
+			const imageContainer = wrapper?.querySelector(".image-container");
+			const attributionContainer = wrapper?.querySelector(".attribution-container");
+
+			if (!wrapper || !imageContainer || !attributionContainer) {
+				if (initAttempts < MAX_ATTEMPTS && document.readyState !== "complete") {
+					window.setTimeout(initImageHover, 100);
+				}
+				return;
+			}
+
+			if (handlers.imageEnter && handlers.wrapperLeave && handlers.attrEnter) {
+				imageContainer.removeEventListener("mouseenter", handlers.imageEnter);
+				wrapper.removeEventListener("mouseleave", handlers.wrapperLeave);
+				attributionContainer.removeEventListener("mouseenter", handlers.attrEnter);
+			}
+
+			imageHovered = false;
+			wrapper.removeAttribute("data-flipped");
+			initAttempts = 0;
+
+			handlers.imageEnter = () => {
+				imageHovered = true;
+				wrapper.setAttribute("data-flipped", "true");
+			};
+
+			handlers.wrapperLeave = () => {
+				imageHovered = false;
+				wrapper.removeAttribute("data-flipped");
+			};
+
+			handlers.attrEnter = () => {
+				if (imageHovered) {
+					wrapper.setAttribute("data-flipped", "true");
+				}
+			};
+
+			imageContainer.addEventListener("mouseenter", handlers.imageEnter);
+			wrapper.addEventListener("mouseleave", handlers.wrapperLeave);
+			attributionContainer.addEventListener("mouseenter", handlers.attrEnter);
+		}
+
+		function setup() {
+			if (document.readyState === "loading") {
+				document.addEventListener("DOMContentLoaded", () => {
+					window.setTimeout(initImageHover, 0);
+				});
+				return;
+			}
+
+			window.setTimeout(initImageHover, 0);
+		}
+
+		setup();
+
+		document.addEventListener("astro:page-load", () => {
+			initAttempts = 0;
+			window.setTimeout(initImageHover, 0);
+		});
+
+		document.addEventListener("astro:after-swap", () => {
+			initAttempts = 0;
+			window.setTimeout(initImageHover, 0);
+		});
+	})();
+</script>

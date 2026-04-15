@@ -1,9 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
-import { Image } from "astro:assets";
 
-import aboutImgIsukash from "@/assets/about-kesku-isukash.png";
-import aboutImg from "@/assets/about-kesku.png";
+import AboutProfileCard from "@/components/AboutProfileCard.astro";
 import ClawdPeek from "@/components/ClawdPeek.astro";
 import PageLayout from "@/layouts/Base.astro";
 
@@ -36,105 +34,6 @@ const gamesListHtml = games
 	.join("");
 ---
 
-<style>
-	.attribution-container .attribution-isukash {
-		pointer-events: none;
-	}
-
-	.image-wrapper[data-flipped="true"] .flip-inner {
-		transform: rotateY(180deg);
-	}
-	.image-wrapper[data-flipped="true"] .attribution-container .attribution-romye {
-		opacity: 0;
-		pointer-events: none;
-	}
-	.image-wrapper[data-flipped="true"] .attribution-container .attribution-isukash {
-		opacity: 1;
-		pointer-events: auto;
-	}
-</style>
-
-<script data-cfasync="false" data-pagespeed-no-defer is:inline>
-	(function () {
-		"use strict";
-		let imageHovered = false;
-		let handlers = {};
-		let initAttempts = 0;
-		const MAX_ATTEMPTS = 10;
-
-		function initImageHover() {
-			initAttempts++;
-			const wrapper = document.querySelector(".image-wrapper");
-			const imageContainer = wrapper?.querySelector(".image-container");
-			const attributionContainer = wrapper?.querySelector(".attribution-container");
-
-			if (!wrapper || !imageContainer || !attributionContainer) {
-				if (initAttempts < MAX_ATTEMPTS && document.readyState !== "complete") {
-					setTimeout(initImageHover, 100);
-				}
-				return;
-			}
-
-			if (handlers.imageEnter) {
-				imageContainer.removeEventListener("mouseenter", handlers.imageEnter);
-				wrapper.removeEventListener("mouseleave", handlers.wrapperLeave);
-				attributionContainer.removeEventListener("mouseenter", handlers.attrEnter);
-			}
-
-			imageHovered = false;
-			wrapper.removeAttribute("data-flipped");
-			initAttempts = 0;
-
-			handlers.imageEnter = function () {
-				imageHovered = true;
-				wrapper.setAttribute("data-flipped", "true");
-			};
-
-			handlers.wrapperLeave = function () {
-				imageHovered = false;
-				wrapper.removeAttribute("data-flipped");
-			};
-
-			handlers.attrEnter = function () {
-				if (imageHovered) {
-					wrapper.setAttribute("data-flipped", "true");
-				}
-			};
-
-			imageContainer.addEventListener("mouseenter", handlers.imageEnter);
-			wrapper.addEventListener("mouseleave", handlers.wrapperLeave);
-			attributionContainer.addEventListener("mouseenter", handlers.attrEnter);
-		}
-
-		function setup() {
-			if (typeof document === "undefined") return;
-
-			if (document.readyState === "loading") {
-				document.addEventListener("DOMContentLoaded", function () {
-					setTimeout(initImageHover, 0);
-				});
-			} else if (document.readyState === "interactive" || document.readyState === "complete") {
-				setTimeout(initImageHover, 0);
-			} else {
-				setTimeout(initImageHover, 100);
-			}
-		}
-
-		setup();
-
-		if (typeof document !== "undefined") {
-			document.addEventListener("astro:page-load", function () {
-				initAttempts = 0;
-				setTimeout(initImageHover, 0);
-			});
-			document.addEventListener("astro:after-swap", function () {
-				initAttempts = 0;
-				setTimeout(initImageHover, 0);
-			});
-		}
-	})();
-</script>
-
 <PageLayout meta={meta}>
 	<section class="mb-12">
 		<div class="mb-8 flex items-center gap-4">
@@ -143,58 +42,7 @@ const gamesListHtml = games
 		</div>
 
 		<div class="flex flex-col gap-8 sm:flex-row sm:items-start">
-			<div class="image-wrapper shrink-0">
-				<div
-					class="image-container relative h-[180px] w-[180px] cursor-pointer [perspective:1000px]"
-				>
-					<div
-						class="flip-inner relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d]"
-					>
-						<div class="absolute inset-0 [backface-visibility:hidden]">
-							<Image
-								alt="Profile picture of Kesku"
-								class="h-full w-full rounded-xl border border-border object-cover"
-								densities={[1, 2]}
-								fetchpriority="high"
-								loading="eager"
-								src={aboutImg}
-								width={400}
-							/>
-						</div>
-						<div class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
-							<Image
-								alt="Profile picture of Kesku, art is of Usada Pekora from Hololive by @isukash"
-								class="h-full w-full rounded-xl border border-border object-cover"
-								densities={[1, 2]}
-								src={aboutImgIsukash}
-								width={400}
-							/>
-						</div>
-					</div>
-				</div>
-				<div class="attribution-container relative mt-2">
-					<p
-						class="attribution-romye text-center text-xs text-muted opacity-100 transition-opacity duration-300"
-					>
-						Art by <a
-							class="text-accent transition-all hover:underline hover:underline-offset-2"
-							href="https://x.com/romye_99"
-							rel="noopener noreferrer"
-							target="_blank">@romye_99</a
-						>
-					</p>
-					<p
-						class="attribution-isukash absolute inset-x-0 top-0 text-center text-xs text-muted opacity-0 transition-opacity duration-300"
-					>
-						Art by <a
-							class="text-accent transition-all hover:underline hover:underline-offset-2"
-							href="https://twitter.com/isukash"
-							rel="noopener noreferrer"
-							target="_blank">@isukash</a
-						>
-					</p>
-				</div>
-			</div>
+			<AboutProfileCard />
 
 			<div>
 				<p class="mb-4 text-textColor">
