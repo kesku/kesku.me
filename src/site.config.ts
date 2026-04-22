@@ -22,3 +22,32 @@ export const menuLinks: { path: string; title: string }[] = [
 		title: "Projects",
 	},
 ];
+
+export const socialLinks: {
+	extra?: string;
+	friendlyName: string;
+	icon: string;
+	link: string;
+}[] = [
+	{
+		friendlyName: "GitHub",
+		icon: "mdi:github",
+		link: "https://github.com/kesku",
+	},
+	{
+		friendlyName: "Twitter",
+		icon: "mdi:twitter",
+		link: "https://x.com/yoimnotkesku",
+	},
+	{
+		friendlyName: "Discord",
+		icon: "mdi:discord",
+		link: "https://discordapp.com/users/539468067923820546",
+	},
+	{
+		extra: "admin@kesku.me",
+		friendlyName: "Email",
+		icon: "mdi:email",
+		link: "mailto:admin@kesku.me",
+	},
+];
