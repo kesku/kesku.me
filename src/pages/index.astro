@@ -1,8 +1,8 @@
 ---
 import { Icon } from "astro-icon/components";
 
+import exaLogo from "@/assets/exa-color.svg";
 import Brackets from "@/components/Brackets.astro";
-import PerplexitySpinner from "@/components/PerplexitySpinner.astro";
 import SocialList from "@/components/SocialList.astro";
 import PageLayout from "@/layouts/Base.astro";
 ---
@@ -15,7 +15,7 @@ import PageLayout from "@/layouts/Base.astro";
 		</div>
 
 		<h1 class="title mb-6">But you can call me Kes!</h1>
-		<p class="mb-6 leading-relaxed">I work on making ai apis actually usable</p>
+		<p class="mb-6 leading-relaxed">I work on making APIs actually usable</p>
 
 		<p class="mb-6 leading-relaxed">
 			I'm a self-taught dev from the UK, former cs student (dropped out), and <a
@@ -26,60 +26,28 @@ import PageLayout from "@/layouts/Base.astro";
 			>
 		</p>
 		<p class="leading-relaxed">
-			these days I spend most of my time working on developer platform and ecosystem stuff at
+			I spend most of my time working as Developer Relations Engineer at
 			<a
 				class="text-accent transition-all hover:underline hover:underline-offset-2"
-				href="https://www.perplexity.ai/"
+				href="https://exa.ai/"
 				rel="noopener noreferrer"
-				target="_blank">Perplexity AI</a
-			>
-			trying to take things that are technically powerful and make them feel obvious, useful, and pleasant
-			to build with. that usually means:
+				target="_blank">Exa Labs</a
+			>, helping make search feel obvious, useful, and genuinely fun to build with.<br /><br />
+			That usually means:
 		</p>
 		<ul class="my-4 list-disc space-y-2 ps-5 leading-relaxed text-muted">
-			<li>working on api platform</li>
+			<li>building for developers</li>
 			<li>improving onboarding</li>
 			<li>reducing "wtf do I use?" moments</li>
 			<li>helping docs, community, and product actually make sense together</li>
 		</ul>
 		<p class="mb-6 leading-relaxed">
-			occasionally I even ship things people use and like, which is always a nice surprise
+			Sometimes I even ship things people use and like, which is always a nice surprise
 		</p>
 		<div class="mb-8">
-			<p class="mb-6 leading-relaxed">outside of that you'll probably find me:</p>
-			<ul class="mb-4 list-disc space-y-2 ps-5 leading-relaxed text-muted">
-				<li>
-					on <span class="group relative inline-block cursor-pointer">
-						<span class="text-accent underline decoration-dotted underline-offset-2">Discord</span>
-						<span
-							class="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-surface-2 px-3 py-1.5 text-xs text-muted opacity-0 shadow-lg transition-opacity group-hover:opacity-100"
-						>
-							my username is <code class="font-mono text-accent">kesku</code>
-							<span
-								class="absolute left-1/2 top-full -mt-1 -translate-x-1/2 border-4 border-transparent border-t-surface-2"
-							></span>
-						</span>
-					</span>
-				</li>
-				<li>
-					watching a <a
-						class="text-accent transition-all hover:underline hover:underline-offset-2"
-						href="https://www.perplexity.ai/search/best-k-drama-movies-tv-shows-I-sQFCgkdlQ1C4xbqJ3hzDYQ#0"
-						rel="noopener noreferrer"
-						target="_blank">K-drama</a
-					>
-				</li>
-				<li>
-					or on <a
-						class="text-accent transition-all hover:underline hover:underline-offset-2"
-						href="https://x.com/yoimnotkesku"
-						rel="noopener noreferrer"
-						target="_blank">Twitter</a
-					>
-				</li>
-			</ul>
+			<ul class="mb-4 list-disc space-y-2 ps-5 leading-relaxed text-muted"></ul>
 
-			<p class="mb-8 leading-relaxed">I post like twice a month but DMs are always welcome</p>
+			<p class="mb-8 leading-relaxed">I post like twice a month, but DMs are always welcome</p>
 
 			<SocialList />
 		</div>
@@ -92,23 +60,23 @@ import PageLayout from "@/layouts/Base.astro";
 			<div class="grid gap-4 sm:grid-cols-2">
 				<a
 					class="group flex items-start gap-4 rounded-xl border border-border bg-surface/30 p-5 transition-all duration-300 hover:border-accent/50 hover:bg-surface/50"
-					href="https://www.perplexity.ai/"
+					href="https://exa.ai/"
 					rel="noopener noreferrer"
 					target="_blank"
 				>
 					<div class="rounded-lg bg-accent/10 p-3">
-						<PerplexitySpinner class="text-accent" size={24} />
+						<img alt="Exa logo" class="exa-logo-mark h-6 w-6" src={exaLogo.src} />
 					</div>
 					<div class="flex-1">
 						<div class="mb-1 flex items-center gap-2">
-							<h3 class="font-semibold group-hover:text-accent">Perplexity AI</h3>
+							<h3 class="font-semibold group-hover:text-accent">Exa Labs</h3>
 							<Icon
 								class="h-4 w-4 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
 								is:inline
 								name="mdi:arrow-top-right"
 							/>
 						</div>
-						<p class="text-sm text-muted">Where I currently work on a lot of cool stuff</p>
+						<p class="text-sm text-muted">Where I work on some cool stuff</p>
 					</div>
 				</a>
 
@@ -121,17 +89,38 @@ import PageLayout from "@/layouts/Base.astro";
 					</div>
 					<div class="flex-1">
 						<div class="mb-1 flex items-center gap-2">
-							<h3 class="font-semibold group-hover:text-accent">Projects</h3>
+							<h3 class="font-semibold group-hover:text-accent">My Projects</h3>
 							<Icon
 								class="h-4 w-4 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
 								is:inline
 								name="mdi:arrow-top-right"
 							/>
 						</div>
-						<p class="text-sm text-muted">Check out what I've been building</p>
+						<p class="text-sm text-muted">See what I've been building</p>
 					</div>
 				</a>
 			</div>
 		</section>
 	</section>
 </PageLayout>
+
+<style>
+	.exa-logo-mark {
+		transform-origin: center;
+		transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	:global(.group:hover) .exa-logo-mark {
+		transform: translateY(-2px) rotate(-8deg) scale(1.08);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.exa-logo-mark {
+			transition: none;
+		}
+
+		:global(.group:hover) .exa-logo-mark {
+			transform: none;
+		}
+	}
+</style>

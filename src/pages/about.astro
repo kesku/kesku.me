@@ -7,8 +7,7 @@ import PageLayout from "@/layouts/Base.astro";
 import { socialLinks } from "@/site-config";
 
 const meta = {
-	description:
-		"UK-based developer working at Perplexity AI on developer platform and ecosystem systems.",
+	description: "UK-based developer relations engineer @ Exa Labs. Previously @ Perplexity AI",
 	title: "About",
 };
 
@@ -40,146 +39,158 @@ const gamesListHtml = games
 
 			<div>
 				<p class="mb-4 text-textColor">
-					UK-based developer working @ <a
+					UK-based devrel engineer @ <a
+						class="text-accent transition-all hover:underline hover:underline-offset-2"
+						href="https://exa.ai/"
+						rel="noopener noreferrer"
+						target="_blank">Exa Labs</a
+					> (previously <a
 						class="text-accent transition-all hover:underline hover:underline-offset-2"
 						href="https://www.perplexity.ai/"
 						rel="noopener noreferrer"
 						target="_blank">Perplexity AI</a
-					>. I work on developer platform and ecosystem systems sitting somewhere between product,
-					engineering, and community
+					>), somewhere between product, engineering, and community
 				</p>
 				<p class="text-muted">
-					most of what I do is focused on taking things that are technically powerful and making
-					them actually usable by developers, both pros and
-					<ClawdPeek phraseClass="text-accent">claudophiles</ClawdPeek>
+					I've been coding (badly) since I was 9 (or since I was 7 if you count <a
+						href="https://scratch.mit.edu/"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-accent transition-all hover:underline hover:underline-offset-2">Scratch</a
+					>). Now I'm 20 and still learning things!<br /><br />
+					Now most of what I do is focused on taking technically powerful tools and making them actually
+					usable by developers, both pros and
+					<ClawdPeek phraseClass="text-accent underline decoration-dotted underline-offset-2"
+						>claudophiles</ClawdPeek
+					>
 				</p>
 			</div>
 		</div>
-	</section>
 
-	<section class="mb-12">
-		<div class="mb-6 flex items-center gap-4">
-			<div class="h-1 w-8 bg-accent/50"></div>
-			<h2 class="text-xl font-semibold">What I actually work on</h2>
-		</div>
-
-		<ul class="mb-6 list-disc ps-5 text-muted">
-			<li>improving developer onboarding and post-onboarding experience</li>
-			<li>reducing confusion across api surfaces and docs</li>
-			<li>building systems for community → support → product feedback</li>
-			<li>open source integrations and developer tooling (sdks, cli, mcps)</li>
-		</ul>
-	</section>
-
-	<section class="mb-12">
-		<div class="mb-6 flex items-center gap-4">
-			<div class="h-1 w-8 bg-accent/50"></div>
-			<h2 class="text-xl font-semibold">What I'm Into</h2>
-		</div>
-
-		<div class="grid gap-6 sm:grid-cols-2">
-			<div class="rounded-xl border border-border bg-surface/30 p-6">
-				<Icon class="mb-3 h-8 w-8 text-accent" is:inline name="mdi:controller" />
-				<h3 class="mb-2 font-semibold">Gaming</h3>
-				<p class="mb-4 text-sm text-muted" set:html={`Big fan of ${gamesListHtml}.`} />
-				<p class="mb-4 text-sm text-muted">
-					as a kid, I'd play till late at night, and minecraft was all I dreamt about. now the music
-					sends me back in time when I hear it, and with vr (through <a
-						class="text-accent transition-all hover:underline hover:underline-offset-2"
-						href="https://www.vivecraft.org/"
-						rel="noopener noreferrer"
-						target="_blank">Vivecraft</a
-					>), I'm closer to it than ever.
-				</p>
-				<p class="text-sm text-muted">
-					BTW: I use a <a
-						class="text-accent transition-all hover:underline hover:underline-offset-2"
-						href="https://varjo.com/products/varjo-vr-3"
-						rel="noopener noreferrer"
-						target="_blank">Varjo VR-3</a
-					> for my VR gaming.
-				</p>
+		<section class="mb-12">
+			<div class="mb-6 flex items-center gap-4">
+				<div class="h-1 w-8 bg-accent/50"></div>
+				<h2 class="text-xl font-semibold">What I actually work on</h2>
 			</div>
 
-			<div class="rounded-xl border border-border bg-surface/30 p-6">
-				<Icon class="mb-3 h-8 w-8 text-accent" is:inline name="mdi:account-group" />
-				<h3 class="mb-2 font-semibold">Community</h3>
-				<p class="mb-4 text-sm text-muted">
-					Moderating communities since I was 11, starting on old <a
-						class="text-accent transition-all hover:underline hover:underline-offset-2"
-						href="https://www.perplexity.ai/search/what-was-the-amino-app-ZfVunsx2Tfe8tdQlK39GoA#0"
-						rel="noopener noreferrer"
-						target="_blank">Amino forums</a
-					>.
-				</p>
-				<p class="mb-4 text-sm text-muted">
-					later helped scale the <a
-						class="text-accent transition-all hover:underline hover:underline-offset-2"
-						href="https://discord.gg/openai"
-						rel="noopener noreferrer"
-						target="_blank">OpenAI Discord</a
-					> to ~3.5m users (at one point the 2nd largest server on the platform).
-				</p>
-				<p class="text-sm text-muted">
-					I'm interested in how they function as systems, not just for engagement, but also
-					knowledge distribution (shoutout <a
-						class="text-accent transition-all hover:underline hover:underline-offset-2"
-						href="https://www.answeroverflow.com/"
-						rel="noopener noreferrer"
-						target="_blank">answer overflow</a
-					>), support, and feedback loops.
-				</p>
+			<ul class="mb-6 list-disc ps-5 text-muted">
+				<li>improving developer onboarding and post-onboarding experience</li>
+				<li>reducing confusion across api surfaces and docs</li>
+				<li>building systems for community → support → product feedback</li>
+				<li>developer tooling and integrations (sdks, cli, mcps)</li>
+			</ul>
+		</section>
+
+		<section class="mb-12">
+			<div class="mb-6 flex items-center gap-4">
+				<div class="h-1 w-8 bg-accent/50"></div>
+				<h2 class="text-xl font-semibold">What I'm Into</h2>
 			</div>
-		</div>
-	</section>
 
-	<section class="mb-12">
-		<div class="mb-6 flex items-center gap-4">
-			<div class="h-1 w-8 bg-accent/50"></div>
-			<h2 class="text-xl font-semibold">"Kesku" is an acronym</h2>
-		</div>
+			<div class="grid gap-6 sm:grid-cols-2">
+				<div class="rounded-xl border border-border bg-surface/30 p-6">
+					<Icon class="mb-3 h-8 w-8 text-accent" is:inline name="mdi:controller" />
+					<h3 class="mb-2 font-semibold">Gaming</h3>
+					<p class="mb-4 text-sm text-muted" set:html={`Big fan of ${gamesListHtml}.`} />
+					<p class="mb-4 text-sm text-muted">
+						as a kid, I'd play till late at night, and minecraft was all I dreamt about. now the
+						music sends me back in time when I hear it, and with vr (through <a
+							class="text-accent transition-all hover:underline hover:underline-offset-2"
+							href="https://www.vivecraft.org/"
+							rel="noopener noreferrer"
+							target="_blank">Vivecraft</a
+						>), I'm closer to it than ever.
+					</p>
+					<p class="text-sm text-muted">
+						BTW: I use a <a
+							class="text-accent transition-all hover:underline hover:underline-offset-2"
+							href="https://varjo.com/products/varjo-vr-3"
+							rel="noopener noreferrer"
+							target="_blank">Varjo VR-3</a
+						> for my VR gaming.
+					</p>
+				</div>
 
-		<p class="mb-4 text-textColor">
-			"kesku" stands for <span class="font-semibold text-accent"
-				>Keep Everything Simple, Keep Understanding</span
-			>.
-		</p>
-		<p class="text-muted">
-			that mindset guides everything I do. if something is powerful but still hard to get, it’s not
-			done. I want to understand both what it is and why it works; if I can’t, it needs clearer
-			explanations and better examples.
-		</p>
-	</section>
+				<div class="rounded-xl border border-border bg-surface/30 p-6">
+					<Icon class="mb-3 h-8 w-8 text-accent" is:inline name="mdi:account-group" />
+					<h3 class="mb-2 font-semibold">Community</h3>
+					<p class="mb-4 text-sm text-muted">
+						Moderating communities since I was 11, starting on old <a
+							class="text-accent transition-all hover:underline hover:underline-offset-2"
+							href="https://exa.ai/search/cmonp17o100013b6t2i6d9x21"
+							rel="noopener noreferrer"
+							target="_blank">Amino forums</a
+						>.
+					</p>
+					<p class="mb-4 text-sm text-muted">
+						later helped scale the <a
+							class="text-accent transition-all hover:underline hover:underline-offset-2"
+							href="https://discord.gg/openai"
+							rel="noopener noreferrer"
+							target="_blank">OpenAI Discord</a
+						> to ~3.5m users (at one point the 2nd largest server on the platform).
+					</p>
+					<p class="text-sm text-muted">
+						I'm interested in how they function as systems, not just for engagement, but also
+						knowledge distribution (shoutout <a
+							class="text-accent transition-all hover:underline hover:underline-offset-2"
+							href="https://www.answeroverflow.com/"
+							rel="noopener noreferrer"
+							target="_blank">answer overflow</a
+						>), support, and feedback loops.
+					</p>
+				</div>
+			</div>
+		</section>
 
-	<section class="mb-12">
-		<div class="mb-6 flex items-center gap-4">
-			<div class="h-1 w-8 bg-accent/50"></div>
-			<h2 class="text-xl font-semibold">Connect</h2>
-		</div>
+		<section class="mb-12">
+			<div class="mb-6 flex items-center gap-4">
+				<div class="h-1 w-8 bg-accent/50"></div>
+				<h2 class="text-xl font-semibold">"Kesku" is an acronym</h2>
+			</div>
 
-		<ul class="flex flex-wrap items-center gap-4">
-			{
-				socialLinks.map(({ extra, friendlyName, icon, link }) => (
-					<li>
-						<a
-							class="group flex items-center gap-2 rounded-lg border border-accent/30 bg-accent/5 px-4 py-2 transition-all duration-300 hover:border-accent hover:bg-accent/15"
-							href={link}
-							rel={link.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-							target={link.startsWith("mailto:") ? undefined : "_blank"}
-						>
-							<Icon
-								aria-hidden="true"
-								class="h-5 w-5 text-accent transition-transform group-hover:scale-110"
-								focusable="false"
-								is:inline
-								name={icon}
-							/>
-							<span class="text-sm font-medium">{friendlyName}</span>
-							{extra && <span class="text-xs text-muted">({extra})</span>}
-						</a>
-					</li>
-				))
-			}
-		</ul>
+			<p class="mb-4 text-textColor">
+				"kesku" stands for <span class="font-semibold text-accent"
+					>Keep Everything Simple, Keep Understanding</span
+				>.
+			</p>
+			<p class="text-muted">
+				That mindset guides everything I do. if something is powerful but still hard to get, it’s
+				not done. I want to understand both what it is and why it works; if I can’t, it needs
+				clearer explanations and better examples.
+			</p>
+		</section>
+
+		<section class="mb-12">
+			<div class="mb-6 flex items-center gap-4">
+				<div class="h-1 w-8 bg-accent/50"></div>
+				<h2 class="text-xl font-semibold">Connect</h2>
+			</div>
+
+			<ul class="flex flex-wrap items-center gap-4">
+				{
+					socialLinks.map(({ extra, friendlyName, icon, link }) => (
+						<li>
+							<a
+								class="group flex items-center gap-2 rounded-lg border border-accent/30 bg-accent/5 px-4 py-2 transition-all duration-300 hover:border-accent hover:bg-accent/15"
+								href={link}
+								rel={link.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+								target={link.startsWith("mailto:") ? undefined : "_blank"}
+							>
+								<Icon
+									aria-hidden="true"
+									class="h-5 w-5 text-accent transition-transform group-hover:scale-110"
+									focusable="false"
+									is:inline
+									name={icon}
+								/>
+								<span class="text-sm font-medium">{friendlyName}</span>
+								{extra && <span class="text-xs text-muted">({extra})</span>}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</section>
 	</section>
 </PageLayout>

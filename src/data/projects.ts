@@ -27,18 +27,20 @@ export const projectOverrides: Record<string, Partial<Project>> = {
 		customName: "langchain-ai/langchain",
 	},
 	"perplexityai/api-cookbook": {
-		customDescription:
-			"A cookbook for the Perplexity API, everything here gets featured on our docs",
+		customDescription: "A cookbook for the Perplexity API that I contributed to while I was there",
 	},
 	"perplexityai/modelcontextprotocol": {
-		customDescription: "The official MCP Server for Perplexity's API, which I own and maintain",
+		customDescription:
+			"The official MCP server for Perplexity's API, which I previously owned and maintained",
 		featured: true,
 	},
 	"perplexityai/perplexity-node": {
-		customDescription: "The official JS/TS client for Perplexity's API, built with Stainless",
+		customDescription:
+			"The official JS/TS client for Perplexity's API, which I worked on while at Perplexity",
 	},
 	"perplexityai/perplexity-py": {
-		customDescription: "The official Python client for Perplexity's API, built with Stainless",
+		customDescription:
+			"The official Python client for Perplexity's API, which I worked on while at Perplexity",
 	},
 	"texstudio-org/texstudio": {
 		customDescription: "A pretty cool LaTeX editor written in C++",
