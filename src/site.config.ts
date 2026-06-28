@@ -1,8 +1,8 @@
 import type { SiteConfig } from "@/types";
 
 export const siteConfig: SiteConfig = {
-	author: "Kesku",
-	description: "Kesku's personal site for random stuff",
+	author: "Kes",
+	description: "Kes's personal site for random stuff",
 	lang: "en",
 	ogLocale: "en_GB",
 	title: "Call me Kes!",
